@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- === إضافة كود عداد الزوار الموثوق (Busuanzi) === -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     <style>
         :root {
             --primary-bg: #0f172a;
@@ -212,7 +215,6 @@
         .stat-card h3 { font-size: 1.8rem; font-weight: 800; }
         .stat-card p { color: var(--text-secondary); font-size: 0.9rem; }
 
-        /* تأثير نبض لأيقونة الزوار */
         .pulse-icon {
             animation: pulse-gold 2s infinite;
         }
@@ -417,7 +419,7 @@
             <div class="engineer-details">
                 <h3>المهندس أحمد عمران</h3>
                 <p><i class="fas fa-briefcase"></i> مهندس استشاري لأنظمة التحكم الآلي وإنترنت الأشياء (IoT)</p>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:ahamdo64@gmail.com">ahamdo64@gmail.com  wep:ahamdo64.github.io/</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:>ahamdo64@gmail.com">ahamdo64@gmail.com</a></p>
                 <div class="skills-tags">
                     <span class="skill-tag">ESP32 / Arduino</span>
                     <span class="skill-tag">IoT Dashboards</span>
@@ -443,11 +445,11 @@
                 <h3>48 منتخباً</h3>
                 <p>في 12 مجموعة</p>
             </div>
-            <!-- بطاقة عدد الزوار الجديدة -->
+            <!-- بطاقة عدد الزوار المحدثة والمضمونة -->
             <div class="stat-card">
                 <i class="fas fa-eye pulse-icon"></i>
-                <h3 id="visitor-number">جاري التحميل...</h3>
-                <p>زائر للموقع</p>
+                <h3><span id="busuanzi_value_site_pv">0</span></h3>
+                <p>زيارة للموقع</p>
             </div>
         </div>
     </header>
@@ -456,7 +458,6 @@
         <section id="groups">
             <h2 class="section-title"><i class="fas fa-th-large"></i> توزيع المجموعات</h2>
             <div class="groups-grid">
-                <!-- (تم اختصار بطاقات المجموعات هنا للحفاظ على طول الكود، وهي موجودة كما هي في الكود السابق) -->
                 <div class="group-card">
                     <div class="group-header"><div class="group-badge">1</div><span class="group-name">المجموعة الأولى</span></div>
                     <ul class="teams-list"><li><span class="flag">🇲🇽</span> المكسيك</li><li><span class="flag">🇿🇦</span> جنوب أفريقيا</li><li><span class="flag">🇰🇷</span> كوريا الجنوبية</li><li><span class="flag">🇨🇿</span> جمهورية التشيك</li></ul>
@@ -469,7 +470,42 @@
                     <div class="group-header"><div class="group-badge">3</div><span class="group-name">المجموعة الثالثة</span></div>
                     <ul class="teams-list"><li><span class="flag">🇧🇷</span> البرازيل</li><li class="arab-team"><span class="flag">🇲🇦</span> المغرب</li><li><span class="flag">🇭🇹</span> هايتي</li><li><span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span> إسكتلندا</li></ul>
                 </div>
-                <!-- ... باقي المجموعات كما هي ... -->
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">4</div><span class="group-name">المجموعة الرابعة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇺🇸</span> الولايات المتحدة</li><li><span class="flag">🇵🇾</span> باراغواي</li><li><span class="flag">🇦🇺</span> أستراليا</li><li><span class="flag">🇹🇷</span> تركيا</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">5</div><span class="group-name">المجموعة الخامسة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇩🇪</span> ألمانيا</li><li><span class="flag">🇨🇼</span> كوراساو</li><li><span class="flag">🇨🇮</span> كوت ديفوار</li><li><span class="flag">🇪🇨</span> الإكوادور</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">6</div><span class="group-name">المجموعة السادسة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇳🇱</span> هولندا</li><li><span class="flag">🇯🇵</span> اليابان</li><li><span class="flag">🇸🇪</span> السويد</li><li class="arab-team"><span class="flag">🇹🇳</span> تونس</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">7</div><span class="group-name">المجموعة السابعة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇧🇪</span> بلجيكا</li><li class="arab-team"><span class="flag">🇪🇬</span> مصر</li><li><span class="flag">🇮🇷</span> إيران</li><li><span class="flag">🇳🇿</span> نيوزيلندا</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">8</div><span class="group-name">المجموعة الثامنة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇪🇸</span> إسبانيا</li><li><span class="flag">🇨🇻</span> الرأس الأخضر</li><li class="arab-team"><span class="flag">🇸🇦</span> السعودية</li><li><span class="flag">🇺🇾</span> أوروغواي</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">9</div><span class="group-name">المجموعة التاسعة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇫🇷</span> فرنسا</li><li><span class="flag">🇸🇳</span> السنغال</li><li class="arab-team"><span class="flag">🇮🇶</span> العراق</li><li><span class="flag">🇳🇴</span> النرويج</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">10</div><span class="group-name">المجموعة العاشرة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇦🇷</span> الأرجنتين</li><li class="arab-team"><span class="flag">🇩🇿</span> الجزائر</li><li><span class="flag">🇦🇹</span> النمسا</li><li class="arab-team"><span class="flag">🇯🇴</span> الأردن</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">11</div><span class="group-name">المجموعة الحادية عشرة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🇵🇹</span> البرتغال</li><li><span class="flag">🇨🇩</span> الكونغو الديمقراطية</li><li><span class="flag">🇺🇿</span> أوزبكستان</li><li><span class="flag">🇨🇴</span> كولومبيا</li></ul>
+                </div>
+                <div class="group-card">
+                    <div class="group-header"><div class="group-badge">12</div><span class="group-name">المجموعة الثانية عشرة</span></div>
+                    <ul class="teams-list"><li><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> إنجلترا</li><li><span class="flag">🇭🇷</span> كرواتيا</li><li><span class="flag">🇬🇭</span> غانا</li><li><span class="flag">🇵🇦</span> بنما</li></ul>
+                </div>
             </div>
         </section>
 
@@ -489,7 +525,42 @@
                     <div class="match-item"><span class="match-opponent"><span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span> ضد إسكتلندا</span><span class="match-time">19 يونيو | 01:00</span></div>
                     <div class="match-item"><span class="match-opponent"><span class="flag">🇭🇹</span> ضد هايتي</span><span class="match-time">24 يونيو | 01:00</span></div>
                 </div>
-                <!-- ... باقي المنتخبات كما هي ... -->
+                <div class="team-match-card">
+                    <div class="team-header"><span class="flag">🇹🇳</span> منتخب تونس</div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇸🇪</span> ضد السويد</span><span class="match-time">15 يونيو | 05:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇯🇵</span> ضد اليابان</span><span class="match-time">21 يونيو | 07:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇳🇱</span> ضد هولندا</span><span class="match-time">25 يونيو | 02:00</span></div>
+                </div>
+                <div class="team-match-card">
+                    <div class="team-header"><span class="flag">🇪🇬</span> منتخب مصر</div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇧🇪</span> ضد بلجيكا</span><span class="match-time">15 يونيو | 22:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇳🇿</span> ضد نيوزيلندا</span><span class="match-time">22 يونيو | 04:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇮🇷</span> ضد إيران</span><span class="match-time">27 يونيو | 06:00</span></div>
+                </div>
+                <div class="team-match-card">
+                    <div class="team-header"><span class="flag">🇸🇦</span> منتخب السعودية</div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇺🇾</span> ضد أوروغواي</span><span class="match-time">15 يونيو | 01:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇪🇸</span> ضد إسبانيا</span><span class="match-time">21 يونيو | 19:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇨🇻</span> ضد الرأس الأخضر</span><span class="match-time">27 يونيو | 03:00</span></div>
+                </div>
+                <div class="team-match-card">
+                    <div class="team-header"><span class="flag">🇮🇶</span> منتخب العراق</div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇳🇴</span> ضد النرويج</span><span class="match-time">16 يونيو | 01:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇫🇷</span> ضد فرنسا</span><span class="match-time">22 يونيو | 00:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇸🇳</span> ضد السنغال</span><span class="match-time">26 يونيو | 22:00</span></div>
+                </div>
+                <div class="team-match-card">
+                    <div class="team-header"><span class="flag">🇩🇿</span> منتخب الجزائر</div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇷</span> ضد الأرجنتين</span><span class="match-time">17 يونيو | 04:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇯🇴</span> ضد الأردن</span><span class="match-time">23 يونيو | 06:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇹</span> ضد النمسا</span><span class="match-time">28 يونيو | 05:00</span></div>
+                </div>
+                <div class="team-match-card">
+                    <div class="team-header"><span class="flag">🇯🇴</span> منتخب الأردن</div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇹</span> ضد النمسا</span><span class="match-time">17 يونيو | 07:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇩🇿</span> ضد الجزائر</span><span class="match-time">23 يونيو | 06:00</span></div>
+                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇷</span> ضد الأرجنتين</span><span class="match-time">28 يونيو | 05:00</span></div>
+                </div>
             </div>
         </section>
 
@@ -509,29 +580,6 @@
         <p>تم تصميم وتطوير هذا الدليل التفاعلي كتطبيق عملي لمهارات تطوير الواجهات الأمامية (Front-End).</p>
         <p class="disclaimer">تنويه: المواعيد والمجموعات المذكورة هي بناءً على السيناريوهات الافتراضية، وقد تخضع للتغيير الرسمي من قبل الفيفا (FIFA).</p>
     </footer>
-
-    <!-- ========================================== -->
-    <!-- كود جافا سكريبت لعداد الزوار -->
-    <!-- ========================================== -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // نستخدم API مجاني وموثوق (CountAPI)
-            // تم تخصيص اسم فريد (ahmed-omran-wwc2026-guide) لضمان أن العداد خاص بموقعك فقط
-            const apiUrl = "https://api.countapi.xyz/hit/ahmed-omran-wwc2026-guide/visits";
-            
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    // تنسيق الرقم بإضافة فواصل الآلاف باللغة العربية
-                    const count = data.value.toLocaleString('ar-EG');
-                    document.getElementById("visitor-number").innerText = count;
-                })
-                .catch(error => {
-                    console.error("خطأ في جلب عدد الزوار:", error);
-                    document.getElementById("visitor-number").innerText = "---";
-                });
-        });
-    </script>
 
 </body>
 </html>
