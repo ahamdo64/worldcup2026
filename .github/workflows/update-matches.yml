@@ -2,11 +2,11 @@ name: تحديث نتائج المباريات تلقائياً
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # كل 6 ساعات
-  workflow_dispatch:  # تشغيل يدوي عند الضغط على الزر
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write  # صلاحية الكتابة على الملفات
+  contents: write
 
 jobs:
   update-matches:
@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -42,7 +40,6 @@ jobs:
               const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
               
               console.log('📅 جاري جلب المباريات من', today, 'إلى', tomorrow);
-              console.log('🔑 API Key:', process.env.FOOTBALL_API_KEY ? 'موجود ✓' : 'غير موجود ✗');
 
               const response = await fetch(
                 `https://api.football-data.org/v4/matches?dateFrom=${today}&dateTo=${tomorrow}`,
@@ -53,119 +50,59 @@ jobs:
                 }
               );
 
-              console.log('📊 HTTP Status:', response.status);
-
               if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`API Error ${response.status}: ${errorText}`);
+                throw new Error(`API Error: ${response.status}`);
               }
 
               const data = await response.json();
-              console.log(`✅ تم جلب ${data.matches.length} مباراة بنجاح`);
+              console.log(`✅ تم جلب ${data.matches.length} مباراة`);
 
-              // قاموس الأعلام
               const teamFlags = {
-                'Brazil': '🇧🇷',
-                'Argentina': '🇦🇷',
-                'Germany': '🇩🇪',
-                'France': '🇫',
-                'Spain': '🇪🇸',
-                'England': '🏴󠁧󠁢󠁥󠁮󠁿',
-                'Italy': '🇮🇹',
-                'Portugal': '🇵',
-                'Netherlands': '🇳🇱',
-                'Belgium': '🇧🇪',
-                'Mexico': '🇲🇽',
-                'USA': '🇺',
-                'Canada': '🇨🇦',
-                'Japan': '🇯🇵',
-                'South Korea': '🇰🇷',
-                'Saudi Arabia': '🇸🇦',
-                'Egypt': '🇪',
-                'Morocco': '🇲🇦',
-                'Algeria': '🇩🇿',
-                'Tunisia': '🇹🇳',
-                'Qatar': '🇶',
-                'Iraq': '🇮🇶',
-                'Jordan': '🇯🇴',
-                'Australia': '🇦🇺',
-                'Uruguay': '🇺🇾',
-                'Colombia': '🇨🇴',
-                'Croatia': '🇭🇷',
-                'Ghana': '🇬🇭',
-                'Senegal': '🇸🇳',
-                'Nigeria': '🇳',
-                'Cameroon': '🇨🇲',
-                'South Africa': '🇿🇦',
-                'Poland': '🇵🇱',
-                'Sweden': '🇸',
-                'Switzerland': '🇨🇭',
-                'Austria': '🇦',
-                'Denmark': '🇩🇰',
-                'Norway': '🇳🇴',
-                'Scotland': '🏴󠁢󠁣󠁴',
-                'Czech Republic': '🇨🇿',
-                'Turkey': '🇹',
-                'Iran': '🇮🇷',
-                'Paraguay': '🇵🇾',
-                'Ecuador': '🇪🇨',
-                'Panama': '🇵🇦',
-                'Haiti': '🇭🇹',
-                'Bosnia and Herzegovina': '🇧🇦',
-                'Curaçao': '🇨🇼',
-                "Côte d'Ivoire": '🇨🇮',
-                'Cape Verde': '🇨🇻',
-                'New Zealand': '🇳🇿',
-                'Congo DR': '🇨🇩',
-                'Uzbekistan': '🇺🇿'
+                'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩🇪',
+                'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁮',
+                'Italy': '🇮🇹', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
+                'Belgium': '🇧', 'Mexico': '🇽', 'USA': '🇺🇸',
+                'Canada': '🇨🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
+                'Saudi Arabia': '🇸🇦', 'Egypt': '🇪🇬', 'Morocco': '🇲🇦',
+                'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶🇦',
+                'Iraq': '🇮', 'Jordan': '🇴', 'Australia': '🇦🇺',
+                'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭',
+                'Ghana': '🇬🇭', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
+                'Sweden': '🇸🇪', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
+                'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Turkey': '🇹🇷',
+                'Iran': '🇮', 'Paraguay': '🇾', 'Ecuador': '🇪'
               };
 
               const matches = data.matches.map(match => {
-                const matchDate = match.utcDate.split('T')[0];
-                
-                // تحديد حالة المباراة
                 let status = 'upcoming';
-                if (match.status === 'FINISHED') {
-                  status = 'finished';
-                } else if (match.status === 'IN_PLAY' || match.status === 'PAUSED' || match.status === 'TIMED') {
-                  status = 'live';
-                }
+                if (match.status === 'FINISHED') status = 'finished';
+                else if (match.status === 'IN_PLAY' || match.status === 'PAUSED') status = 'live';
 
-                // تنسيق النتيجة
                 let score = '- : -';
-                if (match.score.fullTime.home !== null && match.score.fullTime.away !== null) {
+                if (match.score.fullTime.home !== null) {
                   score = `${match.score.fullTime.home} - ${match.score.fullTime.away}`;
-                } else if (match.score.halfTime.home !== null) {
-                  score = `${match.score.halfTime.home} - ${match.score.halfTime.away} (شوط أول)`;
                 }
 
-                // إضافة الأعلام
                 const homeFlag = teamFlags[match.homeTeam.shortName] || '⚽';
                 const awayFlag = teamFlags[match.awayTeam.shortName] || '⚽';
 
                 return {
                   group: match.competition.name,
-                  date: matchDate,
+                  date: match.utcDate.split('T')[0],
                   team1: `${homeFlag} ${match.homeTeam.shortName}`,
                   team2: `${awayFlag} ${match.awayTeam.shortName}`,
                   score: score,
                   status: status,
-                  utcDate: match.utcDate,
-                  competition: match.competition.name
+                  utcDate: match.utcDate
                 };
               });
 
-              // ترتيب المباريات حسب التاريخ
               matches.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
-
-              // حفظ في ملف JSON
               fs.writeFileSync('matches.json', JSON.stringify(matches, null, 2));
-              console.log('✅ تم حفظ', matches.length, 'مباراة في matches.json');
-              console.log('📄 المحتوى:', JSON.stringify(matches.slice(0, 2), null, 2));
+              console.log('✅ تم الحفظ في matches.json');
 
             } catch (error) {
-              console.error('❌ خطأ فادح:', error.message);
-              console.error('📋 التفاصيل:', error.stack);
+              console.error('❌ خطأ:', error.message);
               process.exit(1);
             }
           }
@@ -176,7 +113,5 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: تحديث المباريات تلقائياً - $(date +'%Y-%m-%d %H:%M')"
+          commit_message: "chore: تحديث المباريات تلقائياً"
           file_pattern: matches.json
-          commit_options: '--no-verify'
-          skip_fetch: false
