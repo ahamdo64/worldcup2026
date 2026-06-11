@@ -1,18 +1,11 @@
 [
   {
-    "group": "المجموعة 1",
-    "date": "2024-10-25", 
-    "team1": "🇲🇽 المكسيك",
-    "team2": "🇿🇦 جنوب أفريقيا",
+    "group": "FIFA World Cup",
+    "date": "2026-06-11",
+    "team1": "🇲🇽 Mexico",
+    "team2": "🇿🇦 South Africa",
     "score": "- : -",
-    "status": "soon"
-  },
-  {
-    "group": "المجموعة 7",
-    "date": "2024-10-26",
-    "team1": "🇧🇪 بلجيكا",
-    "team2": "🇪🇬 مصر",
-    "score": "- : -",
-    "status": "upcoming"
+    "status": "live",
+    "utcDate": "2026-06-11T19:00:00Z"
   }
 ]
