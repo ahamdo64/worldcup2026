@@ -140,10 +140,9 @@ jobs:
           fetchMatches();
           EOF
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add matches.json
-          git commit -m "chore: تحديث تلقائي لنتائج المباريات - $(date +'%Y-%m-%d %H:%M')" || echo "لا توجد تغييرات"
-          git push
+     - name: Commit and push changes
+  uses: stefanzweifel/git-auto-commit-action@v5
+  with:
+    commit_message: "chore: تحديث المباريات تلقائياً"
+    file_pattern: matches.json
+    commit_options: '--no-verify'
