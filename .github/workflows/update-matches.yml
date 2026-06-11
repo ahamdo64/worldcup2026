@@ -1,0 +1,67 @@
+name: Update Matches
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-matches:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
+      - name: Fetch and save matches
+        env:
+          API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+        run: |
+          node << 'EOF'
+          const fetch = require('node-fetch');
+          const fs = require('fs');
+
+          const today = new Date().toISOString().split('T')[0];
+          const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+          fetch(`https://api.football-data.org/v4/matches?dateFrom=${today}&dateTo=${tomorrow}`, {
+            headers: { 'X-Auth-Token': process.env.API_KEY }
+          })
+          .then(res => res.json())
+          .then(data => {
+            const matches = data.matches.map(m => ({
+              group: m.competition.name,
+              date: m.utcDate.split('T')[0],
+              team1: m.homeTeam.shortName,
+              team2: m.awayTeam.shortName,
+              score: m.score.fullTime.home !== null ? 
+                `${m.score.fullTime.home} - ${m.score.fullTime.away}` : '- : -',
+              status: m.status === 'FINISHED' ? 'finished' : 
+                      m.status === 'IN_PLAY' || m.status === 'TIMED' ? 'live' : 'upcoming'
+            }));
+            
+            fs.writeFileSync('matches.json', JSON.stringify(matches, null, 2));
+            console.log('Saved', matches.length, 'matches');
+          })
+          .catch(err => {
+            console.error('Error:', err.message);
+            process.exit(1);
+          });
+          EOF
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update matches data"
+          file_pattern: matches.json
