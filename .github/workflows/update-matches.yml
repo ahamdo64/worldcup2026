@@ -1,0 +1,54 @@
+name: تحديث نتائج المباريات تلقائياً
+
+on:
+  schedule:
+    # يعمل هذا السكربت كل 6 ساعات (يمكنك تعديله)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # يسمح لك بتشغيله يدوياً من واجهة GitHub
+
+jobs:
+  update-matches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Fetch and Update Matches
+        env:
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }} # سنضيف هذا المفتاح لاحقاً
+        run: |
+          # هذا سكربت Node.js مدمج يقوم بجلب البيانات وحفظها
+          node -e "
+          const https = require('https');
+          const fs = require('fs');
+
+          // ملاحظة: للحصول على نتائج حقيقية، اشترك مجاناً في https://www.football-data.org/
+          // واستبدل الرابط أدناه برابط API الخاص بك. 
+          // هذا مثال توضيحي يقوم بإنشاء بيانات وهمية محدثة بتاريخ اليوم للتجربة.
+          
+          const today = new Date().toISOString().split('T')[0];
+          const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+          const mockData = [
+            { group: 'المجموعة 1', date: today, team1: '🇲🇽 المكسيك', team2: '🇿🇦 جنوب أفريقيا', score: '2 - 0', status: 'finished' },
+            { group: 'المجموعة 7', date: today, team1: '🇧🇪 بلجيكا', team2: '🇪🇬 مصر', score: '1 - 1', status: 'live' },
+            { group: 'المجموعة 8', date: tomorrow, team1: '🇸🇦 السعودية', team2: '🇺🇾 أوروغواي', score: '- : -', status: 'upcoming' },
+            { group: 'المجموعة 3', date: tomorrow, team1: '🇧🇷 البرازيل', team2: '🇲🇦 المغرب', score: '- : -', status: 'upcoming' }
+          ];
+
+          fs.writeFileSync('matches.json', JSON.stringify(mockData, null, 2));
+          console.log('تم تحديث ملف matches.json بنجاح');
+          "
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add matches.json
+          git commit -m "chore: تحديث تلقائي لنتائج المباريات" || echo "لا توجد تغييرات"
+          git push
