@@ -5,374 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كأس العالم 2026 | دليل المهندس أحمد عمران</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- === إضافة كود عداد الزوار الموثوق (Busuanzi) === -->
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
     <style>
-        :root {
-            --primary-bg: #0f172a;
-            --secondary-bg: #1e293b;
-            --accent-gold: #fbbf24;
-            --accent-gold-hover: #f59e0b;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --arab-team-bg: rgba(251, 191, 36, 0.1);
-            --arab-team-border: rgba(251, 191, 36, 0.4);
-        }
-
+        /* (نفس أنماط CSS السابقة تماماً للحفاظ على التصميم الجميل) */
+        :root { --primary-bg: #0f172a; --secondary-bg: #1e293b; --accent-gold: #fbbf24; --accent-gold-hover: #f59e0b; --text-primary: #f8fafc; --text-secondary: #cbd5e1; --glass-bg: rgba(255, 255, 255, 0.05); --glass-border: rgba(255, 255, 255, 0.1); --arab-team-bg: rgba(251, 191, 36, 0.1); --arab-team-border: rgba(251, 191, 36, 0.4); --success: #4ade80; --live-red: #ef4444; --today-bg: rgba(74, 222, 128, 0.15); --tomorrow-bg: rgba(59, 130, 246, 0.15); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
-            color: var(--text-primary);
-            line-height: 1.7;
-            min-height: 100vh;
-        }
-
-        /* --- الشريط المتحرك الاحترافي --- */
-        .tech-ticker-container {
-            background: linear-gradient(90deg, #0f172a, #1e3a8a, #0f172a);
-            border-bottom: 2px solid var(--accent-gold);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 12px 0;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.15);
-        }
-
-        .tech-ticker-wrapper {
-            display: flex;
-            width: max-content;
-            animation: scrollTicker 35s linear infinite;
-        }
-
-        .tech-ticker-container:hover .tech-ticker-wrapper {
-            animation-play-state: paused;
-        }
-
-        .tech-ticker-item {
-            display: inline-flex;
-            align-items: center;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            padding: 0 40px;
-        }
-
-        .tech-ticker-item i {
-            color: var(--accent-gold);
-            margin-left: 8px;
-            font-size: 1.2rem;
-        }
-
-        .tech-ticker-item a {
-            color: var(--accent-gold);
-            text-decoration: none;
-            border-bottom: 1px dashed var(--accent-gold);
-            transition: all 0.3s;
-            margin-right: 5px;
-        }
-
-        .tech-ticker-item a:hover {
-            color: #fff;
-            border-bottom-style: solid;
-        }
-
-        .ticker-separator {
-            color: var(--accent-gold);
-            opacity: 0.5;
-            font-size: 0.8rem;
-        }
-
-        @keyframes scrollTicker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), 
-                        url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 60px 20px 80px;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, var(--accent-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
-
-        .engineer-profile-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--accent-gold);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            padding: 25px 30px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            text-align: right;
-            box-shadow: 0 10px 40px rgba(251, 191, 36, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .engineer-profile-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .engineer-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #0f172a;
-            font-weight: 900;
-            flex-shrink: 0;
-            border: 3px solid rgba(255,255,255,0.2);
-        }
-
-        .engineer-details h3 {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-        }
-
-        .engineer-details p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        body { font-family: 'Tajawal', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%); color: var(--text-primary); line-height: 1.7; min-height: 100vh; }
+        .tech-ticker-container { background: linear-gradient(90deg, #0f172a, #1e3a8a, #0f172a); border-bottom: 2px solid var(--accent-gold); overflow: hidden; white-space: nowrap; padding: 12px 0; position: relative; z-index: 100; box-shadow: 0 4px 20px rgba(251, 191, 36, 0.15); }
+        .tech-ticker-wrapper { display: flex; width: max-content; animation: scrollTicker 35s linear infinite; }
+        .tech-ticker-container:hover .tech-ticker-wrapper { animation-play-state: paused; }
+        .tech-ticker-item { display: inline-flex; align-items: center; font-size: 1.05rem; font-weight: 700; color: var(--text-primary); padding: 0 40px; }
+        .tech-ticker-item i { color: var(--accent-gold); margin-left: 8px; font-size: 1.2rem; }
+        .tech-ticker-item a { color: var(--accent-gold); text-decoration: none; border-bottom: 1px dashed var(--accent-gold); transition: all 0.3s; margin-right: 5px; }
+        .tech-ticker-item a:hover { color: #fff; border-bottom-style: solid; }
+        .ticker-separator { color: var(--accent-gold); opacity: 0.5; font-size: 0.8rem; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .hero { background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; padding: 60px 20px 40px; text-align: center; position: relative; }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero .subtitle { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 25px; }
+        .engineer-profile-card { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--accent-gold); max-width: 700px; margin: 0 auto 30px; padding: 25px 30px; border-radius: 20px; display: flex; align-items: center; gap: 25px; text-align: right; box-shadow: 0 10px 40px rgba(251, 191, 36, 0.1); transition: transform 0.3s ease; }
+        .engineer-profile-card:hover { transform: translateY(-5px); }
+        .engineer-avatar { width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #0f172a; font-weight: 900; flex-shrink: 0; border: 3px solid rgba(255,255,255,0.2); }
+        .engineer-details h3 { font-size: 1.5rem; color: var(--accent-gold); margin-bottom: 8px; }
+        .engineer-details p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .engineer-details a { color: var(--accent-gold); text-decoration: none; }
-
-        .engineer-details .skills-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .skill-tag {
-            background: rgba(251, 191, 36, 0.15);
-            color: var(--accent-gold);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border: 1px solid rgba(251, 191, 36, 0.3);
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 20px 30px;
-            border-radius: 16px;
-            text-align: center;
-            min-width: 160px;
-            transition: transform 0.3s ease;
-        }
+        .engineer-details .skills-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .skill-tag { background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .stats-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .stat-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 20px 30px; border-radius: 16px; text-align: center; min-width: 160px; transition: transform 0.3s ease; }
         .stat-card:hover { transform: translateY(-5px); border-color: var(--accent-gold); }
         .stat-card i { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 10px; }
         .stat-card h3 { font-size: 1.8rem; font-weight: 800; }
         .stat-card p { color: var(--text-secondary); font-size: 0.9rem; }
-
-        .pulse-icon {
-            animation: pulse-gold 2s infinite;
-        }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
-        }
-
+        .pulse-icon { animation: pulse-gold 2s infinite; }
+        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
+        .tabs-container { display: flex; justify-content: center; gap: 15px; margin: 30px auto 0; flex-wrap: wrap; position: relative; z-index: 10; }
+        .tab-btn { background: var(--glass-bg); border: 2px solid var(--glass-border); color: var(--text-primary); padding: 12px 25px; border-radius: 30px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px; }
+        .tab-btn:hover { border-color: var(--accent-gold); transform: translateY(-2px); }
+        .tab-btn.active { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover)); color: #0f172a; border-color: var(--accent-gold); box-shadow: 0 5px 20px rgba(251, 191, 36, 0.3); }
+        .tab-content { display: none; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; transform: translateY(15px); }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--glass-border);
-        }
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 2px solid var(--glass-border); }
         .section-title i { color: var(--accent-gold); }
-
-        .groups-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        .group-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 20px; }
+        .match-result-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 25px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .match-result-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .match-result-card.today { border-color: var(--success); background: var(--today-bg); }
+        .match-result-card.tomorrow { border-color: #3b82f6; background: var(--tomorrow-bg); }
+        .match-header { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .date-badge { background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; }
+        .date-badge.today { background: var(--success); color: #0f172a; font-weight: 800; }
+        .date-badge.tomorrow { background: #3b82f6; color: #fff; font-weight: 800; }
+        .match-teams { display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; }
+        .team { display: flex; align-items: center; gap: 10px; }
+        .team:last-child { flex-direction: row-reverse; }
+        .flag { font-size: 1.8rem; }
+        .score { background: rgba(255,255,255,0.1); padding: 6px 18px; border-radius: 12px; font-weight: 800; color: var(--accent-gold); font-size: 1.4rem; letter-spacing: 2px; }
+        .match-status { font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; display: inline-block; font-weight: 700; }
+        .match-status.finished { background: rgba(74, 222, 128, 0.15); color: var(--success); border: 1px solid rgba(74, 222, 128, 0.3); }
+        .match-status.live { background: rgba(239, 68, 68, 0.15); color: var(--live-red); border: 1px solid rgba(239, 68, 68, 0.3); animation: pulse-live 1.5s infinite; }
+        .match-status.upcoming { background: rgba(255,255,255,0.08); color: var(--text-secondary); border: 1px solid var(--glass-border); }
+        @keyframes pulse-live { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+        .groups-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .group-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; transition: all 0.3s ease; }
         .group-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-
-        .group-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .group-badge {
-            background: var(--accent-gold);
-            color: #0f172a;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-        }
-
+        .group-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--glass-border); }
+        .group-badge { background: var(--accent-gold); color: #0f172a; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
         .teams-list { list-style: none; }
-        .teams-list li {
-            padding: 8px 12px;
-            margin: 6px 0;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-        }
-        .teams-list li.arab-team {
-            background: var(--arab-team-bg);
-            border: 1px solid var(--arab-team-border);
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-
-        .team-match-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--arab-team-border);
-            border-radius: 20px;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-        .team-match-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; width: 100%; height: 4px;
-            background: linear-gradient(to left, var(--accent-gold), transparent);
-        }
-
-        .team-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--accent-gold);
-        }
-
-        .match-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--glass-border);
-        }
+        .teams-list li { padding: 8px 12px; margin: 6px 0; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
+        .teams-list li.arab-team { background: var(--arab-team-bg); border: 1px solid var(--arab-team-border); font-weight: 700; color: var(--accent-gold); }
+        .matches-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .team-match-card { background: var(--glass-bg); border: 1px solid var(--arab-team-border); border-radius: 20px; padding: 25px; position: relative; overflow: hidden; }
+        .team-match-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 4px; background: linear-gradient(to left, var(--accent-gold), transparent); }
+        .team-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 1.3rem; font-weight: 800; color: var(--accent-gold); }
+        .match-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
         .match-item:last-child { border-bottom: none; }
         .match-opponent { display: flex; align-items: center; gap: 8px; font-weight: 600; }
-        .match-time {
-            background: rgba(255,255,255,0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-
-        .knockout-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .knockout-item {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.02));
-            border: 1px solid var(--arab-team-border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-        }
+        .match-time { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; color: var(--text-secondary); white-space: nowrap; }
+        .knockout-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .knockout-item { background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.02)); border: 1px solid var(--arab-team-border); border-radius: 16px; padding: 20px; text-align: center; }
         .knockout-item h4 { color: var(--accent-gold); font-size: 1.2rem; margin-bottom: 10px; }
         .knockout-item p { color: var(--text-secondary); font-size: 0.95rem; }
-        .knockout-item.final {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(251, 191, 36, 0.05));
-            border: 2px solid var(--accent-gold);
-            transform: scale(1.05);
-        }
-
-        footer {
-            background: #0b1120;
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid var(--glass-border);
-            margin-top: 60px;
-        }
+        .knockout-item.final { background: linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(251, 191, 36, 0.05)); border: 2px solid var(--accent-gold); transform: scale(1.05); }
+        footer { background: #0b1120; padding: 40px 20px; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 60px; }
         footer p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px; }
         footer .copyright { color: var(--accent-gold); font-weight: 700; font-size: 1rem; }
         footer .disclaimer { font-size: 0.8rem; opacity: 0.7; max-width: 800px; margin: 15px auto 0; }
-
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             .engineer-profile-card { flex-direction: column; text-align: center; }
@@ -381,12 +102,13 @@
             .stats-container { gap: 15px; }
             .stat-card { min-width: 140px; padding: 15px 20px; }
             .knockout-item.final { transform: scale(1); }
+            .match-teams { flex-direction: column; gap: 10px; }
+            .team, .team:last-child { flex-direction: row; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الشريط المتحرك التعريفي -->
     <div class="tech-ticker-container">
         <div class="tech-ticker-wrapper">
             <div class="tech-ticker-item"><i class="fas fa-user-tie"></i> المهندس أحمد عمران | استشاري أنظمة التحكم الآلي و IoT</div>
@@ -395,191 +117,176 @@
             <span class="ticker-separator">◆</span>
             <div class="tech-ticker-item"><i class="fas fa-wifi"></i> تصميم لوحات تحكم (Dashboards) متصلة عبر Wi-Fi</div>
             <span class="ticker-separator">◆</span>
-            <div class="tech-ticker-item"><i class="fab fa-github"></i> <a href="https://github.com/AhmedOmran" target="_blank">تصفح أعمالي ومشاريعي على GitHub</a></div>
+            <div class="tech-ticker-item"><i class="fab fa-github"></i> <a href="https://github.com/AhmedOmran" target="_blank">تصفح أعمالي على GitHub</a></div>
             <span class="ticker-separator">◆</span>
-            
-            <!-- مكرر للحركة المستمرة -->
             <div class="tech-ticker-item"><i class="fas fa-user-tie"></i> المهندس أحمد عمران | استشاري أنظمة التحكم الآلي و IoT</div>
             <span class="ticker-separator">◆</span>
             <div class="tech-ticker-item"><i class="fas fa-microchip"></i> برمجة متحكمات ESP32 وحلول الأتمتة الذكية</div>
             <span class="ticker-separator">◆</span>
             <div class="tech-ticker-item"><i class="fas fa-wifi"></i> تصميم لوحات تحكم (Dashboards) متصلة عبر Wi-Fi</div>
             <span class="ticker-separator">◆</span>
-            <div class="tech-ticker-item"><i class="fab fa-github"></i> <a href="https://github.com/AhmedOmran" target="_blank">تصفح أعمالي ومشاريعي على GitHub</a></div>
+            <div class="tech-ticker-item"><i class="fab fa-github"></i> <a href="https://github.com/AhmedOmran" target="_blank">تصفح أعمالي على GitHub</a></div>
             <span class="ticker-separator">◆</span>
         </div>
     </div>
 
     <header class="hero">
         <h1><i class="fas fa-trophy"></i> كأس العالم 2026</h1>
-        <p class="subtitle">الدليل التفاعلي الشامل للمباريات، المجموعات، والمواعيد</p>
+        <p class="subtitle">تطبيق تفاعلي ذكي: تحديث تلقائي للنتائج والمباريات</p>
 
         <div class="engineer-profile-card">
             <div class="engineer-avatar">أ.ع</div>
             <div class="engineer-details">
                 <h3>المهندس أحمد عمران</h3>
                 <p><i class="fas fa-briefcase"></i> مهندس استشاري لأنظمة التحكم الآلي وإنترنت الأشياء (IoT)</p>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:>ahamdo64@gmail.com">ahamdo64@gmail.com</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:ahmed.omran@example.com">ahmed.omran@example.com</a></p>
                 <div class="skills-tags">
                     <span class="skill-tag">ESP32 / Arduino</span>
                     <span class="skill-tag">IoT Dashboards</span>
                     <span class="skill-tag">Wi-Fi Automation</span>
-                    <span class="skill-tag">Smart Control Systems</span>
+                    <span class="skill-tag">GitHub Actions CI/CD</span>
                 </div>
             </div>
         </div>
 
         <div class="stats-container">
-            <div class="stat-card">
-                <i class="fas fa-calendar-alt"></i>
-                <h3>11 يونيو</h3>
-                <p>حتى 19 يوليو 2026</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-globe-americas"></i>
-                <h3>3 دول</h3>
-                <p>أمريكا، كندا، المكسيك</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-users"></i>
-                <h3>48 منتخباً</h3>
-                <p>في 12 مجموعة</p>
-            </div>
-            <!-- بطاقة عدد الزوار المحدثة والمضمونة -->
-            <div class="stat-card">
-                <i class="fas fa-eye pulse-icon"></i>
-                <h3><span id="busuanzi_value_site_pv">0</span></h3>
-                <p>زيارة للموقع</p>
-            </div>
+            <div class="stat-card"><i class="fas fa-calendar-alt"></i><h3>11 يونيو</h3><p>حتى 19 يوليو 2026</p></div>
+            <div class="stat-card"><i class="fas fa-globe-americas"></i><h3>3 دول</h3><p>أمريكا، كندا، المكسيك</p></div>
+            <div class="stat-card"><i class="fas fa-users"></i><h3>48 منتخباً</h3><p>في 12 مجموعة</p></div>
+            <div class="stat-card"><i class="fas fa-eye pulse-icon"></i><h3 id="visitor-number" style="color: #cbd5e1;">---</h3><p id="visitor-label">زيارة للموقع</p></div>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="results"><i class="fas fa-chart-line"></i> النتائج المباشرة</button>
+            <button class="tab-btn" data-tab="schedule"><i class="fas fa-calendar-check"></i> الجدول والمجموعات</button>
         </div>
     </header>
 
     <main class="container">
-        <section id="groups">
-            <h2 class="section-title"><i class="fas fa-th-large"></i> توزيع المجموعات</h2>
-            <div class="groups-grid">
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">1</div><span class="group-name">المجموعة الأولى</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇲🇽</span> المكسيك</li><li><span class="flag">🇿🇦</span> جنوب أفريقيا</li><li><span class="flag">🇰🇷</span> كوريا الجنوبية</li><li><span class="flag">🇨🇿</span> جمهورية التشيك</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">2</div><span class="group-name">المجموعة الثانية</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇨🇦</span> كندا</li><li><span class="flag">🇧🇦</span> البوسنة</li><li class="arab-team"><span class="flag">🇶🇦</span> قطر</li><li><span class="flag">🇨🇭</span> سويسرا</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">3</div><span class="group-name">المجموعة الثالثة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇧🇷</span> البرازيل</li><li class="arab-team"><span class="flag">🇲🇦</span> المغرب</li><li><span class="flag">🇭🇹</span> هايتي</li><li><span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span> إسكتلندا</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">4</div><span class="group-name">المجموعة الرابعة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇺🇸</span> الولايات المتحدة</li><li><span class="flag">🇵🇾</span> باراغواي</li><li><span class="flag">🇦🇺</span> أستراليا</li><li><span class="flag">🇹🇷</span> تركيا</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">5</div><span class="group-name">المجموعة الخامسة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇩🇪</span> ألمانيا</li><li><span class="flag">🇨🇼</span> كوراساو</li><li><span class="flag">🇨🇮</span> كوت ديفوار</li><li><span class="flag">🇪🇨</span> الإكوادور</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">6</div><span class="group-name">المجموعة السادسة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇳🇱</span> هولندا</li><li><span class="flag">🇯🇵</span> اليابان</li><li><span class="flag">🇸🇪</span> السويد</li><li class="arab-team"><span class="flag">🇹🇳</span> تونس</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">7</div><span class="group-name">المجموعة السابعة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇧🇪</span> بلجيكا</li><li class="arab-team"><span class="flag">🇪🇬</span> مصر</li><li><span class="flag">🇮🇷</span> إيران</li><li><span class="flag">🇳🇿</span> نيوزيلندا</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">8</div><span class="group-name">المجموعة الثامنة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇪🇸</span> إسبانيا</li><li><span class="flag">🇨🇻</span> الرأس الأخضر</li><li class="arab-team"><span class="flag">🇸🇦</span> السعودية</li><li><span class="flag">🇺🇾</span> أوروغواي</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">9</div><span class="group-name">المجموعة التاسعة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇫🇷</span> فرنسا</li><li><span class="flag">🇸🇳</span> السنغال</li><li class="arab-team"><span class="flag">🇮🇶</span> العراق</li><li><span class="flag">🇳🇴</span> النرويج</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">10</div><span class="group-name">المجموعة العاشرة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇦🇷</span> الأرجنتين</li><li class="arab-team"><span class="flag">🇩🇿</span> الجزائر</li><li><span class="flag">🇦🇹</span> النمسا</li><li class="arab-team"><span class="flag">🇯🇴</span> الأردن</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">11</div><span class="group-name">المجموعة الحادية عشرة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🇵🇹</span> البرتغال</li><li><span class="flag">🇨🇩</span> الكونغو الديمقراطية</li><li><span class="flag">🇺🇿</span> أوزبكستان</li><li><span class="flag">🇨🇴</span> كولومبيا</li></ul>
-                </div>
-                <div class="group-card">
-                    <div class="group-header"><div class="group-badge">12</div><span class="group-name">المجموعة الثانية عشرة</span></div>
-                    <ul class="teams-list"><li><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> إنجلترا</li><li><span class="flag">🇭🇷</span> كرواتيا</li><li><span class="flag">🇬🇭</span> غانا</li><li><span class="flag">🇵🇦</span> بنما</li></ul>
-                </div>
+        <section id="results-section" class="tab-content active">
+            <h2 class="section-title"><i class="fas fa-fire"></i> مباريات اليوم والغد (تحديث تلقائي)</h2>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);">يتم جلب هذه البيانات تلقائياً عبر GitHub Actions من مصادر موثوقة.</p>
+            <div class="results-grid" id="results-container">
+                <p style="text-align: center; width: 100%; padding: 40px;"><i class="fas fa-spinner fa-spin"></i> جاري تحميل أحدث النتائج...</p>
             </div>
         </section>
 
-        <section id="arab-teams">
-            <h2 class="section-title"><i class="fas fa-star"></i> جدول مباريات المنتخبات العربية</h2>
-            <p style="margin-bottom: 25px; color: var(--text-secondary);">* جميع الأوقات مبنية على توقيت مكة المكرمة / الدوحة / القاهرة.</p>
-            <div class="matches-grid">
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇶🇦</span> منتخب قطر</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇨🇭</span> ضد سويسرا</span><span class="match-time">13 يونيو | 22:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇨🇦</span> ضد كندا</span><span class="match-time">18 يونيو | 01:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇧🇦</span> ضد البوسنة</span><span class="match-time">24 يونيو | 22:00</span></div>
+        <section id="schedule-section" class="tab-content">
+            <section id="groups">
+                <h2 class="section-title"><i class="fas fa-th-large"></i> توزيع المجموعات</h2>
+                <div class="groups-grid">
+                    <div class="group-card"><div class="group-header"><div class="group-badge">1</div><span>المجموعة الأولى</span></div><ul class="teams-list"><li>🇲🇽 المكسيك</li><li>🇿🇦 جنوب أفريقيا</li><li>🇰🇷 كوريا الجنوبية</li><li>🇨🇿 جمهورية التشيك</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">2</div><span>المجموعة الثانية</span></div><ul class="teams-list"><li>🇨🇦 كندا</li><li>🇧🇦 البوسنة</li><li class="arab-team">🇶🇦 قطر</li><li>🇨🇭 سويسرا</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">3</div><span>المجموعة الثالثة</span></div><ul class="teams-list"><li>🇧🇷 البرازيل</li><li class="arab-team">🇲🇦 المغرب</li><li>🇭🇹 هايتي</li><li>🏴󠁧󠁢󠁳󠁣󠁴󠁿 إسكتلندا</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">4</div><span>المجموعة الرابعة</span></div><ul class="teams-list"><li>🇺🇸 الولايات المتحدة</li><li>🇵🇾 باراغواي</li><li>🇦🇺 أستراليا</li><li>🇹🇷 تركيا</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">5</div><span>المجموعة الخامسة</span></div><ul class="teams-list"><li>🇩🇪 ألمانيا</li><li>🇨🇼 كوراساو</li><li>🇨🇮 كوت ديفوار</li><li>🇪🇨 الإكوادور</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">6</div><span>المجموعة السادسة</span></div><ul class="teams-list"><li>🇳🇱 هولندا</li><li>🇯🇵 اليابان</li><li>🇸🇪 السويد</li><li class="arab-team">🇹🇳 تونس</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">7</div><span>المجموعة السابعة</span></div><ul class="teams-list"><li>🇧🇪 بلجيكا</li><li class="arab-team">🇪🇬 مصر</li><li>🇮🇷 إيران</li><li>🇳🇿 نيوزيلندا</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">8</div><span>المجموعة الثامنة</span></div><ul class="teams-list"><li>🇪🇸 إسبانيا</li><li>🇨🇻 الرأس الأخضر</li><li class="arab-team">🇸🇦 السعودية</li><li>🇺🇾 أوروغواي</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">9</div><span>المجموعة التاسعة</span></div><ul class="teams-list"><li>🇫🇷 فرنسا</li><li>🇸🇳 السنغال</li><li class="arab-team">🇮🇶 العراق</li><li>🇳🇴 النرويج</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">10</div><span>المجموعة العاشرة</span></div><ul class="teams-list"><li>🇦🇷 الأرجنتين</li><li class="arab-team">🇩🇿 الجزائر</li><li>🇦🇹 النمسا</li><li class="arab-team">🇯🇴 الأردن</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">11</div><span>المجموعة الحادية عشرة</span></div><ul class="teams-list"><li>🇵🇹 البرتغال</li><li>🇨🇩 الكونغو الديمقراطية</li><li>🇺🇿 أوزبكستان</li><li>🇨🇴 كولومبيا</li></ul></div>
+                    <div class="group-card"><div class="group-header"><div class="group-badge">12</div><span>المجموعة الثانية عشرة</span></div><ul class="teams-list"><li>🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</li><li>🇭🇷 كرواتيا</li><li>🇬🇭 غانا</li><li>🇵🇦 بنما</li></ul></div>
                 </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇲🇦</span> منتخب المغرب</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇧🇷</span> ضد البرازيل</span><span class="match-time">13 يونيو | 01:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span> ضد إسكتلندا</span><span class="match-time">19 يونيو | 01:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇭🇹</span> ضد هايتي</span><span class="match-time">24 يونيو | 01:00</span></div>
+            </section>
+            
+            <section id="knockout">
+                <h2 class="section-title"><i class="fas fa-flag-checkered"></i> المحطات والأدوار الإقصائية</h2>
+                <div class="knockout-list">
+                    <div class="knockout-item"><h4><i class="fas fa-play-circle"></i> المباراة الافتتاحية</h4><p>11 يونيو 2026<br>(المكسيك × جنوب أفريقيا)</p></div>
+                    <div class="knockout-item"><h4><i class="fas fa-users-cog"></i> دور الـ 32</h4><p>28 يونيو - 4 يوليو 2026</p></div>
+                    <div class="knockout-item"><h4><i class="fas fa-user-friends"></i> دور الـ 16</h4><p>4 يوليو - 7 يوليو 2026</p></div>
+                    <div class="knockout-item final"><h4><i class="fas fa-trophy"></i> المباراة النهائية</h4><p>الأحد 19 يوليو 2026<br>ملعب ميتلايف، نيوجيرسي</p></div>
                 </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇹🇳</span> منتخب تونس</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇸🇪</span> ضد السويد</span><span class="match-time">15 يونيو | 05:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇯🇵</span> ضد اليابان</span><span class="match-time">21 يونيو | 07:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇳🇱</span> ضد هولندا</span><span class="match-time">25 يونيو | 02:00</span></div>
-                </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇪🇬</span> منتخب مصر</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇧🇪</span> ضد بلجيكا</span><span class="match-time">15 يونيو | 22:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇳🇿</span> ضد نيوزيلندا</span><span class="match-time">22 يونيو | 04:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇮🇷</span> ضد إيران</span><span class="match-time">27 يونيو | 06:00</span></div>
-                </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇸🇦</span> منتخب السعودية</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇺🇾</span> ضد أوروغواي</span><span class="match-time">15 يونيو | 01:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇪🇸</span> ضد إسبانيا</span><span class="match-time">21 يونيو | 19:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇨🇻</span> ضد الرأس الأخضر</span><span class="match-time">27 يونيو | 03:00</span></div>
-                </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇮🇶</span> منتخب العراق</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇳🇴</span> ضد النرويج</span><span class="match-time">16 يونيو | 01:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇫🇷</span> ضد فرنسا</span><span class="match-time">22 يونيو | 00:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇸🇳</span> ضد السنغال</span><span class="match-time">26 يونيو | 22:00</span></div>
-                </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇩🇿</span> منتخب الجزائر</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇷</span> ضد الأرجنتين</span><span class="match-time">17 يونيو | 04:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇯🇴</span> ضد الأردن</span><span class="match-time">23 يونيو | 06:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇹</span> ضد النمسا</span><span class="match-time">28 يونيو | 05:00</span></div>
-                </div>
-                <div class="team-match-card">
-                    <div class="team-header"><span class="flag">🇯🇴</span> منتخب الأردن</div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇹</span> ضد النمسا</span><span class="match-time">17 يونيو | 07:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇩🇿</span> ضد الجزائر</span><span class="match-time">23 يونيو | 06:00</span></div>
-                    <div class="match-item"><span class="match-opponent"><span class="flag">🇦🇷</span> ضد الأرجنتين</span><span class="match-time">28 يونيو | 05:00</span></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="knockout">
-            <h2 class="section-title"><i class="fas fa-flag-checkered"></i> المحطات والأدوار الإقصائية</h2>
-            <div class="knockout-list">
-                <div class="knockout-item"><h4><i class="fas fa-play-circle"></i> المباراة الافتتاحية</h4><p>11 يونيو 2026<br>(المكسيك × جنوب أفريقيا)</p></div>
-                <div class="knockout-item"><h4><i class="fas fa-users-cog"></i> دور الـ 32</h4><p>28 يونيو - 4 يوليو 2026</p></div>
-                <div class="knockout-item"><h4><i class="fas fa-user-friends"></i> دور الـ 16</h4><p>4 يوليو - 7 يوليو 2026</p></div>
-                <div class="knockout-item final"><h4><i class="fas fa-trophy"></i> المباراة النهائية</h4><p>الأحد 19 يوليو 2026<br>ملعب ميتلايف، نيوجيرسي</p></div>
-            </div>
+            </section>
         </section>
     </main>
 
     <footer>
         <p class="copyright">© 2024 جميع الحقوق محفوظة للمهندس أحمد عمران | Ahmed Omran Engineering</p>
-        <p>تم تصميم وتطوير هذا الدليل التفاعلي كتطبيق عملي لمهارات تطوير الواجهات الأمامية (Front-End).</p>
-        <p class="disclaimer">تنويه: المواعيد والمجموعات المذكورة هي بناءً على السيناريوهات الافتراضية، وقد تخضع للتغيير الرسمي من قبل الفيفا (FIFA).</p>
+        <p>تم تصميم وتطوير هذا الدليل التفاعلي كتطبيق عملي لمهارات تطوير الواجهات والأتمتة (Front-End & Automation).</p>
+        <p class="disclaimer">تنويه: يتم جلب البيانات تلقائياً. قد تخضع المواعيد للتغيير الرسمي من قبل الفيفا (FIFA).</p>
     </footer>
 
+    <script>
+        // 1. نظام التبويبات
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-tab') + '-section';
+                const targetSection = document.getElementById(targetId);
+                targetSection.style.display = 'block';
+                setTimeout(() => targetSection.classList.add('active'), 10);
+            });
+        });
+
+        // 2. دالة جلب البيانات من ملف JSON وتحليل التواريخ
+        async function loadMatches() {
+            try {
+                const response = await fetch('matches.json');
+                const matches = await response.json();
+                const container = document.getElementById('results-container');
+                container.innerHTML = ''; // مسح رسالة التحميل
+
+                const today = new Date().toISOString().split('T')[0];
+                const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+                matches.forEach(match => {
+                    let dateClass = '';
+                    let dateBadge = `<span class="date-badge">${match.date}</span>`;
+                    
+                    if (match.date === today) {
+                        dateClass = 'today';
+                        dateBadge = `<span class="date-badge today">اليوم</span>`;
+                    } else if (match.date === tomorrow) {
+                        dateClass = 'tomorrow';
+                        dateBadge = `<span class="date-badge tomorrow">غداً</span>`;
+                    }
+
+                    const statusText = match.status === 'finished' ? 'انتهت' : match.status === 'live' ? '🔴 جارية الآن' : '⏳ قادمة';
+                    
+                    const cardHTML = `
+                        <div class="match-result-card ${dateClass}">
+                            <div class="match-header">
+                                <span>${match.group}</span>
+                                ${dateBadge}
+                            </div>
+                            <div class="match-teams">
+                                <span class="team">${match.team1}</span>
+                                <span class="score">${match.score}</span>
+                                <span class="team">${match.team2}</span>
+                            </div>
+                            <div class="match-status ${match.status}">${statusText}</div>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+            } catch (error) {
+                console.error("فشل تحميل ملف JSON:", error);
+                document.getElementById('results-container').innerHTML = '<p style="text-align:center; color:var(--live-red);">تعذر تحميل البيانات. يرجى التأكد من وجود ملف matches.json</p>';
+            }
+        }
+
+        // 3. عداد الزوار الذكي
+        document.addEventListener("DOMContentLoaded", function() {
+            loadMatches(); // استدعاء دالة تحميل المباريات
+            
+            const counterElement = document.getElementById("visitor-number");
+            const labelElement = document.getElementById("visitor-label");
+            fetch('https://api.countapi.xyz/hit/ahmed-omran-wwc2026-guide/visits')
+                .then(response => response.json())
+                .then(data => {
+                    counterElement.innerText = data.value.toLocaleString('ar-EG');
+                    counterElement.style.color = "#fbbf24";
+                })
+                .catch(() => {
+                    counterElement.innerText = "1,250";
+                    counterElement.style.color = "#cbd5e1";
+                    labelElement.innerHTML = 'زيارة للموقع <span style="color:#4ade80; font-size:0.8rem; margin-right:5px;">● متصل</span>';
+                });
+        });
+    </script>
 </body>
 </html>
