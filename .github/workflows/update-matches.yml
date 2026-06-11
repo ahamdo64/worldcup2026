@@ -2,9 +2,8 @@ name: تحديث نتائج المباريات تلقائياً
 
 on:
   schedule:
-    # يعمل هذا السكربت كل 6 ساعات (يمكنك تعديله)
-    - cron: '0 */6 * * *'
-  workflow_dispatch: # يسمح لك بتشغيله يدوياً من واجهة GitHub
+    - cron: '0 */6 * * *'  # كل 6 ساعات
+  workflow_dispatch:  # تشغيل يدوي
 
 jobs:
   update-matches:
@@ -18,37 +17,133 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
       - name: Fetch and Update Matches
         env:
-          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }} # سنضيف هذا المفتاح لاحقاً
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
-          # هذا سكربت Node.js مدمج يقوم بجلب البيانات وحفظها
-          node -e "
-          const https = require('https');
+          node << 'EOF'
+          const fetch = require('node-fetch');
           const fs = require('fs');
 
-          // ملاحظة: للحصول على نتائج حقيقية، اشترك مجاناً في https://www.football-data.org/
-          // واستبدل الرابط أدناه برابط API الخاص بك. 
-          // هذا مثال توضيحي يقوم بإنشاء بيانات وهمية محدثة بتاريخ اليوم للتجربة.
-          
-          const today = new Date().toISOString().split('T')[0];
-          const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+          async function fetchMatches() {
+            const apiUrl = 'https://api.football-data.org/v4/matches';
+            
+            // رموز البطولات (يمكنك تعديلها حسب احتياجاتك)
+            const competitions = [
+              'WC',           // كأس العالم
+              'EC',           // كأس أوروبا
+              'PL',           // الدوري الإنجليزي
+              'PD',           // الدوري الإسباني
+              'BL1',          // الدوري الألماني
+              'SA',           // الدوري الإيطالي
+              'FL1',          // الدوري الفرنسي
+              'CL'            // دوري أبطال أوروبا
+            ];
 
-          const mockData = [
-            { group: 'المجموعة 1', date: today, team1: '🇲🇽 المكسيك', team2: '🇿🇦 جنوب أفريقيا', score: '2 - 0', status: 'finished' },
-            { group: 'المجموعة 7', date: today, team1: '🇧🇪 بلجيكا', team2: '🇪🇬 مصر', score: '1 - 1', status: 'live' },
-            { group: 'المجموعة 8', date: tomorrow, team1: '🇸🇦 السعودية', team2: '🇺🇾 أوروغواي', score: '- : -', status: 'upcoming' },
-            { group: 'المجموعة 3', date: tomorrow, team1: '🇧🇷 البرازيل', team2: '🇲🇦 المغرب', score: '- : -', status: 'upcoming' }
-          ];
+            const allMatches = [];
+            const today = new Date().toISOString().split('T')[0];
+            const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+            const dateFrom = today;
+            const dateTo = tomorrow;
 
-          fs.writeFileSync('matches.json', JSON.stringify(mockData, null, 2));
-          console.log('تم تحديث ملف matches.json بنجاح');
-          "
+            console.log('جاري جلب المباريات من', dateFrom, 'إلى', dateTo);
+
+            try {
+              // جلب المباريات حسب التاريخ
+              const response = await fetch(
+                `${apiUrl}?dateFrom=${dateFrom}&dateTo=${dateTo}`,
+                {
+                  headers: {
+                    'X-Auth-Token': process.env.FOOTBALL_API_KEY
+                  }
+                }
+              );
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              const data = await response.json();
+              console.log(`تم جلب ${data.matches.length} مباراة`);
+
+              // معالجة البيانات
+              data.matches.forEach(match => {
+                const matchDate = match.utcDate.split('T')[0];
+                
+                // تحديد الحالة
+                let status = 'upcoming';
+                if (match.status === 'FINISHED') {
+                  status = 'finished';
+                } else if (match.status === 'IN_PLAY' || match.status === 'PAUSED') {
+                  status = 'live';
+                }
+
+                // تنسيق النتيجة
+                let score = '- : -';
+                if (match.score.fullTime.home !== null) {
+                  score = `${match.score.fullTime.home} - ${match.score.fullTime.away}`;
+                }
+
+                // إضافة الرموز (يمكنك تخصيصها)
+                const teamFlags = {
+                  'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩🇪',
+                  'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+                  'Italy': '🇮🇹', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
+                  'Belgium': '🇧🇪', 'Mexico': '🇲🇽', 'USA': '🇺🇸',
+                  'Canada': '🇨🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
+                  'Saudi Arabia': '🇸🇦', 'Egypt': '🇪🇬', 'Morocco': '🇲🇦',
+                  'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶🇦',
+                  'Iraq': '🇮🇶', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
+                  'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭🇷',
+                  'Ghana': '🇬🇭', 'Senegal': '🇸🇳', 'Nigeria': '🇳🇬',
+                  'Cameroon': '🇨🇲', 'South Africa': '🇿🇦', 'Poland': '🇵🇱',
+                  'Sweden': '🇸🇪', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
+                  'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+                  'Czech Republic': '🇨🇿', 'Turkey': '🇹🇷', 'Iran': '🇮🇷',
+                  'Paraguay': '🇵🇾', 'Ecuador': '🇪🇨', 'Panama': '🇵🇦',
+                  'Haiti': '🇭🇹', 'Bosnia and Herzegovina': '🇧🇦',
+                  'Curaçao': '🇨🇼', "Côte d'Ivoire": '🇨🇮',
+                  'Cape Verde': '🇨🇻', 'New Zealand': '🇳🇿',
+                  'Congo DR': '🇨🇩', 'Uzbekistan': '🇺🇿'
+                };
+
+                const homeFlag = teamFlags[match.homeTeam.shortName] || '⚽';
+                const awayFlag = teamFlags[match.awayTeam.shortName] || '⚽';
+
+                allMatches.push({
+                  group: match.competition.name,
+                  date: matchDate,
+                  team1: `${homeFlag} ${match.homeTeam.shortName}`,
+                  team2: `${awayFlag} ${match.awayTeam.shortName}`,
+                  score: score,
+                  status: status,
+                  utcDate: match.utcDate
+                });
+              });
+
+              // ترتيب المباريات حسب التاريخ
+              allMatches.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+
+              // حفظ في ملف JSON
+              fs.writeFileSync('matches.json', JSON.stringify(allMatches, null, 2));
+              console.log('✅ تم تحديث matches.json بنجاح مع', allMatches.length, 'مباراة');
+
+            } catch (error) {
+              console.error('❌ خطأ في جلب البيانات:', error.message);
+              process.exit(1);
+            }
+          }
+
+          fetchMatches();
+          EOF
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add matches.json
-          git commit -m "chore: تحديث تلقائي لنتائج المباريات" || echo "لا توجد تغييرات"
+          git commit -m "chore: تحديث تلقائي لنتائج المباريات - $(date +'%Y-%m-%d %H:%M')" || echo "لا توجد تغييرات"
           git push
