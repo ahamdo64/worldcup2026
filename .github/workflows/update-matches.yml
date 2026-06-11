@@ -1,5 +1,9 @@
 name: Update Matches
 
+# متغير البيئة لإجبار الأدوات على استخدام Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   schedule:
     - cron: '*/5 * * * *'  # كل 5 دقائق
@@ -13,11 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # تحديث إلى v4 (يدعم Node.js 24)
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # تحديث إلى v4 (يدعم Node.js 24)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,7 +33,6 @@ jobs:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: node fetch-matches.js
 
-      # تحديث إلى v5 (أحدث إصدار مستقر)
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
