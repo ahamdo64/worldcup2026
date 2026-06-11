@@ -2,7 +2,7 @@ name: Update Matches
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '*/5 * * * *'  # كل 5 دقائق (بدلاً من 6 ساعات)
   workflow_dispatch:
 
 permissions:
@@ -25,7 +25,15 @@ jobs:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: node fetch-matches.js
 
+      - name: Check for Live Matches
+        run: |
+          if grep -q '"status": "live"' matches.json; then
+            echo "🔴 LIVE_MATCHES=true" >> $GITHUB_ENV
+          else
+            echo "🟢 LIVE_MATCHES=false" >> $GITHUB_ENV
+          fi
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update matches automatically"
+          commit_message: "🔄 Update matches - Live: ${{ env.LIVE_MATCHES }}"
           file_pattern: matches.json
