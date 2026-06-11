@@ -2,4 +2,38 @@ name: Update Matches
 
 on:
   schedule:
-    - cron: '*/5 * * *
+    - cron: '*/5 * * * *'  # كل 5 دقائق
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # تحديث إلى v4 (يدعم Node.js 24)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # تحديث إلى v4 (يدعم Node.js 24)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
+      - name: Fetch Matches
+        env:
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+        run: node fetch-matches.js
+
+      # تحديث إلى v5 (أحدث إصدار مستقر)
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🔄 Update matches automatically"
+          file_pattern: matches.json
