@@ -1,11 +1,21 @@
-[
-  {
-    "group": "FIFA World Cup",
-    "date": "2026-06-11",
-    "team1": "🇲🇽 Mexico",
-    "team2": "🇿🇦 South Africa",
-    "score": "- : -",
-    "status": "live",
-    "utcDate": "2026-06-11T19:00:00Z"
-  }
-]
+{
+  "lastUpdate": "2026-06-11T21:40:10.439Z",
+  "liveMatchesCount": 1,
+  "matches": [
+    {
+      "group": "FIFA World Cup",
+      "date": "2026-06-11",
+      "time": "19:00",
+      "team1": "🇲🇽 Mexico",
+      "team2": "🇿🇦 South Africa",
+      "score": "- : -",
+      "status": "live",
+      "statusText": "🔴 مباشر",
+      "minute": " - الدقيقة 1'",
+      "utcDate": "2026-06-11T19:00:00Z",
+      "homeTeam": "Mexico",
+      "awayTeam": "South Africa",
+      "competition": "FIFA World Cup"
+    }
+  ]
+}
