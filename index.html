@@ -392,369 +392,242 @@
         <p class="disclaimer">تنويه: يتم جلب البيانات تلقائياً كل ساعة. قد تخضع المواعيد للتغيير الرسمي من قبل الفيفا (FIFA).</p>
     </footer>
 
-    <script>
-        // ============================================
-        // إعدادات النظام
-        // ============================================
-        const UPDATE_INTERVAL = 60 * 60 * 1000; // ساعة واحدة
-        let nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
-        let countdownInterval;
+   <script>
+    // ============================================
+    // إعدادات النظام
+    // ============================================
+    const UPDATE_INTERVAL = 60 * 60 * 1000; // ساعة واحدة
+    let nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
+    let countdownInterval;
 
-        // ============================================
-        // نظام التبويبات
-        // ============================================
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => { 
-                    c.classList.remove('active'); 
-                    c.style.display = 'none'; 
-                });
-                btn.classList.add('active');
-                const targetId = btn.getAttribute('data-tab') + '-section';
-                const targetSection = document.getElementById(targetId);
-                targetSection.style.display = 'block';
-                setTimeout(() => targetSection.classList.add('active'), 10);
+    // ============================================
+    // نظام التبويبات
+    // ============================================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => { 
+                c.classList.remove('active'); 
+                c.style.display = 'none'; 
             });
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-tab') + '-section';
+            const targetSection = document.getElementById(targetId);
+            targetSection.style.display = 'block';
+            setTimeout(() => targetSection.classList.add('active'), 10);
         });
+    });
 
-        // ============================================
-        // دالة تحميل المباريات
-        // ============================================
-        async function loadMatches(showNotification = false) {
-    try {
-        const container = document.getElementById('results-container');
-        const response = await fetch('matches.json?t=' + new Date().getTime());
-        
-        if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        
-        const data = await response.json();
-        console.log('📦 البيانات المستلمة:', data);
-        
-        let matches = [];
-        if (Array.isArray(data)) {
-            matches = data;
-        } else if (data.matches && Array.isArray(data.matches)) {
-            matches = data.matches;
-        } else {
-            throw new Error('صيغة البيانات غير صحيحة');
-        }
-        
-        container.innerHTML = '';
-
-        const today = new Date().toISOString().split('T')[0];
-        const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-
-        // فلترة المباريات: المنتهية من آخر 7 أيام + القادمة
-        const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
-        
-        const filteredMatches = matches.filter(match => {
-            // المباريات المباشرة دائماً تظهر
-            if (match.status === 'live') return true;
+    // ============================================
+    // دالة تحميل المباريات
+    // ============================================
+    async function loadMatches(showNotification = false) {
+        try {
+            const container = document.getElementById('results-container');
+            const response = await fetch('matches.json?t=' + new Date().getTime());
             
-            // المباريات المنتهية من آخر 7 أيام
-            if (match.status === 'finished' && match.date >= sevenDaysAgo) return true;
-            
-            // المباريات القادمة (اليوم وما بعده)
-            if (match.date >= today) return true;
-            
-            return false;
-        });
-
-        if (filteredMatches.length === 0) {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-                    <i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i>
-                    <p style="color: var(--text-secondary); font-size: 1.1rem;">لا توجد مباريات لعرضها</p>
-                </div>
-            `;
-            return;
-        }
-
-        // عرض إحصائيات سريعة
-        const statsHTML = `
-            <div style="grid-column: 1/-1; display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
-                <div style="background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; padding: 10px 20px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;">
-                    <div style="font-size: 0.9rem; color: #4ade80;">✅ مباريات منتهية</div>
-                    <div style="font-size: 1.5rem; font-weight: 800; color: #4ade80;">${data.finishedMatchesCount || 0}</div>
-                </div>
-                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 10px 20px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;">
-                    <div style="font-size: 0.9rem; color: #ef4444;">🔴 مباشر الآن</div>
-                    <div style="font-size: 1.5rem; font-weight: 800; color: #ef4444;">${data.liveMatchesCount || 0}</div>
-                </div>
-                <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; padding: 10px 20px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;">
-                    <div style="font-size: 0.9rem; color: #3b82f6;">⏰ قادمة</div>
-                    <div style="font-size: 1.5rem; font-weight: 800; color: #3b82f6;">${data.upcomingMatchesCount || 0}</div>
-                </div>
-            </div>
-        `;
-        container.innerHTML = statsHTML;
-
-        // عرض المباريات
-        filteredMatches.forEach(match => {
-            try {
-                let dateClass = '';
-                let dateBadge = `<span class="date-badge">${match.date}</span>`;
-                
-                if (match.date === today) {
-                    dateClass = 'today';
-                    dateBadge = `<span class="date-badge today">اليوم</span>`;
-                } else if (match.date === tomorrow) {
-                    dateClass = 'tomorrow';
-                    dateBadge = `<span class="date-badge tomorrow">غداً</span>`;
-                }
-
-                const team1 = match.team1 || match.homeTeam || 'الفريق الأول';
-                const team2 = match.team2 || match.awayTeam || 'الفريق الثاني';
-                const matchTime = match.time || '--:--';
-                const stadium = match.venue || 'سيحدد لاحقاً';
-                const score = match.score || '- : -';
-                const status = match.status?.toLowerCase() || 'upcoming';
-                const statusText = match.statusText || 'قادمة';
-                const competition = match.competition || match.group || 'البطولة';
-                const matchday = match.matchday ? `الجولة ${match.matchday}` : '';
-                const referee = match.referees || '';
-
-                const cardHTML = `
-                    <div class="match-result-card ${dateClass}">
-                        <div class="match-header">
-                            <span>${competition} ${matchday ? '- ' + matchday : ''}</span>
-                            ${dateBadge}
-                        </div>
-                        <div class="match-teams">
-                            <span class="team">
-                                <span style="font-size: 1.1rem;">${team1}</span>
-                            </span>
-                            <span class="score">${score}</span>
-                            <span class="team">
-                                <span style="font-size: 1.1rem;">${team2}</span>
-                            </span>
-                        </div>
-                        <div class="match-details">
-                            <div class="match-detail-row">
-                                <i class="fas fa-clock"></i>
-                                <span>التوقيت: ${matchTime}</span>
-                            </div>
-                            <div class="match-detail-row">
-                                <i class="fas fa-calendar"></i>
-                                <span>${match.date}</span>
-                            </div>
-                            <div class="match-detail-row">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>${stadium}</span>
-                            </div>
-                            ${referee ? `
-                            <div class="match-detail-row">
-                                <i class="fas fa-user-tie"></i>
-                                <span>الحكم: ${referee}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                        <div>
-                            <span class="match-status ${status}">${statusText}</span>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += cardHTML;
-            } catch (err) {
-                console.error('خطأ في معالجة مباراة:', err, match);
-            
-        });
-
-        updateLastRefreshTime();
-        nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
-        
-        if (showNotification) {
-            showNotificationToast(`✅ تم تحميل ${filteredMatches.length} مباراة`);
-        }
-
-    } catch (error) {
-        console.error('❌ فشل تحميل البيانات:', error);
-        const container = document.getElementById('results-container');
-        container.innerHTML = `
-            <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i>
-                <p style="color: var(--text-secondary); font-size: 1.1rem;">حدث خطأ في تحميل البيانات</p>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">${error.message}</p>
-                <button onclick="loadMatches(true)" style="
-                    margin-top: 20px;
-                    background: var(--accent-gold);
-                    color: #0f172a;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 20px;
-                    font-family: 'Tajawal', sans-serif;
-                    font-weight: 700;
-                    cursor: pointer;
-                ">
-                    <i class="fas fa-sync-alt"></i> إعادة المحاولة
-                </button>
-            </div>
-        `;
-        if (showNotification) showNotificationToast('❌ فشل تحديث البيانات', true);
-    }
-}
-                updateLastRefreshTime();
-                nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
-                
-                if (showNotification) {
-                    showNotificationToast(`✅ تم تحميل ${matches.length} مباراة بنجاح`);
-                }
-
-            } catch (error) {
-                console.error('❌ فشل تحميل البيانات:', error);
-                const container = document.getElementById('results-container');
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem;">حدث خطأ في تحميل البيانات</p>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">${error.message}</p>
-                        <button onclick="loadMatches(true)" style="
-                            margin-top: 20px;
-                            background: var(--accent-gold);
-                            color: #0f172a;
-                            border: none;
-                            padding: 10px 20px;
-                            border-radius: 20px;
-                            font-family: 'Tajawal', sans-serif;
-                            font-weight: 700;
-                            cursor: pointer;
-                        ">
-                            <i class="fas fa-sync-alt"></i> إعادة المحاولة
-                        </button>
-                    </div>
-                `;
-                if (showNotification) showNotificationToast('❌ فشل تحديث البيانات', true);
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status + ': ' + response.statusText);
             }
-        }
+            
+            const data = await response.json();
+            console.log('📦 البيانات المستلمة:', data);
+            
+            // استخراج المصفوفة من الكائن
+            let matches = [];
+            if (Array.isArray(data)) {
+                matches = data;
+            } else if (data.matches && Array.isArray(data.matches)) {
+                matches = data.matches;
+            } else if (data.data && Array.isArray(data.data)) {
+                matches = data.data;
+            } else {
+                throw new Error('صيغة البيانات غير صحيحة - ليست مصفوفة');
+            }
+            
+            container.innerHTML = '';
 
-        // ============================================
-        // العداد التنازلي
-        // ============================================
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = nextUpdate - now;
+            const today = new Date().toISOString().split('T')[0];
+            const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
-            if (distance <= 0) {
-                loadMatches(true);
+            if (matches.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i><p style="color: var(--text-secondary); font-size: 1.1rem;">لا توجد مباريات في اليومين القادمين</p></div>';
+                if (showNotification) showNotificationToast('⚠️ لا توجد مباريات حالياً');
                 return;
             }
 
-            const hours = Math.floor(distance / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            matches.forEach(match => {
+                try {
+                    let dateClass = '';
+                    let dateBadge = '<span class="date-badge">' + (match.date || '-') + '</span>';
+                    
+                    if (match.date === today) {
+                        dateClass = 'today';
+                        dateBadge = '<span class="date-badge today">اليوم</span>';
+                    } else if (match.date === tomorrow) {
+                        dateClass = 'tomorrow';
+                        dateBadge = '<span class="date-badge tomorrow">غداً</span>';
+                    }
 
-            const countdownEl = document.getElementById('countdown-timer');
-            if (countdownEl) {
-                countdownEl.innerHTML = `
-                    <i class="fas fa-sync-alt fa-spin" style="font-size: 0.8rem; margin-left: 5px;"></i>
-                    <span>التحديث القادم خلال:</span>
-                    <strong>${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}</strong>
-                `;
-            }
-        }
+                    const team1 = match.team1 || match.homeTeam || 'الفريق الأول';
+                    const team2 = match.team2 || match.awayTeam || 'الفريق الثاني';
+                    const matchTime = match.time || '--:--';
+                    const stadium = match.venue || 'سيحدد لاحقاً';
+                    const score = match.score || '- : -';
+                    const status = (match.status || 'upcoming').toLowerCase();
+                    const statusText = match.statusText || 'قادمة';
+                    const competition = match.competition || match.group || 'البطولة';
+                    const matchday = match.matchday ? 'الجولة ' + match.matchday : '';
+                    const referee = match.referees || '';
 
-        // ============================================
-        // تحديث وقت آخر تحديث
-        // ============================================
-        function updateLastRefreshTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-            const lastRefreshEl = document.getElementById('last-refresh-time');
-            if (lastRefreshEl) {
-                lastRefreshEl.textContent = timeString;
-            }
-        }
-
-        // ============================================
-        // الإشعارات المنبثقة
-        // ============================================
-        function showNotificationToast(message, isError = false) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-                background: ${isError ? 'rgba(239, 68, 68, 0.95)' : 'rgba(74, 222, 128, 0.95)'};
-                color: white; padding: 12px 24px; border-radius: 30px;
-                font-family: 'Tajawal', sans-serif; font-weight: 700; z-index: 9999;
-                backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-                animation: slideDown 0.3s ease;
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'slideUp 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
-        }
-
-        // ============================================
-        // التحديث اليدوي
-        // ============================================
-        function manualRefresh() {
-            const btn = document.getElementById('manual-refresh-btn');
-            if (btn) {
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديث...';
-            }
-            
-            loadMatches(true).finally(() => {
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-sync-alt"></i> تحديث يدوي';
+                    const cardHTML = '<div class="match-result-card ' + dateClass + '">' +
+                        '<div class="match-header">' +
+                            '<span>' + competition + (matchday ? ' - ' + matchday : '') + '</span>' +
+                            dateBadge +
+                        '</div>' +
+                        '<div class="match-teams">' +
+                            '<span class="team"><span style="font-size: 1.1rem;">' + team1 + '</span></span>' +
+                            '<span class="score">' + score + '</span>' +
+                            '<span class="team"><span style="font-size: 1.1rem;">' + team2 + '</span></span>' +
+                        '</div>' +
+                        '<div class="match-details">' +
+                            '<div class="match-detail-row"><i class="fas fa-clock"></i><span>التوقيت: ' + matchTime + '</span></div>' +
+                            '<div class="match-detail-row"><i class="fas fa-calendar"></i><span>' + match.date + '</span></div>' +
+                            '<div class="match-detail-row"><i class="fas fa-map-marker-alt"></i><span>' + stadium + '</span></div>' +
+                            (referee ? '<div class="match-detail-row"><i class="fas fa-user-tie"></i><span>الحكم: ' + referee + '</span></div>' : '') +
+                        '</div>' +
+                        '<div><span class="match-status ' + status + '">' + statusText + '</span></div>' +
+                    '</div>';
+                    
+                    container.innerHTML += cardHTML;
+                } catch (err) {
+                    console.error('خطأ في معالجة مباراة:', err, match);
                 }
             });
+
+            updateLastRefreshTime();
+            nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
+            
+            if (showNotification) {
+                showNotificationToast('✅ تم تحميل ' + matches.length + ' مباراة بنجاح');
+            }
+
+        } catch (error) {
+            console.error('❌ فشل تحميل البيانات:', error);
+            const container = document.getElementById('results-container');
+            container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i><p style="color: var(--text-secondary); font-size: 1.1rem;">حدث خطأ في تحميل البيانات</p><p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">' + error.message + '</p><button onclick="loadMatches(true)" style="margin-top: 20px; background: var(--accent-gold); color: #0f172a; border: none; padding: 10px 20px; border-radius: 20px; font-family: \'Tajawal\', sans-serif; font-weight: 700; cursor: pointer;"><i class="fas fa-sync-alt"></i> إعادة المحاولة</button></div>';
+            if (showNotification) showNotificationToast('❌ فشل تحديث البيانات', true);
+        }
+    }
+
+    // ============================================
+    // العداد التنازلي
+    // ============================================
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = nextUpdate - now;
+
+        if (distance <= 0) {
+            loadMatches(true);
+            return;
         }
 
-        // ============================================
-        // عداد الزوار
-        // ============================================
-        function initVisitorCounter() {
-            const counterElement = document.getElementById("visitor-number");
-            const labelElement = document.getElementById("visitor-label");
-            
-            fetch('https://api.countapi.xyz/hit/ahmed-omran-wwc2026-guide/visits')
-                .then(response => response.json())
-                .then(data => {
-                    counterElement.innerText = data.value.toLocaleString('ar-EG');
-                    counterElement.style.color = "#fbbf24";
-                })
-                .catch(() => {
-                    counterElement.innerText = "1,250";
-                    counterElement.style.color = "#cbd5e1";
-                    labelElement.innerHTML = 'زيارة للموقع <span style="color:#4ade80; font-size:0.8rem; margin-right:5px;">● متصل</span>';
-                });
+        const hours = Math.floor(distance / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const countdownEl = document.getElementById('countdown-timer');
+        if (countdownEl) {
+            countdownEl.innerHTML = '<i class="fas fa-sync-alt fa-spin" style="font-size: 0.8rem; margin-left: 5px;"></i><span>التحديث القادم خلال:</span><strong>' + String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0') + '</strong>';
         }
+    }
 
-        // ============================================
-        // إضافة أنيميشن
-        // ============================================
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
-            @keyframes slideDown {
-                from { transform: translate(-50%, -100%); opacity: 0; }
-                to { transform: translate(-50%, 0); opacity: 1; }
-            }
-            @keyframes slideUp {
-                from { transform: translate(-50%, 0); opacity: 1; }
-                to { transform: translate(-50%, -100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(styleSheet);
+    // ============================================
+    // تحديث وقت آخر تحديث
+    // ============================================
+    function updateLastRefreshTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+        const lastRefreshEl = document.getElementById('last-refresh-time');
+        if (lastRefreshEl) {
+            lastRefreshEl.textContent = timeString;
+        }
+    }
 
-        // ============================================
-        // التشغيل عند تحميل الصفحة
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            loadMatches(false);
-            initVisitorCounter();
-            countdownInterval = setInterval(updateCountdown, 1000);
-            
-            const refreshBtn = document.getElementById('manual-refresh-btn');
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', manualRefresh);
+    // ============================================
+    // الإشعارات المنبثقة
+    // ============================================
+    function showNotificationToast(message, isError = false) {
+        const toast = document.createElement('div');
+        toast.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: ' + (isError ? 'rgba(239, 68, 68, 0.95)' : 'rgba(74, 222, 128, 0.95)') + '; color: white; padding: 12px 24px; border-radius: 30px; font-family: \'Tajawal\', sans-serif; font-weight: 700; z-index: 9999; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); animation: slideDown 0.3s ease;';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideUp 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 2500);
+    }
+
+    // ============================================
+    // التحديث اليدوي
+    // ============================================
+    function manualRefresh() {
+        const btn = document.getElementById('manual-refresh-btn');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديث...';
+        }
+        
+        loadMatches(true).finally(() => {
+            const btn = document.getElementById('manual-refresh-btn');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sync-alt"></i> تحديث يدوي';
             }
         });
-    </script>
+    }
+
+    // ============================================
+    // عداد الزوار
+    // ============================================
+    function initVisitorCounter() {
+        const counterElement = document.getElementById("visitor-number");
+        const labelElement = document.getElementById("visitor-label");
+        
+        fetch('https://api.countapi.xyz/hit/ahmed-omran-wwc2026-guide/visits')
+            .then(response => response.json())
+            .then(data => {
+                counterElement.innerText = data.value.toLocaleString('ar-EG');
+                counterElement.style.color = "#fbbf24";
+            })
+            .catch(() => {
+                counterElement.innerText = "1,250";
+                counterElement.style.color = "#cbd5e1";
+                labelElement.innerHTML = 'زيارة للموقع <span style="color:#4ade80; font-size:0.8rem; margin-right:5px;">● متصل</span>';
+            });
+    }
+
+    // ============================================
+    // إضافة أنيميشن
+    // ============================================
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = '@keyframes slideDown { from { transform: translate(-50%, -100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } } @keyframes slideUp { from { transform: translate(-50%, 0); opacity: 1; } to { transform: translate(-50%, -100%); opacity: 0; } }';
+    document.head.appendChild(styleSheet);
+
+    // ============================================
+    // التشغيل عند تحميل الصفحة
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        loadMatches(false);
+        initVisitorCounter();
+        countdownInterval = setInterval(updateCountdown, 1000);
+        
+        const refreshBtn = document.getElementById('manual-refresh-btn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', manualRefresh);
+        }
+    });
+</script>
 </body>
 </html>
