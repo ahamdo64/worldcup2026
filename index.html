@@ -26,15 +26,13 @@
         .engineer-details p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .engineer-details a { color: var(--accent-gold); text-decoration: none; }
         .stats-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
-        .stat-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 20px 30px; border-radius: 16px; text-align: center; min-width: 160px; transition: transform 0.3s ease; }
-        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 20px 30px; border-radius: 16px; text-align: center; min-width: 160px; }
         .stat-card i { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 10px; }
         .stat-card h3 { font-size: 1.8rem; font-weight: 800; }
         .stat-card p { color: var(--text-secondary); font-size: 0.9rem; }
         .tabs-container { display: flex; justify-content: center; gap: 15px; margin: 30px auto 0; flex-wrap: wrap; }
         .tab-btn { background: var(--glass-bg); border: 2px solid var(--glass-border); color: var(--text-primary); padding: 12px 25px; border-radius: 30px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px; }
-        .tab-btn:hover { border-color: var(--accent-gold); transform: translateY(-2px); }
-        .tab-btn.active { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover)); color: #0f172a; border-color: var(--accent-gold); box-shadow: 0 5px 20px rgba(251, 191, 36, 0.3); }
+        .tab-btn.active { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover)); color: #0f172a; border-color: var(--accent-gold); }
         .tab-content { display: none; opacity: 0; transition: opacity 0.4s ease; }
         .tab-content.active { display: block; opacity: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
@@ -44,127 +42,150 @@
         .refresh-info { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
         .refresh-info-item { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 0.9rem; }
         .refresh-info-item strong { color: var(--accent-gold); }
-        .manual-refresh-btn { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover)); color: #0f172a; border: none; padding: 10px 20px; border-radius: 25px; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
-        .manual-refresh-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(251, 191, 36, 0.3); }
+        .manual-refresh-btn { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover)); color: #0f172a; border: none; padding: 10px 20px; border-radius: 25px; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .manual-refresh-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .match-result-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 25px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .match-result-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .match-result-card.today { border-color: var(--success); background: var(--today-bg); }
-        .match-result-card.tomorrow { border-color: #3b82f6; background: var(--tomorrow-bg); }
+        .match-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 25px; transition: all 0.3s ease; }
+        .match-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .match-card.live { border: 2px solid #ef4444; animation: pulse-border 2s infinite; }
         .match-header { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .date-badge { background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; }
-        .date-badge.today { background: var(--success); color: #0f172a; font-weight: 800; }
-        .date-badge.tomorrow { background: #3b82f6; color: #fff; font-weight: 800; }
-        .match-teams { display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
-        .team { display: flex; align-items: center; gap: 10px; flex: 1; }
-        .team:first-child { justify-content: flex-start; }
-        .team:last-child { justify-content: flex-end; flex-direction: row-reverse; }
-        .score { background: rgba(255,255,255,0.1); padding: 6px 18px; border-radius: 12px; font-weight: 800; color: var(--accent-gold); font-size: 1.4rem; letter-spacing: 2px; min-width: 100px; text-align: center; }
-        .match-details { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--glass-border); }
-        .match-detail-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; }
-        .match-detail-row i { color: var(--accent-gold); width: 16px; text-align: center; }
-        .match-status { font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; display: inline-block; font-weight: 700; margin-top: 12px; }
-        .match-status.finished { background: rgba(74, 222, 128, 0.15); color: var(--success); border: 1px solid rgba(74, 222, 128, 0.3); }
-        .match-status.live { background: rgba(239, 68, 68, 0.15); color: var(--live-red); border: 1px solid rgba(239, 68, 68, 0.3); animation: pulse-live 1.5s infinite; }
-        .match-status.scheduled, .match-status.upcoming { background: rgba(255,255,255,0.08); color: var(--text-secondary); border: 1px solid var(--glass-border); }
-        @keyframes pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .badge { background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; }
+        .badge.today { background: var(--success); color: #0f172a; font-weight: 800; }
+        .badge.tomorrow { background: #3b82f6; color: #fff; font-weight: 800; }
+        .teams { display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
+        .team { flex: 1; }
+        .team:first-child { text-align: right; }
+        .team:last-child { text-align: left; }
+        .score { background: rgba(255,255,255,0.1); padding: 6px 18px; border-radius: 12px; font-weight: 800; color: var(--accent-gold); font-size: 1.4rem; min-width: 100px; text-align: center; }
+        .score.live { background: #ef4444; color: white; animation: pulse 1.5s infinite; }
+        .details { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--glass-border); font-size: 0.85rem; color: var(--text-secondary); }
+        .detail-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .detail-row i { color: var(--accent-gold); width: 16px; text-align: center; }
+        .status { font-size: 0.85rem; padding: 5px 14px; border-radius: 20px; display: inline-block; font-weight: 700; margin-top: 12px; }
+        .status.finished { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+        .status.live { background: rgba(239, 68, 68, 0.15); color: var(--live-red); animation: pulse 1.5s infinite; }
+        .status.upcoming { background: rgba(255,255,255,0.08); color: var(--text-secondary); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         @keyframes pulse-border { 0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } }
+        
+        /* زر المشاهدة العائم */
+        .floating-watch-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            text-decoration: none;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+            transition: all 0.3s ease;
+            animation: float-bounce 3s ease-in-out infinite;
+        }
+        .floating-watch-btn:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 10px 35px rgba(239, 68, 68, 0.7);
+        }
+        @keyframes float-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
         footer { background: #0b1120; padding: 40px 20px; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 60px; }
         footer p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px; }
         footer .copyright { color: var(--accent-gold); font-weight: 700; }
-        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } .engineer-profile-card { flex-direction: column; text-align: center; } .engineer-details p { justify-content: center; } .match-teams { flex-direction: column; gap: 10px; } .team, .team:last-child { flex-direction: row; justify-content: center !important; } .refresh-bar { flex-direction: column; align-items: stretch; } }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .engineer-profile-card { flex-direction: column; text-align: center; }
+            .teams { flex-direction: column; gap: 10px; }
+            .team, .team:first-child, .team:last-child { text-align: center; }
+            .refresh-bar { flex-direction: column; align-items: stretch; }
+            .floating-watch-btn { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
     <div class="tech-ticker-container">
         <div class="tech-ticker-wrapper">
-            <div class="tech-ticker-item"><i class="fas fa-user-tie"></i> المهندس أحمد عمران | استشاري أنظمة التحكم الآلي و IoT</div>
+            <div class="tech-ticker-item"><i class="fas fa-user-tie"></i> المهندس أحمد عمران | استشاري أنظمة التحكم الآلي</div>
             <span class="ticker-separator">◆</span>
-            <div class="tech-ticker-item"><i class="fas fa-microchip"></i> برمجة متحكمات ESP32 وحلول الأتمتة</div>
+            <div class="tech-ticker-item"><i class="fas fa-microchip"></i> برمجة متحكمات ESP32</div>
             <span class="ticker-separator">◆</span>
-            <div class="tech-ticker-item"><i class="fas fa-wifi"></i> تصميم لوحات تحكم متصلة عبر Wi-Fi</div>
+            <div class="tech-ticker-item"><i class="fas fa-wifi"></i> تصميم لوحات تحكم IoT</div>
             <span class="ticker-separator">◆</span>
-            <div class="tech-ticker-item"><i class="fab fa-github"></i> <a href="https://github.com/ahamdo64" target="_blank">تصفح أعمالي على GitHub</a></div>
+            <div class="tech-ticker-item"><i class="fab fa-github"></i> <a href="https://github.com/ahamdo64" target="_blank">GitHub</a></div>
             <span class="ticker-separator">◆</span>
         </div>
     </div>
 
     <header class="hero">
         <h1><i class="fas fa-trophy"></i> كأس العالم 2026</h1>
-        <p class="subtitle">تطبيق تفاعلي ذكي: تحديث تلقائي للنتائج والمباريات</p>
-
+        <p class="subtitle">تطبيق تفاعلي ذكي: تحديث تلقائي للنتائج</p>
         <div class="engineer-profile-card">
             <div class="engineer-avatar">أ.ع</div>
             <div class="engineer-details">
                 <h3>المهندس أحمد عمران</h3>
-                <p><i class="fas fa-briefcase"></i> مهندس استشاري لأنظمة التحكم الآلي وإنترنت الأشياء (IoT)</p>
+                <p><i class="fas fa-briefcase"></i> مهندس استشاري لأنظمة التحكم الآلي وإنترنت الأشياء</p>
                 <p><i class="fas fa-envelope"></i> <a href="mailto:ahmed.omran@example.com">ahmed.omran@example.com</a></p>
             </div>
         </div>
-
         <div class="stats-container">
             <div class="stat-card"><i class="fas fa-calendar-alt"></i><h3>11 يونيو</h3><p>حتى 19 يوليو 2026</p></div>
             <div class="stat-card"><i class="fas fa-globe-americas"></i><h3>3 دول</h3><p>أمريكا، كندا، المكسيك</p></div>
             <div class="stat-card"><i class="fas fa-users"></i><h3>48 منتخباً</h3><p>في 12 مجموعة</p></div>
             <div class="stat-card"><i class="fas fa-eye"></i><h3 id="visitor-number">---</h3><p>زيارة</p></div>
         </div>
-
         <div class="tabs-container">
-            <button class="tab-btn active" data-tab="results"><i class="fas fa-chart-line"></i> النتائج المباشرة</button>
-            <button class="tab-btn" data-tab="schedule"><i class="fas fa-calendar-check"></i> الجدول والمجموعات</button>
+            <button class="tab-btn active" data-tab="results"><i class="fas fa-chart-line"></i> النتائج</button>
+            <button class="tab-btn" data-tab="schedule"><i class="fas fa-calendar-check"></i> الجدول</button>
         </div>
     </header>
 
     <main class="container">
         <section id="results-section" class="tab-content active">
             <h2 class="section-title"><i class="fas fa-fire"></i> مباريات اليوم والغد</h2>
-            
             <div class="refresh-bar">
                 <div class="refresh-info">
-                    <div class="refresh-info-item">
-                        <i class="fas fa-clock" style="color: var(--accent-gold);"></i>
-                        <span>آخر تحديث:</span>
-                        <strong id="last-refresh-time">--:--</strong>
-                    </div>
-                    <div class="refresh-info-item" id="countdown-timer">
-                        <i class="fas fa-sync-alt fa-spin" style="font-size: 0.8rem; margin-left: 5px;"></i>
-                        <span>التحديث القادم خلال:</span>
-                        <strong>--:--:--</strong>
-                    </div>
+                    <div class="refresh-info-item"><i class="fas fa-clock"></i><span>آخر تحديث:</span><strong id="last-refresh-time">--:--</strong></div>
+                    <div class="refresh-info-item" id="countdown-timer"><i class="fas fa-sync-alt fa-spin"></i><span>التحديث خلال:</span><strong>--:--:--</strong></div>
                 </div>
-                <button id="manual-refresh-btn" class="manual-refresh-btn">
-                    <i class="fas fa-sync-alt"></i> تحديث يدوي
-                </button>
+                <button id="manual-refresh-btn" class="manual-refresh-btn"><i class="fas fa-sync-alt"></i> تحديث يدوي</button>
             </div>
-
             <div class="results-grid" id="results-container">
-                <p style="text-align: center; width: 100%; padding: 40px; grid-column: 1/-1;">
-                    <i class="fas fa-spinner fa-spin"></i> جاري تحميل أحدث النتائج...
-                </p>
+                <p style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</p>
             </div>
         </section>
 
         <section id="schedule-section" class="tab-content">
             <h2 class="section-title"><i class="fas fa-th-large"></i> توزيع المجموعات</h2>
             <div class="results-grid">
-                <div class="match-result-card"><div class="match-header"><span>المجموعة 1</span></div><div class="match-teams"><span>🇲🇽 المكسيك</span><span>-</span><span>🇿🇦 جنوب أفريقيا</span></div></div>
-                <div class="match-result-card"><div class="match-header"><span>المجموعة 2</span></div><div class="match-teams"><span>🇨🇦 كندا</span><span>-</span><span>🇶🇦 قطر</span></div></div>
-                <div class="match-result-card"><div class="match-header"><span>المجموعة 3</span></div><div class="match-teams"><span>🇧 البرازيل</span><span>-</span><span>🇲🇦 المغرب</span></div></div>
+                <div class="match-card"><div class="match-header"><span>المجموعة 1</span></div><div class="teams"><span class="team">🇲🇽 المكسيك</span><span class="score">-</span><span class="team">🇿🇦 جنوب أفريقيا</span></div></div>
+                <div class="match-card"><div class="match-header"><span>المجموعة 2</span></div><div class="teams"><span class="team">🇨🇦 كندا</span><span class="score">-</span><span class="team">🇶🇦 قطر</span></div></div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p class="copyright">© 2026 جميع الحقوق محفوظة للمهندس أحمد عمران | Ahmed Omran Engineering</p>
-        <p>تم تصميم وتطوير هذا الدليل التفاعلي كتطبيق عملي لمهارات تطوير الواجهات والأتمتة.</p>
+        <p class="copyright">© 2026 المهندس أحمد عمران | Ahmed Omran Engineering</p>
     </footer>
+
+    <!-- زر المشاهدة العائم -->
+    <a href="https://texas4tv.com/" target="_blank" rel="noopener noreferrer" class="floating-watch-btn" title="مشاهدة البث المباشر">
+        <i class="fas fa-tv"></i>
+    </a>
 
     <script>
         var UPDATE_INTERVAL = 60 * 60 * 1000;
         var nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
         var countdownInterval;
 
+        // التبويبات
         document.querySelectorAll('.tab-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -180,228 +201,139 @@
             });
         });
 
+        // تحميل المباريات
         function loadMatches(showNotification) {
             var container = document.getElementById('results-container');
             
             fetch('matches.json?t=' + new Date().getTime())
                 .then(function(response) {
-                    if (!response.ok) {
-                        throw new Error('HTTP ' + response.status);
-                    }
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
                     return response.json();
                 })
                 .then(function(data) {
-                    console.log('📦 البيانات المستلمة:', data);
+                    console.log('البيانات:', data);
                     
-                    var matches = [];
-                    if (Array.isArray(data)) {
-                        matches = data;
-                    } else if (data.matches && Array.isArray(data.matches)) {
-                        matches = data.matches;
-                    } else if (data.data && Array.isArray(data.data)) {
-                        matches = data.data;
-                    }
-                    
-                    console.log('📊 إجمالي المباريات:', matches.length);
-                    
+                    var matches = data.matches || data || [];
                     container.innerHTML = '';
                     
                     var today = new Date().toISOString().split('T')[0];
                     var tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-                    var yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
                     
-                    console.log('📅 اليوم:', today);
-                    console.log('📅 غداً:', tomorrow);
+                    console.log('اليوم:', today, 'غداً:', tomorrow);
+                    console.log('عدد المباريات:', matches.length);
                     
-                    var liveMatches = [];
-                    var todayFinished = [];
-                    var todayUpcoming = [];
+                    var live = [];
+                    var finished = [];
+                    var upcoming = [];
                     var tomorrowMatches = [];
-                    var otherMatches = [];
                     
                     matches.forEach(function(match) {
-                        var matchDate = match.date || match.matchDay || '';
+                        var date = match.date || '';
                         var status = (match.status || 'upcoming').toLowerCase();
-                        var team1Name = match.team1 || match.homeTeam || 'الفريق الأول';
-                        var team2Name = match.team2 || match.awayTeam || 'الفريق الثاني';
                         
-                        console.log('⚽ مباراة:', team1Name, 'vs', team2Name, '- التاريخ:', matchDate, '- الحالة:', status);
-                        
-                        if (status === 'live' || status === 'in_play' || status === 'paused' || status === 'timed') {
-                            liveMatches.push(match);
-                        } else if (matchDate === today) {
+                        if (status === 'live' || status === 'in_play') {
+                            live.push(match);
+                        } else if (date === today) {
                             if (status === 'finished') {
-                                todayFinished.push(match);
+                                finished.push(match);
                             } else {
-                                todayUpcoming.push(match);
+                                upcoming.push(match);
                             }
-                        } else if (matchDate === tomorrow) {
+                        } else if (date === tomorrow) {
                             tomorrowMatches.push(match);
-                        } else if (matchDate === yesterday && status === 'finished') {
-                            todayFinished.push(match);
-                        } else {
-                            otherMatches.push(match);
                         }
                     });
                     
-                    console.log('🔴 مباشرة:', liveMatches.length);
-                    console.log('✅ منتهية اليوم:', todayFinished.length);
-                    console.log('⏰ قادمة اليوم:', todayUpcoming.length);
-                    console.log('📅 غداً:', tomorrowMatches.length);
+                    console.log('مباشر:', live.length, 'منتهية:', finished.length, 'قادمة:', upcoming.length, 'غداً:', tomorrowMatches.length);
                     
-                    var totalToShow = liveMatches.length + todayFinished.length + todayUpcoming.length + tomorrowMatches.length;
+                    var total = live.length + finished.length + upcoming.length + tomorrowMatches.length;
                     
-                    if (totalToShow === 0) {
-                        container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i><p style="color: var(--text-secondary); font-size: 1.1rem;">لا توجد مباريات في اليومين القادمين</p><p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">إجمالي المباريات في النظام: ' + matches.length + '</p></div>';
-                        if (showNotification) {
-                            alert('لا توجد مباريات حالياً');
-                        }
+                    if (total === 0) {
+                        container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i><p style="color: var(--text-secondary);">لا توجد مباريات</p><p style="color: var(--text-secondary); font-size: 0.9rem;">الإجمالي: ' + matches.length + '</p></div>';
                         return;
                     }
 
-                    var statsHTML = '<div style="grid-column: 1/-1; display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">';
-                    if (liveMatches.length > 0) {
-                        statsHTML += '<div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; padding: 15px 25px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;"><div style="font-size: 0.9rem; color: #ef4444; font-weight: 700;">🔴 مباشر الآن</div><div style="font-size: 2rem; font-weight: 900; color: #ef4444;">' + liveMatches.length + '</div></div>';
-                    }
-                    if (todayFinished.length > 0) {
-                        statsHTML += '<div style="background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; padding: 15px 25px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;"><div style="font-size: 0.9rem; color: #4ade80; font-weight: 700;">✅ انتهت اليوم</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + todayFinished.length + '</div></div>';
-                    }
-                    if (todayUpcoming.length > 0) {
-                        statsHTML += '<div style="background: rgba(251, 191, 36, 0.1); border: 1px solid #fbbf24; padding: 15px 25px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;"><div style="font-size: 0.9rem; color: #fbbf24; font-weight: 700;">⏰ لاحقاً اليوم</div><div style="font-size: 2rem; font-weight: 900; color: #fbbf24;">' + todayUpcoming.length + '</div></div>';
-                    }
-                    if (tomorrowMatches.length > 0) {
-                        statsHTML += '<div style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; padding: 15px 25px; border-radius: 12px; flex: 1; min-width: 150px; text-align: center;"><div style="font-size: 0.9rem; color: #3b82f6; font-weight: 700;">📅 غداً</div><div style="font-size: 2rem; font-weight: 900; color: #3b82f6;">' + tomorrowMatches.length + '</div></div>';
-                    }
-                    statsHTML += '</div>';
-                    container.innerHTML = statsHTML;
+                    // إحصائيات
+                    var stats = '<div style="grid-column: 1/-1; display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">';
+                    if (live.length > 0) stats += '<div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; padding: 15px; border-radius: 12px; flex: 1; min-width: 120px; text-align: center;"><div style="color: #ef4444; font-weight: 700;">🔴 مباشر</div><div style="font-size: 2rem; font-weight: 900; color: #ef4444;">' + live.length + '</div></div>';
+                    if (finished.length > 0) stats += '<div style="background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; padding: 15px; border-radius: 12px; flex: 1; min-width: 120px; text-align: center;"><div style="color: #4ade80; font-weight: 700;">✅ انتهت</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + finished.length + '</div></div>';
+                    if (upcoming.length > 0) stats += '<div style="background: rgba(251, 191, 36, 0.1); border: 1px solid #fbbf24; padding: 15px; border-radius: 12px; flex: 1; min-width: 120px; text-align: center;"><div style="color: #fbbf24; font-weight: 700;">⏰ اليوم</div><div style="font-size: 2rem; font-weight: 900; color: #fbbf24;">' + upcoming.length + '</div></div>';
+                    if (tomorrowMatches.length > 0) stats += '<div style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; padding: 15px; border-radius: 12px; flex: 1; min-width: 120px; text-align: center;"><div style="color: #3b82f6; font-weight: 700;">📅 غداً</div><div style="font-size: 2rem; font-weight: 900; color: #3b82f6;">' + tomorrowMatches.length + '</div></div>';
+                    stats += '</div>';
+                    container.innerHTML = stats;
 
-                    function getStatusText(status) {
-                        if (status === 'finished') return '✅ انتهت';
-                        if (status === 'live' || status === 'in_play') return '🔴 مباشر';
-                        if (status === 'scheduled' || status === 'upcoming') return '⏰ قادمة';
-                        return 'قادمة';
-                    }
-
-                    function createMatchCard(match, dateClass) {
-                        var dateBadge = '<span class="date-badge">' + (match.date || '-') + '</span>';
-                        var todayStr = new Date().toISOString().split('T')[0];
-                        var tomorrowStr = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-                        
-                        if (match.date === todayStr) {
-                            dateClass = dateClass || 'today';
-                            dateBadge = '<span class="date-badge today">اليوم</span>';
-                        } else if (match.date === tomorrowStr) {
-                            dateClass = dateClass || 'tomorrow';
-                            dateBadge = '<span class="date-badge tomorrow">غداً</span>';
-                        }
-
-                        var team1 = match.team1 || match.homeTeam || 'الفريق الأول';
-                        var team2 = match.team2 || match.awayTeam || 'الفريق الثاني';
-                        var matchTime = match.time || (match.utcDate ? match.utcDate.split('T')[1].substring(0, 5) : '--:--');
-                        var stadium = match.venue || 'غير محدد';
+                    // عرض المباريات
+                    function createCard(match, badgeClass, badgeText) {
+                        var team1 = match.team1 || match.homeTeam || 'الفريق 1';
+                        var team2 = match.team2 || match.awayTeam || 'الفريق 2';
                         var score = match.score || '- : -';
+                        var time = match.time || '--:--';
+                        var venue = match.venue || 'غير محدد';
                         var status = (match.status || 'upcoming').toLowerCase();
-                        var statusText = match.statusText || getStatusText(status);
-                        var competition = match.competition || match.group || 'البطولة';
-                        var matchday = match.matchday ? 'الجولة ' + match.matchday : '';
-
-                        var liveStyle = status === 'live' ? 'border: 2px solid #ef4444; animation: pulse-border 2s infinite;' : '';
-                        var scoreStyle = status === 'live' ? 'background: #ef4444; color: white; animation: pulse 1.5s infinite;' : '';
-
-                        return '<div class="match-result-card ' + dateClass + '" style="' + liveStyle + '">' +
-                            '<div class="match-header"><span>' + competition + (matchday ? ' - ' + matchday : '') + '</span>' + dateBadge + '</div>' +
-                            '<div class="match-teams">' +
-                                '<span class="team"><span style="font-size: 1.1rem;">' + team1 + '</span></span>' +
-                                '<span class="score" style="' + scoreStyle + '">' + score + '</span>' +
-                                '<span class="team"><span style="font-size: 1.1rem;">' + team2 + '</span></span>' +
+                        var statusText = match.statusText || (status === 'finished' ? '✅ انتهت' : status === 'live' ? '🔴 مباشر' : '⏰ قادمة');
+                        var isLive = status === 'live';
+                        
+                        return '<div class="match-card' + (isLive ? ' live' : '') + '">' +
+                            '<div class="match-header"><span>' + (match.competition || 'البطولة') + '</span><span class="badge ' + badgeClass + '">' + badgeText + '</span></div>' +
+                            '<div class="teams">' +
+                                '<span class="team">' + team1 + '</span>' +
+                                '<span class="score' + (isLive ? ' live' : '') + '">' + score + '</span>' +
+                                '<span class="team">' + team2 + '</span>' +
                             '</div>' +
-                            '<div class="match-details">' +
-                                '<div class="match-detail-row"><i class="fas fa-clock"></i><span>التوقيت: ' + matchTime + '</span></div>' +
-                                '<div class="match-detail-row"><i class="fas fa-map-marker-alt"></i><span>' + stadium + '</span></div>' +
+                            '<div class="details">' +
+                                '<div class="detail-row"><i class="fas fa-clock"></i><span>' + time + '</span></div>' +
+                                '<div class="detail-row"><i class="fas fa-map-marker-alt"></i><span>' + venue + '</span></div>' +
                             '</div>' +
-                            '<span class="match-status ' + status + '">' + statusText + '</span>' +
+                            '<span class="status ' + status + '">' + statusText + '</span>' +
                         '</div>';
                     }
 
-                    liveMatches.forEach(function(match) {
-                        container.innerHTML += createMatchCard(match, 'today');
-                    });
-                    
-                    todayFinished.forEach(function(match) {
-                        container.innerHTML += createMatchCard(match, 'today');
-                    });
-                    
-                    todayUpcoming.forEach(function(match) {
-                        container.innerHTML += createMatchCard(match, 'today');
-                    });
-                    
-                    tomorrowMatches.forEach(function(match) {
-                        container.innerHTML += createMatchCard(match, 'tomorrow');
-                    });
-                    
-                    otherMatches.slice(0, 10).forEach(function(match) {
-                        container.innerHTML += createMatchCard(match, '');
-                    });
+                    live.forEach(function(m) { container.innerHTML += createCard(m, 'today', 'اليوم'); });
+                    finished.forEach(function(m) { container.innerHTML += createCard(m, 'today', 'اليوم'); });
+                    upcoming.forEach(function(m) { container.innerHTML += createCard(m, 'today', 'اليوم'); });
+                    tomorrowMatches.forEach(function(m) { container.innerHTML += createCard(m, 'tomorrow', 'غداً'); });
 
-                    var now = new Date();
-                    var timeString = now.toLocaleTimeString('ar-EG', {hour: '2-digit', minute: '2-digit'});
-                    document.getElementById('last-refresh-time').textContent = timeString;
+                    document.getElementById('last-refresh-time').textContent = new Date().toLocaleTimeString('ar-EG', {hour: '2-digit', minute: '2-digit'});
                     nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
                     
-                    if (showNotification) {
-                        alert('تم تحميل ' + totalToShow + ' مباراة (' + liveMatches.length + ' مباشر)');
-                    }
+                    if (showNotification) alert('تم تحميل ' + total + ' مباراة');
                 })
                 .catch(function(error) {
-                    console.error('❌ فشل تحميل البيانات:', error);
-                    container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i><p style="color: var(--text-secondary); font-size: 1.1rem;">حدث خطأ في تحميل البيانات</p><p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">' + error.message + '</p><button onclick="loadMatches(false)" style="margin-top: 20px; background: var(--accent-gold); color: #0f172a; border: none; padding: 10px 20px; border-radius: 20px; font-family: \'Tajawal\', sans-serif; font-weight: 700; cursor: pointer;"><i class="fas fa-sync-alt"></i> إعادة المحاولة</button></div>';
-                    if (showNotification) {
-                        alert('فشل تحديث البيانات');
-                    }
+                    console.error('خطأ:', error);
+                    container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i><p style="color: var(--text-secondary);">خطأ في التحميل</p><button onclick="loadMatches(false)" style="margin-top: 20px; background: var(--accent-gold); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">إعادة المحاولة</button></div>';
                 });
         }
 
+        // العداد التنازلي
         function updateCountdown() {
             var now = new Date().getTime();
             var distance = nextUpdate - now;
-
-            if (distance <= 0) {
-                loadMatches(true);
-                return;
-            }
-
-            var hours = Math.floor(distance / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            var countdownEl = document.getElementById('countdown-timer');
-            if (countdownEl) {
-                countdownEl.innerHTML = '<i class="fas fa-sync-alt fa-spin" style="font-size: 0.8rem; margin-left: 5px;"></i><span>التحديث القادم خلال:</span><strong>' + String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0') + '</strong>';
-            }
+            if (distance <= 0) { loadMatches(true); return; }
+            var h = Math.floor(distance / (1000 * 60 * 60));
+            var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((distance % (1000 * 60)) / 1000);
+            var el = document.getElementById('countdown-timer');
+            if (el) el.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i><span>التحديث خلال:</span><strong>' + String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0') + '</strong>';
         }
 
+        // عداد الزوار
         function initVisitorCounter() {
             fetch('https://api.countapi.xyz/hit/ahmed-omran-wwc2026-guide/visits')
-                .then(function(response) { return response.json(); })
-                .then(function(data) {
-                    document.getElementById('visitor-number').textContent = data.value.toLocaleString('ar-EG');
-                })
-                .catch(function() {
-                    document.getElementById('visitor-number').textContent = '1,000+';
-                });
+                .then(function(r) { return r.json(); })
+                .then(function(d) { document.getElementById('visitor-number').textContent = d.value.toLocaleString('ar-EG'); })
+                .catch(function() { document.getElementById('visitor-number').textContent = '1,000+'; });
         }
 
+        // الزر اليدوي
         document.getElementById('manual-refresh-btn').addEventListener('click', function() {
             this.disabled = true;
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديث...';
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري...';
             loadMatches(true);
             var self = this;
-            setTimeout(function() {
-                self.disabled = false;
-                self.innerHTML = '<i class="fas fa-sync-alt"></i> تحديث يدوي';
-            }, 3000);
+            setTimeout(function() { self.disabled = false; self.innerHTML = '<i class="fas fa-sync-alt"></i> تحديث يدوي'; }, 3000);
         });
 
+        // بدء التشغيل
         document.addEventListener('DOMContentLoaded', function() {
             loadMatches(false);
             initVisitorCounter();
