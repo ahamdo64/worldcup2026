@@ -2,7 +2,7 @@ name: Update Football Matches
 
 on:
   schedule:
-   - cron: '0 * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -14,231 +14,134 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Fetch from API
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Fetch and Process Matches
         env:
           API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
-          echo "🔑 Fetching matches data..."
-          
-          TODAY=$(date -u +%Y-%m-%d)
-          TOMORROW=$(date -u -d 'tomorrow' +%Y-%m-%d)
-          
-          echo "📅 Date range: $TODAY to $TOMORROW"
-          
-          RESPONSE=$(curl -s -w "\n%{http_code}" \
-            -H "X-Auth-Token: $API_KEY" \
-            "https://api.football-data.org/v4/matches?dateFrom=$TODAY&dateTo=$TOMORROW")
-          
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | sed \$d)
-          
-          echo "📊 HTTP Status: $HTTP_CODE"
-          
-          if [ "$HTTP_CODE" = "200" ]; then
-            echo "$BODY" | jq '.matches | map({
-              id: .id,
-              competition: {
-                name: .competition.name,
-                code: .competition.code,
-                type: .competition.type,
-                emblem: .competition.emblem
-              },
-              matchday: .matchday,
-              stage: .stage,
-              group: .group,
-              lastUpdated: .lastUpdated,
-              
-              # معلومات الفريق المضيف
-              homeTeam: {
-                id: .homeTeam.id,
-                name: .homeTeam.name,
-                shortName: .homeTeam.shortName,
-                tla: .homeTeam.tla,
-                crest: .homeTeam.crest,
-                flag: (.homeTeam.shortName | 
-                  gsub("Brazil";"🇧🇷") | 
-                  gsub("Argentina";"🇦") | 
-                  gsub("Germany";"🇩🇪") | 
-                  gsub("France";"🇫🇷") | 
-                  gsub("Spain";"🇪🇸") | 
-                  gsub("England";"🏴󠁢󠁮") | 
-                  gsub("Italy";"🇮🇹") | 
-                  gsub("Portugal";"🇵") | 
-                  gsub("Netherlands";"🇳🇱") | 
-                  gsub("Belgium";"🇧🇪") | 
-                  gsub("Mexico";"🇲🇽") | 
-                  gsub("USA";"🇺") | 
-                  gsub("Canada";"🇨🇦") | 
-                  gsub("Japan";"🇯") | 
-                  gsub("South Korea";"🇰🇷") | 
-                  gsub("Saudi Arabia";"🇸🇦") | 
-                  gsub("Egypt";"🇪🇬") | 
-                  gsub("Morocco";"🇲🇦") | 
-                  gsub("Algeria";"🇩🇿") | 
-                  gsub("Tunisia";"🇹🇳") | 
-                  gsub("Qatar";"🇶🇦") | 
-                  gsub("Iraq";"🇮🇶") | 
-                  gsub("Jordan";"🇯🇴") | 
-                  gsub("Australia";"🇦🇺") | 
-                  gsub("Uruguay";"🇺") | 
-                  gsub("Colombia";"🇨🇴") | 
-                  gsub("Croatia";"🇭🇷") | 
-                  gsub("Ghana";"🇬🇭") | 
-                  gsub("Senegal";"🇸") | 
-                  gsub("South Africa";"🇿🇦") | 
-                  gsub("Sweden";"🇸🇪") | 
-                  gsub("Switzerland";"🇨🇭") | 
-                  gsub("Austria";"🇦🇹") | 
-                  gsub("Denmark";"🇩🇰") | 
-                  gsub("Norway";"🇳🇴") | 
-                  gsub("Turkey";"🇹🇷") | 
-                  gsub("Iran";"🇮🇷") | 
-                  gsub("Paraguay";"🇵🇾") | 
-                  gsub("Ecuador";"🇪🇨") | 
-                  gsub("Poland";"🇵🇱") | 
-                  gsub("Czech Republic";"🇨🇿") | 
-                  gsub("Scotland";"🏴󠁢󠁣") | 
-                  gsub("Bosnia and Herzegovina";"🇧🇦") | 
-                  gsub("Curaçao";"🇨🇼") | 
-                  gsub("Côte d'Ivoire";"🇨🇮") | 
-                  gsub("Cape Verde";"🇨") | 
-                  gsub("New Zealand";"🇳🇿") | 
-                  gsub("Congo DR";"🇨🇩") | 
-                  gsub("Uzbekistan";"🇺") | 
-                  gsub("Haiti";"🇭🇹") | 
-                  gsub("Panama";"🇵🇦") | 
-                  gsub("Nigeria";"🇳") | 
-                  gsub("Cameroon";"🇨🇲")
-                )
-              },
-              
-              # معلومات الفريق الضيف
-              awayTeam: {
-                id: .awayTeam.id,
-                name: .awayTeam.name,
-                shortName: .awayTeam.shortName,
-                tla: .awayTeam.tla,
-                crest: .awayTeam.crest,
-                flag: (.awayTeam.shortName | 
-                  gsub("Brazil";"🇧🇷") | 
-                  gsub("Argentina";"🇦") | 
-                  gsub("Germany";"🇩") | 
-                  gsub("France";"🇫") | 
-                  gsub("Spain";"🇪") | 
-                  gsub("England";"🏴󠁢󠁮") | 
-                  gsub("Italy";"🇮🇹") | 
-                  gsub("Portugal";"🇵🇹") | 
-                  gsub("Netherlands";"🇳🇱") | 
-                  gsub("Belgium";"🇧🇪") | 
-                  gsub("Mexico";"🇲") | 
-                  gsub("USA";"🇺") | 
-                  gsub("Canada";"🇨") | 
-                  gsub("Japan";"🇯") | 
-                  gsub("South Korea";"🇰🇷") | 
-                  gsub("Saudi Arabia";"🇸🇦") | 
-                  gsub("Egypt";"🇪") | 
-                  gsub("Morocco";"🇲🇦") | 
-                  gsub("Algeria";"🇩") | 
-                  gsub("Tunisia";"🇹🇳") | 
-                  gsub("Qatar";"🇶🇦") | 
-                  gsub("Iraq";"🇮🇶") | 
-                  gsub("Jordan";"🇯🇴") | 
-                  gsub("Australia";"🇦") | 
-                  gsub("Uruguay";"🇺🇾") | 
-                  gsub("Colombia";"🇨🇴") | 
-                  gsub("Croatia";"🇭🇷") | 
-                  gsub("Ghana";"🇬🇭") | 
-                  gsub("Senegal";"🇸🇳") | 
-                  gsub("South Africa";"🇿🇦") | 
-                  gsub("Sweden";"🇸") | 
-                  gsub("Switzerland";"🇨🇭") | 
-                  gsub("Austria";"🇦🇹") | 
-                  gsub("Denmark";"🇩🇰") | 
-                  gsub("Norway";"🇳🇴") | 
-                  gsub("Turkey";"🇹🇷") | 
-                  gsub("Iran";"🇮") | 
-                  gsub("Paraguay";"🇵🇾") | 
-                  gsub("Ecuador";"🇪🇨") | 
-                  gsub("Poland";"🇵🇱") | 
-                  gsub("Czech Republic";"🇨🇿") | 
-                  gsub("Scotland";"🏴󠁢󠁣") | 
-                  gsub("Bosnia and Herzegovina";"🇧🇦") | 
-                  gsub("Curaçao";"🇨🇼") | 
-                  gsub("Côte d'Ivoire";"🇨") | 
-                  gsub("Cape Verde";"🇨🇻") | 
-                  gsub("New Zealand";"🇳🇿") | 
-                  gsub("Congo DR";"🇨🇩") | 
-                  gsub("Uzbekistan";"🇺🇿") | 
-                  gsub("Haiti";"🇭🇹") | 
-                  gsub("Panama";"🇵🇦") | 
-                  gsub("Nigeria";"🇳") | 
-                  gsub("Cameroon";"🇨🇲")
-                )
-              },
-              
-              # النتيجة
-              score: {
-                winner: .score.winner,
-                duration: .score.duration,
-                fullTime: {
-                  home: .score.fullTime.home,
-                  away: .score.fullTime.away
-                },
-                halfTime: {
-                  home: .score.halfTime.home,
-                  away: .score.halfTime.away
-                }
-              },
-              
-              # معلومات المباراة
-              utcDate: .utcDate,
-              localDate: (.utcDate | split("+")[0] | split("T")),
-              matchTime: (.utcDate | split("T")[1] | split("+")[0] | split("Z")[0]),
-              matchDay: (.utcDate | split("T")[0]),
-              status: .status,
-              minute: .minute,
-              inExtraTime: .inExtraTime,
-              inPenaltyShootout: .inPenaltyShootout,
-              
-              # الملعب والموقع
-              venue: .venue,
-              city: (.venue | split(" - ")[1] // "غير محدد"),
-              stadium: (.venue | split(" - ")[0] // .venue),
-              
-              # الحكم
-              referees: .referees,
-              
-              # حالة المباراة للنص
-              statusText: (
-                if .status == "FINISHED" then "انتهت"
-                elif .status == "IN_PLAY" then "مباشرة 🔴"
-                elif .status == "PAUSED" then "مؤقتة ⏸️"
-                elif .status == "TIMED" then "مباشرة 🔴"
-                elif .status == "POSTPONED" then "مؤجلة ⏳"
-                elif .status == "SUSPENDED" then "معلقة ️"
-                elif .status == "CANCELLED" then "ملغاة ❌"
-                else "قادمة ⏱️"
-                end
-              ),
-              
-              # تنسيق العرض المبسط
-              display: {
-                homeTeamWithFlag: "\((.homeTeam.shortName | gsub("Brazil";"🇧🇷") | gsub("Argentina";"🇦🇷") | gsub("Germany";"🇩🇪") | gsub("France";"🇫🇷") | gsub("Spain";"🇪🇸") | gsub("England";"🏴󠁧󠁥") | gsub("Italy";"🇮🇹") | gsub("Portugal";"🇵🇹") | gsub("Netherlands";"🇳") | gsub("Belgium";"🇧") | gsub("Mexico";"🇲🇽") | gsub("USA";"🇺") | gsub("Canada";"🇨🇦") | gsub("Japan";"🇯🇵") | gsub("South Korea";"🇰") | gsub("Saudi Arabia";"🇸🇦") | gsub("Egypt";"🇪🇬") | gsub("Morocco";"🇲") | gsub("Algeria";"🇩") | gsub("Tunisia";"🇹") | gsub("Qatar";"🇶") | gsub("Iraq";"🇮🇶") | gsub("Jordan";"🇯🇴") | gsub("Australia";"🇦🇺") | gsub("Uruguay";"🇺") | gsub("Colombia";"🇨🇴") | gsub("Croatia";"🇭🇷") | gsub("Ghana";"🇬🇭") | gsub("Senegal";"🇸🇳") | gsub("South Africa";"🇿🇦") | gsub("Sweden";"🇸🇪") | gsub("Switzerland";"🇨🇭") | gsub("Austria";"🇦🇹") | gsub("Denmark";"🇩🇰") | gsub("Norway";"🇳🇴") | gsub("Turkey";"🇹🇷") | gsub("Iran";"🇮") | gsub("Paraguay";"🇵🇾") | gsub("Ecuador";"🇪🇨") | gsub("Poland";"🇵🇱") | gsub("Czech Republic";"🇨🇿") | gsub("Scotland";"🏴󠁢󠁣") | gsub("Bosnia and Herzegovina";"🇧🇦") | gsub("Curaçao";"🇨🇼") | gsub("Côte d'Ivoire";"🇨🇮") | gsub("Cape Verde";"🇨🇻") | gsub("New Zealand";"🇳🇿") | gsub("Congo DR";"🇨🇩") | gsub("Uzbekistan";"🇺🇿") | gsub("Haiti";"🇭🇹") | gsub("Panama";"🇵") | gsub("Nigeria";"🇳🇬") | gsub("Cameroon";"🇨🇲")) \(.homeTeam.shortName)",
-                awayTeamWithFlag: "\(.awayTeam.shortName) \((.awayTeam.shortName | gsub("Brazil";"🇧🇷") | gsub("Argentina";"🇦") | gsub("Germany";"🇩🇪") | gsub("France";"🇫🇷") | gsub("Spain";"🇪🇸") | gsub("England";"🏴󠁧󠁥󠁿") | gsub("Italy";"🇮") | gsub("Portugal";"🇵") | gsub("Netherlands";"🇳🇱") | gsub("Belgium";"🇧") | gsub("Mexico";"🇲🇽") | gsub("USA";"🇺🇸") | gsub("Canada";"🇨🇦") | gsub("Japan";"🇯") | gsub("South Korea";"🇰🇷") | gsub("Saudi Arabia";"🇸🇦") | gsub("Egypt";"🇪") | gsub("Morocco";"🇲🇦") | gsub("Algeria";"🇩") | gsub("Tunisia";"🇹🇳") | gsub("Qatar";"🇶🇦") | gsub("Iraq";"🇮🇶") | gsub("Jordan";"🇯🇴") | gsub("Australia";"🇦🇺") | gsub("Uruguay";"🇺🇾") | gsub("Colombia";"🇨🇴") | gsub("Croatia";"🇭") | gsub("Ghana";"🇬🇭") | gsub("Senegal";"🇸") | gsub("South Africa";"🇿🇦") | gsub("Sweden";"🇸🇪") | gsub("Switzerland";"🇨") | gsub("Austria";"🇦") | gsub("Denmark";"🇩🇰") | gsub("Norway";"🇳🇴") | gsub("Turkey";"🇹🇷") | gsub("Iran";"🇮🇷") | gsub("Paraguay";"🇵🇾") | gsub("Ecuador";"🇪🇨") | gsub("Poland";"🇵🇱") | gsub("Czech Republic";"🇨🇿") | gsub("Scotland";"🏴󠁢󠁣󠁿") | gsub("Bosnia and Herzegovina";"🇧🇦") | gsub("Curaçao";"🇨🇼") | gsub("Côte d'Ivoire";"🇨🇮") | gsub("Cape Verde";"🇨🇻") | gsub("New Zealand";"🇳🇿") | gsub("Congo DR";"🇨🇩") | gsub("Uzbekistan";"🇺🇿") | gsub("Haiti";"🇭🇹") | gsub("Panama";"🇵") | gsub("Nigeria";"🇳") | gsub("Cameroon";"🇨🇲"))",
-                scoreDisplay: (if .score.fullTime.home != null then "\(.score.fullTime.home) - \(.score.fullTime.away)" else "- : -" end)
+          cat > fetch-matches.js << 'EOF'
+          const https = require('https');
+          const fs = require('fs');
+
+          const API_KEY = process.env.API_KEY;
+          const today = new Date().toISOString().split('T')[0];
+          const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+
+          console.log(`🔍 Fetching matches from ${today} to ${tomorrow}`);
+
+          const options = {
+            hostname: 'api.football-data.org',
+            path: `/v4/matches?dateFrom=${today}&dateTo=${tomorrow}`,
+            headers: {
+              'X-Auth-Token': API_KEY
+            }
+          };
+
+          const req = https.get(options, (res) => {
+            let data = '';
+            
+            res.on('data', (chunk) => data += chunk);
+            res.on('end', () => {
+              if (res.statusCode !== 200) {
+                console.error(`❌ API Error: ${res.statusCode}`);
+                process.exit(1);
               }
-            }) | sort_by(.utcDate)' > matches.json
-            
-            echo "✅ Success! Generated matches.json"
-            echo "📊 Total matches: $(jq length matches.json)"
-            
-          else
-            echo "❌ API Error: $HTTP_CODE"
-            echo "$BODY"
-            exit 1
-          fi
+
+              const response = JSON.parse(data);
+              console.log(`✅ Received ${response.matches.length} matches`);
+
+              // قاموس الأعلام
+              const flags = {
+                'Brazil': '🇧🇷', 'Argentina': '🇦', 'Germany': '🇩🇪',
+                'France': '🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+                'Italy': '🇮', 'Portugal': '🇵', 'Netherlands': '🇳',
+                'Belgium': '🇧🇪', 'Mexico': '🇲🇽', 'USA': '🇺🇸',
+                'Canada': '🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
+                'Saudi Arabia': '🇸🇦', 'Egypt': '🇬', 'Morocco': '🇦',
+                'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶🇦',
+                'Iraq': '🇮', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
+                'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭',
+                'Ghana': '🇬🇭', 'Senegal': '🇳', 'South Africa': '🇦',
+                'Sweden': '🇸🇪', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
+                'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Turkey': '🇹🇷',
+                'Iran': '🇮🇷', 'Paraguay': '🇵🇾', 'Ecuador': '🇪🇨',
+                'Poland': '🇵🇱', 'Czech Republic': '🇿', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+                'Bosnia-H.': '🇧🇦', 'Curaçao': '🇨🇼', 'Côte d\'Ivoire': '🇨🇮',
+                'Cape Verde': '🇨', 'New Zealand': '🇳', 'Congo DR': '🇨🇩',
+                'Uzbekistan': '🇺🇿', 'Haiti': '🇭🇹', 'Panama': '🇵🇦',
+                'Nigeria': '🇳', 'Cameroon': '🇨🇲', 'Korea Republic': '🇰🇷',
+                'Czechia': '🇨🇿'
+              };
+
+              const matches = response.matches.map(match => {
+                const homeFlag = flags[match.homeTeam.shortName] || '⚽';
+                const awayFlag = flags[match.awayTeam.shortName] || '⚽';
+                
+                let status = 'upcoming';
+                let statusText = '⏱️ قادمة';
+                
+                if (match.status === 'FINISHED') {
+                  status = 'finished';
+                  statusText = '✅ انتهت';
+                } else if (match.status === 'IN_PLAY' || match.status === 'PAUSED' || match.status === 'TIMED') {
+                  status = 'live';
+                  statusText = ' مباشر';
+                }
+
+                let score = '- : -';
+                if (match.score.fullTime.home !== null) {
+                  score = `${match.score.fullTime.home} - ${match.score.fullTime.away}`;
+                }
+
+                return {
+                  group: match.competition.name,
+                  date: match.utcDate.split('T')[0],
+                  time: match.utcDate.split('T')[1].split('Z')[0].substring(0, 5),
+                  team1: `${homeFlag} ${match.homeTeam.shortName}`,
+                  team2: `${awayFlag} ${match.awayTeam.shortName}`,
+                  homeTeam: match.homeTeam.shortName,
+                  awayTeam: match.awayTeam.shortName,
+                  score: score,
+                  status: status,
+                  statusText: statusText,
+                  minute: match.minute || '',
+                  utcDate: match.utcDate,
+                  competition: match.competition.name,
+                  matchday: match.matchday,
+                  venue: match.venue || 'غير محدد',
+                  referees: match.referees?.[0]?.name || ''
+                };
+              });
+
+              // ترتيب حسب التاريخ
+              matches.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+
+              const output = {
+                lastUpdate: new Date().toISOString(),
+                liveMatchesCount: matches.filter(m => m.status === 'live').length,
+                totalMatches: matches.length,
+                matches: matches
+              };
+
+              fs.writeFileSync('matches.json', JSON.stringify(output, null, 2));
+              console.log(`✅ Saved ${matches.length} matches to matches.json`);
+              console.log(`🔴 Live matches: ${output.liveMatchesCount}`);
+            });
+          });
+
+          req.on('error', (error) => {
+            console.error('❌ Request error:', error);
+            process.exit(1);
+          });
+          EOF
+
+          node fetch-matches.js
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: تحديث بيانات المباريات مع تفاصيل كاملة"
+          commit_message: "chore: تحديث المباريات - $(date +'%Y-%m-%d %H:%M')"
           file_pattern: matches.json
