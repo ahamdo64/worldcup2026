@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إحصائيات الزوار</title>
+    <style>
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white; 
+            padding: 40px;
+            text-align: center;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            border: 2px solid #fbbf24;
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 إحصائيات الموقع</h1>
+    
+    <div class="stat-box">
+        <div>إجمالي الزيارات</div>
+        <div class="stat-number" id="total-visits">جاري التحميل...</div>
+    </div>
+    
+    <div class="stat-box">
+        <div>آخر تحديث</div>
+        <div id="last-update">-</div>
+    </div>
+    
+    <a href="index.html" style="color: #fbbf24;">← العودة للموقع</a>
+
+    <script>
+        async function loadStats() {
+            const data = await fetch('https://api.countapi.xyz/get/ahmed-omran-wwc2026-guide/visits')
+                .then(r => r.json());
+            
+            document.getElementById('total-visits').innerText = data.value.toLocaleString('ar-EG');
+            document.getElementById('last-update').innerText = new Date().toLocaleString('ar-EG');
+        }
+        
+        loadStats();
+        setInterval(loadStats, 30000); // تحديث كل 30 ثانية
+    </script>
+</body>
+</html>
