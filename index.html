@@ -350,25 +350,63 @@
     <main class="container">
         
         <!-- === صفحة النتائج المباشرة === -->
-        <section id="results-section" class="tab-content active">
-            <h2 class="section-title">
-                <i class="fas fa-fire"></i> 
-                مباريات اليوم والغد (تحديث تلقائي)
-                <span class="live-badge" id="live-badge"> 0 مباراة مباشرة</span>
-            </h2>
-            
-            <div class="last-update" id="last-update">
-                <i class="fas fa-clock"></i>
-                <span>جاري تحميل آخر تحديث...</span>
+       <section id="results-section" class="tab-content active">
+    <h2 class="section-title"><i class="fas fa-fire"></i> مباريات اليوم والغد</h2>
+    
+    <!-- شريط التحكم بالتحديث -->
+    <div style="
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    ">
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 0.9rem;">
+                <i class="fas fa-clock" style="color: var(--accent-gold);"></i>
+                <span>آخر تحديث:</span>
+                <strong id="last-refresh-time" style="color: var(--accent-gold);">--:--</strong>
             </div>
-            
-            <div class="results-grid" id="results-container">
-                <p style="text-align: center; width: 100%; padding: 40px; color: var(--text-secondary);">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent-gold);"></i><br><br>
-                    جاري تحميل أحدث النتائج...
-                </p>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;" id="countdown-timer">
+                <i class="fas fa-sync-alt fa-spin" style="font-size: 0.8rem; margin-left: 5px;"></i>
+                جاري الحساب...
             </div>
-        </section>
+        </div>
+        
+        <button id="manual-refresh-btn" style="
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover));
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        " onmouseover="this.style.transform='translateY(-2px)'" 
+           onmouseout="this.style.transform='translateY(0)'"
+           onmousedown="this.style.transform='scale(0.95)'">
+            <i class="fas fa-sync-alt"></i> تحديث يدوي
+        </button>
+    </div>
+
+    <div class="results-grid" id="results-container">
+        <p style="text-align: center; width: 100%; padding: 40px;">
+            <i class="fas fa-spinner fa-spin"></i> جاري تحميل أحدث النتائج...
+        </p>
+    </div>
+</section>
 
         <!-- === صفحة الجدول والمجموعات === -->
         <section id="schedule-section" class="tab-content">
@@ -427,148 +465,228 @@
     <!-- كود JavaScript التفاعلي -->
     <!-- ========================================== -->
     <script>
-        // 1. نظام التبويبات
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => { 
-                    c.classList.remove('active'); 
-                    c.style.display = 'none'; 
-                });
-                btn.classList.add('active');
-                const targetId = btn.getAttribute('data-tab') + '-section';
-                const targetSection = document.getElementById(targetId);
-                targetSection.style.display = 'block';
-                setTimeout(() => targetSection.classList.add('active'), 10);
-            });
-        });
+        // ============================================
+// نظام التحديث الذكي مع عداد تنازلي
+// ============================================
 
-        // 2. دالة جلب وعرض المباريات
-        let lastLiveCount = 0;
+let countdownInterval;
+const UPDATE_INTERVAL = 60 * 60 * 1000; // ساعة واحدة (بالميلي ثانية)
+let nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
 
-        async function loadMatches() {
-            try {
-                const response = await fetch('matches.json?_=' + Date.now());
-                const data = await response.json();
-                const matches = data.matches || [];
-                const liveCount = data.liveMatchesCount || 0;
-                const lastUpdate = data.lastUpdate || '';
+// دالة تحميل المباريات
+async function loadMatches(showNotification = false) {
+    try {
+        const container = document.getElementById('results-container');
+        const response = await fetch('matches.json?t=' + new Date().getTime());
+        
+        if (!response.ok) throw new Error('فشل الاتصال بالخادم');
+        
+        const matches = await response.json();
+        container.innerHTML = '';
 
-                const container = document.getElementById('results-container');
-                container.innerHTML = '';
+        const today = new Date().toISOString().split('T')[0];
+        const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
 
-                // تحديث شارة LIVE
-                const liveBadge = document.getElementById('live-badge');
-                if (liveCount > 0) {
-                    liveBadge.textContent = `🔴 ${liveCount} مباراة مباشرة`;
-                    liveBadge.style.display = 'inline-block';
-                } else {
-                    liveBadge.style.display = 'none';
-                }
-
-                // تحديث وقت آخر تحديث
-                if (lastUpdate) {
-                    const updateTime = new Date(lastUpdate).toLocaleString('ar-EG', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
-                    });
-                    document.getElementById('last-update').innerHTML = `
-                        <i class="fas fa-clock"></i>
-                        <span>آخر تحديث: ${updateTime} | يتم التحديث التلقائي كل 5 دقائق</span>
-                    `;
-                }
-
-                const today = new Date().toISOString().split('T')[0];
-                const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-
-                if (matches.length === 0) {
-                    container.innerHTML = `
-                        <p style="text-align: center; width: 100%; padding: 40px; color: var(--text-secondary);">
-                            <i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 15px;"></i><br>
-                            لا توجد مباريات في هذا التوقيت. سيتم التحديث تلقائياً.
-                        </p>
-                    `;
-                    return;
-                }
-
-                matches.forEach(match => {
-                    let dateClass = '';
-                    let dateBadge = `<span class="date-badge">${match.date}</span>`;
-                    
-                    if (match.date === today) {
-                        dateClass = 'today';
-                        dateBadge = `<span class="date-badge today">اليوم</span>`;
-                    } else if (match.date === tomorrow) {
-                        dateClass = 'tomorrow';
-                        dateBadge = `<span class="date-badge tomorrow">غداً</span>`;
-                    }
-
-                    if (match.status === 'live') {
-                        dateClass = 'live';
-                        dateBadge = `<span class="date-badge live"> مباشر</span>`;
-                    }
-
-                    const statusText = match.statusText || (match.status === 'finished' ? 'انتهت' : match.status === 'live' ? '🔴 جارية الآن' : '⏳ قادمة');
-                    
-                    const minuteDisplay = match.minute ? `<span class="match-minute">⏱️ ${match.minute}</span>` : '';
-                    
-                    const cardHTML = `
-                        <div class="match-result-card ${dateClass}">
-                            <div class="match-header">
-                                <span>${match.group || match.competition || ''}</span>
-                                ${dateBadge}
-                            </div>
-                            <div class="match-teams">
-                                <span class="team">${match.team1}</span>
-                                <span class="score">${match.score}</span>
-                                <span class="team">${match.team2}</span>
-                            </div>
-                            <div class="match-status ${match.status}">${statusText}</div>
-                            ${minuteDisplay}
-                        </div>
-                    `;
-                    container.innerHTML += cardHTML;
-                });
-
-                // إذا تغير عدد المباريات المباشرة، نعرض تنبيه
-                if (liveCount !== lastLiveCount && liveCount > 0 && lastLiveCount > 0) {
-                    console.log('🔴 تغيير في المباريات المباشرة!');
-                }
-                lastLiveCount = liveCount;
-
-            } catch (error) {
-                console.error("فشل تحميل ملف JSON:", error);
-                document.getElementById('results-container').innerHTML = `
-                    <p style="text-align:center; color:var(--live-red); padding: 40px;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem;"></i><br><br>
-                        تعذر تحميل البيانات. يرجى التأكد من وجود ملف matches.json
-                    </p>
-                `;
-            }
+        if (matches.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+                    <i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i>
+                    <p style="color: var(--text-secondary);">لا توجد مباريات في اليومين القادمين</p>
+                </div>
+            `;
+            return;
         }
 
-        // 3. التحديث التلقائي للمباريات المباشرة
-        setInterval(loadMatches, 60000); // كل 60 ثانية
-
-        // 4. عداد الزوار الذكي
-        document.addEventListener("DOMContentLoaded", function() {
-            loadMatches();
+        matches.forEach(match => {
+            let dateClass = '';
+            let dateBadge = `<span class="date-badge">${match.matchDay}</span>`;
             
-            const counterElement = document.getElementById("visitor-number");
-            const labelElement = document.getElementById("visitor-label");
-            fetch('https://api.countapi.xyz/hit/ahmed-omran-wwc2026-guide/visits')
-                .then(response => response.json())
-                .then(data => {
-                    counterElement.innerText = data.value.toLocaleString('ar-EG');
-                    counterElement.style.color = "#fbbf24";
-                })
-                .catch(() => {
-                    counterElement.innerText = "1,250";
-                    counterElement.style.color = "#cbd5e1";
-                    labelElement.innerHTML = 'زيارة للموقع <span style="color:#4ade80; font-size:0.8rem; margin-right:5px;">● متصل</span>';
-                });
+            if (match.matchDay === today) {
+                dateClass = 'today';
+                dateBadge = `<span class="date-badge today">اليوم</span>`;
+            } else if (match.matchDay === tomorrow) {
+                dateClass = 'tomorrow';
+                dateBadge = `<span class="date-badge tomorrow">غداً</span>`;
+            }
+
+            const matchTime = match.matchTime ? match.matchTime.substring(0, 5) : '';
+            const stadium = match.stadium || match.venue || 'سيحدد لاحقاً';
+            const city = match.city || '';
+
+            const cardHTML = `
+                <div class="match-result-card ${dateClass}">
+                    <div class="match-header">
+                        <span>${match.competition?.name || match.group || 'مباراة'}</span>
+                        ${dateBadge}
+                    </div>
+                    <div class="match-teams">
+                        <span class="team">
+                            <span class="flag">${match.homeTeam?.flag || '⚽'}</span>
+                            <span>${match.homeTeam?.shortName || 'الفريق الأول'}</span>
+                        </span>
+                        <span class="score">${match.display?.scoreDisplay || match.score || '- : -'}</span>
+                        <span class="team">
+                            <span>${match.awayTeam?.shortName || 'الفريق الثاني'}</span>
+                            <span class="flag">${match.awayTeam?.flag || '⚽'}</span>
+                        </span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--glass-border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">
+                            <span><i class="fas fa-clock" style="margin-left: 5px;"></i> ${matchTime || '--:--'}</span>
+                            <span><i class="fas fa-calendar" style="margin-left: 5px;"></i> ${match.matchDay}</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary);">
+                            <i class="fas fa-map-marker-alt" style="color: var(--accent-gold);"></i>
+                            <span>${stadium}${city ? ' - ' + city : ''}</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <span class="match-status ${match.status?.toLowerCase() || 'upcoming'}">${match.statusText || 'قادمة'}</span>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
         });
+
+        // تحديث وقت آخر تحديث
+        updateLastRefreshTime();
+        
+        // إعادة ضبط العداد التنازلي
+        nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
+        
+        // إشعار نجاح
+        if (showNotification) showNotificationToast('✅ تم تحديث النتائج بنجاح');
+
+    } catch (error) {
+        console.error('فشل تحميل البيانات:', error);
+        if (showNotification) showNotificationToast('❌ فشل تحديث البيانات', true);
+    }
+}
+
+// ============================================
+// دالة العداد التنازلي
+// ============================================
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = nextUpdate - now;
+
+    if (distance <= 0) {
+        // وقت التحديث حان
+        loadMatches(true);
+        return;
+    }
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const countdownEl = document.getElementById('countdown-timer');
+    if (countdownEl) {
+        countdownEl.innerHTML = `
+            <i class="fas fa-sync-alt fa-spin" style="font-size: 0.8rem; margin-left: 5px;"></i>
+            التحديث القادم خلال: 
+            <strong style="color: var(--accent-gold);">
+                ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}
+            </strong>
+        `;
+    }
+}
+
+// ============================================
+// دالة تحديث وقت آخر تحديث
+// ============================================
+function updateLastRefreshTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ar-EG', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+    const lastRefreshEl = document.getElementById('last-refresh-time');
+    if (lastRefreshEl) {
+        lastRefreshEl.textContent = timeString;
+    }
+}
+
+// ============================================
+// دالة الإشعار المنبثق
+// ============================================
+function showNotificationToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${isError ? 'rgba(239, 68, 68, 0.95)' : 'rgba(74, 222, 128, 0.95)'};
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-family: 'Tajawal', sans-serif;
+        font-weight: 700;
+        z-index: 9999;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        animation: slideDown 0.3s ease;
+    `;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideUp 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
+// ============================================
+// دالة التحديث اليدوي
+// ============================================
+function manualRefresh() {
+    const btn = document.getElementById('manual-refresh-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديث...';
+    }
+    
+    loadMatches(true).finally(() => {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> تحديث يدوي';
+        }
+    });
+}
+
+// ============================================
+// إضافة أنيميشن للإشعارات
+// ============================================
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    @keyframes slideDown {
+        from { transform: translate(-50%, -100%); opacity: 0; }
+        to { transform: translate(-50%, 0); opacity: 1; }
+    }
+    @keyframes slideUp {
+        from { transform: translate(-50%, 0); opacity: 1; }
+        to { transform: translate(-50%, -100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(styleSheet);
+
+// ============================================
+// التشغيل عند تحميل الصفحة
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    // تحميل أولي
+    loadMatches(false);
+    
+    // بدء العداد التنازلي (تحديث كل ثانية)
+    countdownInterval = setInterval(updateCountdown, 1000);
+    
+    // ربط زر التحديث اليدوي
+    const refreshBtn = document.getElementById('manual-refresh-btn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', manualRefresh);
+    }
+});
     </script>
 
 </body>
