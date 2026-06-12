@@ -479,9 +479,25 @@ async function loadMatches(showNotification = false) {
         const container = document.getElementById('results-container');
         const response = await fetch('matches.json?t=' + new Date().getTime());
         
-        if (!response.ok) throw new Error('فشل الاتصال بالخادم');
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         
-        const matches = await response.json();
+        const data = await response.json();
+        console.log('📦 البيانات المستلمة:', data);
+        
+        // استخراج المصفوفة من الكائن
+        let matches = [];
+        if (Array.isArray(data)) {
+            matches = data;
+        } else if (data.matches && Array.isArray(data.matches)) {
+            matches = data.matches;
+        } else if (data.data && Array.isArray(data.data)) {
+            matches = data.data;
+        } else {
+            throw new Error('صيغة البيانات غير صحيحة');
+        }
+        
         container.innerHTML = '';
 
         const today = new Date().toISOString().split('T')[0];
@@ -491,63 +507,115 @@ async function loadMatches(showNotification = false) {
             container.innerHTML = `
                 <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
                     <i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i>
-                    <p style="color: var(--text-secondary);">لا توجد مباريات في اليومين القادمين</p>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;">لا توجد مباريات في اليومين القادمين</p>
                 </div>
             `;
+            if (showNotification) showNotificationToast('️ لا توجد مباريات حالياً');
             return;
         }
 
         matches.forEach(match => {
-            let dateClass = '';
-            let dateBadge = `<span class="date-badge">${match.matchDay}</span>`;
-            
-            if (match.matchDay === today) {
-                dateClass = 'today';
-                dateBadge = `<span class="date-badge today">اليوم</span>`;
-            } else if (match.matchDay === tomorrow) {
-                dateClass = 'tomorrow';
-                dateBadge = `<span class="date-badge tomorrow">غداً</span>`;
+            try {
+                let dateClass = '';
+                let dateBadge = `<span class="date-badge">${match.date || '-'}</span>`;
+                
+                if (match.date === today) {
+                    dateClass = 'today';
+                    dateBadge = `<span class="date-badge today">اليوم</span>`;
+                } else if (match.date === tomorrow) {
+                    dateClass = 'tomorrow';
+                    dateBadge = `<span class="date-badge tomorrow">غداً</span>`;
+                }
+
+                // استخراج الأعلام والفرق من team1 و team2
+                const team1 = match.team1 || `${match.homeTeam || 'الفريق الأول'}`;
+                const team2 = match.team2 || `${match.awayTeam || 'الفريق الثاني'}`;
+                
+                // تنسيق الوقت
+                const matchTime = match.time || '--:--';
+                const stadium = match.venue || 'سيحدد لاحقاً';
+                const score = match.score || '- : -';
+                const status = match.status?.toLowerCase() || 'upcoming';
+                const statusText = match.statusText || 'قادمة';
+                const competition = match.competition || match.group || 'البطولة';
+                const matchday = match.matchday ? `الجولة ${match.matchday}` : '';
+                const referee = match.referees || '';
+
+                const cardHTML = `
+                    <div class="match-result-card ${dateClass}">
+                        <div class="match-header">
+                            <span>${competition} ${matchday ? '- ' + matchday : ''}</span>
+                            ${dateBadge}
+                        </div>
+                        <div class="match-teams">
+                            <span class="team">
+                                <span style="font-size: 1.2rem;">${team1}</span>
+                            </span>
+                            <span class="score">${score}</span>
+                            <span class="team">
+                                <span style="font-size: 1.2rem;">${team2}</span>
+                            </span>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--glass-border);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">
+                                <span><i class="fas fa-clock" style="margin-left: 5px;"></i> ${matchTime}</span>
+                                <span><i class="fas fa-calendar" style="margin-left: 5px;"></i> ${match.date}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">
+                                <i class="fas fa-map-marker-alt" style="color: var(--accent-gold);"></i>
+                                <span>${stadium}</span>
+                            </div>
+                            ${referee ? `
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary);">
+                                <i class="fas fa-user-tie" style="color: var(--accent-gold);"></i>
+                                <span>الحكم: ${referee}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <span class="match-status ${status}">${statusText}</span>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            } catch (err) {
+                console.error('خطأ في معالجة مباراة:', err, match);
             }
-
-            const matchTime = match.matchTime ? match.matchTime.substring(0, 5) : '';
-            const stadium = match.stadium || match.venue || 'سيحدد لاحقاً';
-            const city = match.city || '';
-
-            const cardHTML = `
-                <div class="match-result-card ${dateClass}">
-                    <div class="match-header">
-                        <span>${match.competition?.name || match.group || 'مباراة'}</span>
-                        ${dateBadge}
-                    </div>
-                    <div class="match-teams">
-                        <span class="team">
-                            <span class="flag">${match.homeTeam?.flag || '⚽'}</span>
-                            <span>${match.homeTeam?.shortName || 'الفريق الأول'}</span>
-                        </span>
-                        <span class="score">${match.display?.scoreDisplay || match.score || '- : -'}</span>
-                        <span class="team">
-                            <span>${match.awayTeam?.shortName || 'الفريق الثاني'}</span>
-                            <span class="flag">${match.awayTeam?.flag || '⚽'}</span>
-                        </span>
-                    </div>
-                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--glass-border);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">
-                            <span><i class="fas fa-clock" style="margin-left: 5px;"></i> ${matchTime || '--:--'}</span>
-                            <span><i class="fas fa-calendar" style="margin-left: 5px;"></i> ${match.matchDay}</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary);">
-                            <i class="fas fa-map-marker-alt" style="color: var(--accent-gold);"></i>
-                            <span>${stadium}${city ? ' - ' + city : ''}</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 12px;">
-                        <span class="match-status ${match.status?.toLowerCase() || 'upcoming'}">${match.statusText || 'قادمة'}</span>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
         });
 
+        updateLastRefreshTime();
+        nextUpdate = new Date().getTime() + UPDATE_INTERVAL;
+        
+        if (showNotification) {
+            showNotificationToast(`✅ تم تحميل ${matches.length} مباراة بنجاح`);
+        }
+
+    } catch (error) {
+        console.error('❌ فشل تحميل البيانات:', error);
+        const container = document.getElementById('results-container');
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">حدث خطأ في تحميل البيانات</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">${error.message}</p>
+                <button onclick="loadMatches(true)" style="
+                    margin-top: 20px;
+                    background: var(--accent-gold);
+                    color: #0f172a;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    font-family: 'Tajawal', sans-serif;
+                    font-weight: 700;
+                    cursor: pointer;
+                ">
+                    <i class="fas fa-sync-alt"></i> إعادة المحاولة
+                </button>
+            </div>
+        `;
+        if (showNotification) showNotificationToast('❌ فشل تحديث البيانات', true);
+    }
+}
         // تحديث وقت آخر تحديث
         updateLastRefreshTime();
         
