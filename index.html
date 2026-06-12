@@ -245,6 +245,28 @@
         }
     </style>
 </head>
+<!-- زر المشاهدة العائم -->
+<a href="https://texas4tv.com/" target="_blank" rel="noopener noreferrer" 
+   style="position: fixed; bottom: 25px; left: 25px; z-index: 999;
+          background: linear-gradient(135deg, #ef4444, #dc2626);
+          color: white; text-decoration: none;
+          width: 65px; height: 65px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.8rem; box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+          transition: all 0.3s ease; animation: float-bounce 3s ease-in-out infinite;"
+   title="مشاهدة البث المباشر للمباريات"
+   onmouseover="this.style.transform='scale(1.15) rotate(10deg)'"
+   onmouseout="this.style.transform='scale(1) rotate(0)'">
+    <i class="fas fa-tv"></i>
+</a>
+
+<style>
+    @keyframes float-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+</style>
+    
 <body>
 
     <!-- الشريط المتحرك -->
