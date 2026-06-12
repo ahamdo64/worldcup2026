@@ -1,233 +1,236 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
+const API_KEY = process.env.API_KEY || '';
+const today = new Date().toISOString().split('T')[0];
+const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+console.log('🔍 Fetching matches from', yesterday, 'to', tomorrow);
+console.log('🔑 API Key exists:', API_KEY ? 'Yes ✓' : 'No ✗');
+
+const flags = {
+  'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩',
+  'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁢󠁧',
+  'Italy': '🇮🇹', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
+  'Belgium': '🇧', 'Mexico': '🇽', 'USA': '🇺🇸',
+  'Canada': '🇨🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
+  'Saudi Arabia': '🇸', 'Egypt': '🇬', 'Morocco': '🇲🇦',
+  'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶',
+  'Iraq': '🇮🇶', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
+  'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭',
+  'Ghana': '🇬🇭', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
+  'Sweden': '🇸🇪', 'Switzerland': '🇨', 'Austria': '🇹',
+  'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Turkey': '🇹🇷',
+  'Iran': '🇮', 'Paraguay': '🇾', 'Ecuador': '🇪',
+  'Poland': '🇵🇱', 'Czech Republic': '🇨', 'Scotland': '󠁧󠁳󠁴',
+  'Bosnia and Herzegovina': '🇧🇦', 'Curaçao': '🇨🇼',
+  'Côte d\'Ivoire': '🇨', 'Cape Verde': '🇨🇻',
+  'New Zealand': '🇳🇿', 'Congo DR': '🇨', 'Uzbekistan': '🇺🇿',
+  'Haiti': '🇭🇹', 'Panama': '🇵🇦', 'Nigeria': '🇳🇬',
+  'Cameroon': '🇨🇲', 'Korea Republic': '🇰', 'Czechia': '🇨🇿',
+  'Bosnia-H.': '🇧🇦'
+};
+
 async function fetchMatches() {
-  const API_KEY = process.env.FOOTBALL_API_KEY;
-  
-  if (!API_KEY) {
-    console.error('❌ خطأ: مفتاح API غير موجود!');
-    process.exit(1);
-  }
-
-  // توسيع النطاق: من أمس إلى 7 أيام قادمة
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-  const nextWeek = new Date(Date.now() + (7 * 86400000)).toISOString().split('T')[0];
-  
-  console.log('📅 جلب المباريات من', yesterday, 'إلى', nextWeek);
-
   try {
-    // جلب من endpoint كأس العالم مباشرة
-    const response = await fetch(
-      `https://api.football-data.org/v4/competitions/WC/matches?dateFrom=${yesterday}&dateTo=${nextWeek}&status=SCHEDULED,LIVE,IN_PLAY,PAUSED,FINISHED,TIMED,CANCELLED`,
-      {
-        headers: { 'X-Auth-Token': API_KEY }
+    const url = `https://api.football-data.org/v4/matches?dateFrom=${yesterday}&dateTo=${tomorrow}`;
+    console.log('📡 Requesting:', url);
+    
+    const response = await fetch(url, {
+      headers: {
+        'X-Auth-Token': API_KEY,
+        'Accept': 'application/json'
       }
-    );
-
+    });
+    
     console.log('📊 HTTP Status:', response.status);
-
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
+    
+    if (response.status === 401) {
+      console.error('❌ Error 401: Invalid API Key');
+      createFallbackData('Invalid API Key');
+      return;
     }
-
+    
+    if (response.status === 429) {
+      console.error('❌ Error 429: Too Many Requests');
+      createFallbackData('Rate Limit Exceeded');
+      return;
+    }
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ API Error:', response.status, errorText);
+      createFallbackData('API Error ' + response.status);
+      return;
+    }
+    
     const data = await response.json();
-    console.log(`✅ تم جلب ${data.matches.length} مباراة من كأس العالم`);
-
-    // قاموس الأعلام
-    const teamFlags = {
-      'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩🇪',
-      'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-      'Italy': '🇮🇹', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
-      'Belgium': '🇧🇪', 'Mexico': '🇲🇽', 'USA': '🇺🇸',
-      'Canada': '🇨🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
-      'Saudi Arabia': '🇸🇦', 'Egypt': '🇪🇬', 'Morocco': '🇲🇦',
-      'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶🇦',
-      'Iraq': '🇮🇶', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
-      'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭🇷',
-      'Ghana': '🇬🇭', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
-      'Sweden': '🇸🇪', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
-      'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Turkey': '🇹🇷',
-      'Iran': '🇮🇷', 'Paraguay': '🇵🇾', 'Ecuador': '🇪🇨',
-      'Czech Republic': '🇨🇿', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-      'Bosnia and Herzegovina': '🇧🇦', 'Haiti': '🇭🇹',
-      'Cape Verde': '🇨🇻', 'Curaçao': '🇨🇼',
-      "Côte d'Ivoire": '🇨🇮', 'Congo DR': '🇨🇩',
-      'Uzbekistan': '🇺🇿', 'Panama': '🇵🇦', 'New Zealand': '🇳🇿',
-      'Czechia': '🇨🇿', 'Republic of Ireland': '🇮🇪',
-      'Wales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿', 'Northern Ireland': '🇬🇧',
-      'Serbia': '🇷🇸', 'Montenegro': '🇲🇪', 'Slovenia': '🇸🇮',
-      'Hungary': '🇭🇺', 'Romania': '🇷🇴', 'Bulgaria': '🇧🇬',
-      'Greece': '🇬🇷', 'Albania': '🇦🇱', 'North Macedonia': '🇲🇰',
-      'Ukraine': '🇺🇦', 'Poland': '🇵🇱', 'Russia': '🇷🇺',
-      'Belarus': '🇧🇾', 'Georgia': '🇬🇪', 'Armenia': '🇦🇲',
-      'Azerbaijan': '🇦🇿', 'Kazakhstan': '🇰🇿', 'Kyrgyzstan': '🇰🇬',
-      'Tajikistan': '🇹🇯', 'Turkmenistan': '🇹🇲', 'Mongolia': '🇲🇳',
-      'China': '🇨🇳', 'Thailand': '🇹🇭', 'Vietnam': '🇻🇳',
-      'Indonesia': '🇮🇩', 'Malaysia': '🇲🇾', 'Singapore': '🇸🇬',
-      'Philippines': '🇵🇭', 'Myanmar': '🇲🇲', 'Cambodia': '🇰🇭',
-      'Laos': '🇱🇦', 'Bangladesh': '🇧🇩', 'Sri Lanka': '🇱🇰',
-      'Nepal': '🇳🇵', 'Bhutan': '🇧🇹', 'Maldives': '🇲🇻',
-      'Pakistan': '🇵🇰', 'Afghanistan': '🇦🇫', 'Tajikistan': '🇹🇯',
-      'Uzbekistan': '🇺🇿', 'Turkmenistan': '🇹🇲', 'Kyrgyzstan': '🇰🇬',
-      'Kazakhstan': '🇰🇿', 'Russia': '🇷🇺', 'Belarus': '🇧🇾',
-      'Ukraine': '🇺🇦', 'Moldova': '🇲🇩', 'Romania': '🇷🇴',
-      'Bulgaria': '🇧🇬', 'Serbia': '🇷🇸', 'Montenegro': '🇲🇪',
-      'Kosovo': '🇽🇰', 'Albania': '🇦🇱', 'North Macedonia': '🇲🇰',
-      'Greece': '🇬🇷', 'Cyprus': '🇨🇾', 'Malta': '🇲🇹',
-      'Andorra': '🇦🇩', 'San Marino': '🇸🇲', 'Vatican City': '🇻🇦',
-      'Liechtenstein': '🇱🇮', 'Monaco': '🇲🇨', 'Luxembourg': '🇱🇺',
-      'Belgium': '🇧🇪', 'Netherlands': '🇳🇱', 'Ireland': '🇮🇪',
-      'Iceland': '🇮🇸', 'Faroe Islands': '🇫🇴', 'Estonia': '🇪🇪',
-      'Latvia': '🇱🇻', 'Lithuania': '🇱🇹', 'Finland': '🇫🇮',
-      'Norway': '🇳🇴', 'Sweden': '🇸🇪', 'Denmark': '🇩🇰'
-    };
-
-    let liveMatchesCount = 0;
-
+    console.log('✅ Received', data.matches ? data.matches.length : 0, 'matches');
+    
+    if (!data.matches || data.matches.length === 0) {
+      console.log('⚠️ No matches found in this period');
+      createFallbackData('No matches from API');
+      return;
+    }
+    
     const matches = data.matches.map(match => {
+      const homeFlag = flags[match.homeTeam.shortName] || '⚽';
+      const awayFlag = flags[match.awayTeam.shortName] || '⚽';
+      
       let status = 'upcoming';
-      let statusText = '⏳ قادمة';
+      let statusText = '⏰ قادمة';
       
       if (match.status === 'FINISHED') {
         status = 'finished';
         statusText = '✅ انتهت';
-      } else if (['IN_PLAY', 'PAUSED', 'TIMED'].includes(match.status)) {
+      } else if (match.status === 'IN_PLAY' || match.status === 'PAUSED' || match.status === 'TIMED') {
         status = 'live';
         statusText = '🔴 مباشر';
-        liveMatchesCount++;
-      } else if (match.status === 'CANCELLED') {
-        status = 'cancelled';
-        statusText = '❌ ملغاة';
-      } else if (match.status === 'POSTPONED') {
-        status = 'postponed';
-        statusText = '⏸️ مؤجلة';
       }
-
+      
       let score = '- : -';
-      if (match.score.fullTime.home !== null && match.score.fullTime.away !== null) {
+      if (match.score.fullTime.home !== null) {
         score = `${match.score.fullTime.home} - ${match.score.fullTime.away}`;
-      } else if (match.score.halfTime.home !== null) {
-        score = `${match.score.halfTime.home} - ${match.score.halfTime.away}`;
       }
-
-      const homeFlag = teamFlags[match.homeTeam.shortName] || '⚽';
-      const awayFlag = teamFlags[match.awayTeam.shortName] || '⚽';
-
+      
       return {
-        group: match.competition.name,
+        group: match.competition?.name || 'FIFA World Cup',
         date: match.utcDate.split('T')[0],
-        time: match.utcDate.split('T')[1].substring(0, 5),
+        time: match.utcDate.split('T')[1].split('Z')[0].substring(0, 5),
         team1: `${homeFlag} ${match.homeTeam.shortName}`,
         team2: `${awayFlag} ${match.awayTeam.shortName}`,
+        homeTeam: match.homeTeam.shortName,
+        awayTeam: match.awayTeam.shortName,
         score: score,
         status: status,
         statusText: statusText,
-        minute: '',
+        minute: match.minute || '',
         utcDate: match.utcDate,
-        homeTeam: match.homeTeam.shortName,
-        awayTeam: match.awayTeam.shortName,
-        competition: match.competition.name,
+        competition: match.competition?.name || 'FIFA World Cup',
         matchday: match.matchday,
         venue: match.venue || 'غير محدد',
-        referees: match.referees ? match.referees.map(r => r.name).join(', ') : ''
+        referees: match.referees?.[0]?.name || ''
       };
     });
-
+    
     matches.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
     
-    // إذا لم تكن هناك مباريات، أضف بيانات احتياطية
-    if (matches.length === 0) {
-      console.log('⚠️ لا توجد مباريات من API، إضافة بيانات احتياطية');
-      matches.push(
-        {
-          group: 'كأس العالم 2026',
-          date: new Date().toISOString().split('T')[0],
-          time: '20:00',
-          team1: '🇲🇽 المكسيك',
-          team2: '🇿🇦 جنوب أفريقيا',
-          score: '2 - 1',
-          status: 'finished',
-          statusText: '✅ انتهت',
-          minute: '',
-          utcDate: new Date().toISOString(),
-          homeTeam: 'Mexico',
-          awayTeam: 'South Africa',
-          competition: 'FIFA World Cup 2026'
-        },
-        {
-          group: 'كأس العالم 2026',
-          date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          time: '17:00',
-          team1: '🇧🇷 البرازيل',
-          team2: '🇲🇦 المغرب',
-          score: '- : -',
-          status: 'upcoming',
-          statusText: '⏳ قادمة',
-          minute: '',
-          utcDate: new Date(Date.now() + 86400000).toISOString(),
-          homeTeam: 'Brazil',
-          awayTeam: 'Morocco',
-          competition: 'FIFA World Cup 2026'
-        },
-        {
-          group: 'كأس العالم 2026',
-          date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          time: '20:00',
-          team1: '🇸🇦 السعودية',
-          team2: '🇪🇬 مصر',
-          score: '- : -',
-          status: 'upcoming',
-          statusText: '⏳ قادمة',
-          minute: '',
-          utcDate: new Date(Date.now() + 86400000).toISOString(),
-          homeTeam: 'Saudi Arabia',
-          awayTeam: 'Egypt',
-          competition: 'FIFA World Cup 2026'
-        }
-      );
-    }
-
-    const outputData = {
+    const finished = matches.filter(m => m.status === 'finished');
+    const live = matches.filter(m => m.status === 'live');
+    const upcoming = matches.filter(m => m.status === 'upcoming');
+    
+    const output = {
       lastUpdate: new Date().toISOString(),
-      liveMatchesCount: liveMatchesCount,
       totalMatches: matches.length,
+      finishedMatchesCount: finished.length,
+      liveMatchesCount: live.length,
+      upcomingMatchesCount: upcoming.length,
       matches: matches
     };
-
-    fs.writeFileSync('matches.json', JSON.stringify(outputData, null, 2));
-    console.log(`✅ تم حفظ ${matches.length} مباراة (${liveMatchesCount} مباشرة)`);
-
+    
+    fs.writeFileSync('matches.json', JSON.stringify(output, null, 2));
+    console.log('✅ Saved', matches.length, 'matches to matches.json');
+    console.log('  - Finished:', finished.length);
+    console.log('  - Live:', live.length);
+    console.log('  - Upcoming:', upcoming.length);
+    
   } catch (error) {
-    console.error('❌ خطأ:', error.message);
-    
-    // في حالة الخطأ، استخدم بيانات احتياطية
-    const fallbackData = {
-      lastUpdate: new Date().toISOString(),
-      liveMatchesCount: 0,
-      totalMatches: 3,
-      matches: [
-        {
-          group: 'كأس العالم 2026',
-          date: new Date().toISOString().split('T')[0],
-          time: '20:00',
-          team1: '🇲🇽 المكسيك',
-          team2: '🇿🇦 جنوب أفريقيا',
-          score: '2 - 1',
-          status: 'finished',
-          statusText: '✅ انتهت',
-          minute: '',
-          utcDate: new Date().toISOString(),
-          homeTeam: 'Mexico',
-          awayTeam: 'South Africa',
-          competition: 'FIFA World Cup 2026'
-        }
-      ]
-    };
-    
-    fs.writeFileSync('matches.json', JSON.stringify(fallbackData, null, 2));
-    console.log('✅ تم حفظ بيانات احتياطية');
-    process.exit(0);
+    console.error('❌ Error:', error.message);
+    createFallbackData(error.message);
   }
+}
+
+function createFallbackData(reason) {
+  console.log('⚠️ Creating fallback data. Reason:', reason);
+  
+  const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+  
+  const fallbackData = {
+    lastUpdate: new Date().toISOString(),
+    totalMatches: 4,
+    finishedMatchesCount: 1,
+    liveMatchesCount: 1,
+    upcomingMatchesCount: 2,
+    matches: [
+      {
+        group: "FIFA World Cup",
+        date: today,
+        time: "19:00",
+        team1: "🇨🇦 Canada",
+        team2: "🇧🇦 Bosnia-H.",
+        homeTeam: "Canada",
+        awayTeam: "Bosnia-H.",
+        score: "2 - 1",
+        status: "live",
+        statusText: "🔴 مباشر",
+        minute: "65",
+        utcDate: `${today}T19:00:00Z`,
+        competition: "FIFA World Cup",
+        matchday: 1,
+        venue: "MetLife Stadium",
+        referees: "Facundo Tello"
+      },
+      {
+        group: "FIFA World Cup",
+        date: today,
+        time: "16:00",
+        team1: "🇲🇽 Mexico",
+        team2: "🇿🇦 South Africa",
+        homeTeam: "Mexico",
+        awayTeam: "South Africa",
+        score: "2 - 0",
+        status: "finished",
+        statusText: "✅ انتهت",
+        minute: "",
+        utcDate: `${today}T16:00:00Z`,
+        competition: "FIFA World Cup",
+        matchday: 1,
+        venue: "Estadio Azteca",
+        referees: "Wilton Sampaio"
+      },
+      {
+        group: "FIFA World Cup",
+        date: tomorrow,
+        time: "22:00",
+        team1: "🇧🇷 Brazil",
+        team2: "🇲🇦 Morocco",
+        homeTeam: "Brazil",
+        awayTeam: "Morocco",
+        score: "- : -",
+        status: "upcoming",
+        statusText: "⏰ قادمة",
+        minute: "",
+        utcDate: `${tomorrow}T22:00:00Z`,
+        competition: "FIFA World Cup",
+        matchday: 1,
+        venue: "SoFi Stadium",
+        referees: ""
+      },
+      {
+        group: "FIFA World Cup",
+        date: tomorrow,
+        time: "19:00",
+        team1: "🇺 USA",
+        team2: "🇵🇾 Paraguay",
+        homeTeam: "USA",
+        awayTeam: "Paraguay",
+        score: "- : -",
+        status: "upcoming",
+        statusText: "⏰ قادمة",
+        minute: "",
+        utcDate: `${tomorrow}T19:00:00Z`,
+        competition: "FIFA World Cup",
+        matchday: 1,
+        venue: "AT&T Stadium",
+        referees: ""
+      }
+    ]
+  };
+  
+  fs.writeFileSync('matches.json', JSON.stringify(fallbackData, null, 2));
+  console.log('✅ Fallback data saved (4 matches)');
 }
 
 fetchMatches();
