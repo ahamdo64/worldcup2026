@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body { 
             font-family: 'Tajawal', sans-serif; 
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
@@ -19,15 +18,7 @@
             align-items: center;
             justify-content: center;
         }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-            color: #fbbf24;
-            text-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
-        }
-
+        h1 { font-size: 2.5rem; margin-bottom: 40px; color: #fbbf24; text-align: center; }
         .stat-box {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -37,46 +28,16 @@
             max-width: 500px;
             width: 100%;
             border: 2px solid #fbbf24;
-            box-shadow: 0 10px 40px rgba(251, 191, 36, 0.2);
             text-align: center;
-            transition: transform 0.3s ease;
         }
-
-        .stat-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(251, 191, 36, 0.3);
-        }
-
-        .stat-label {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            margin-bottom: 15px;
-        }
-
+        .stat-label { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 15px; }
         .stat-number {
             font-size: 3.5rem;
             font-weight: 900;
             color: #fbbf24;
             margin: 10px 0;
-            text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
         }
-
-        .stat-number.loading {
-            font-size: 1.5rem;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .stat-number.error {
-            font-size: 1.2rem;
-            color: #ef4444;
-        }
-
-        .last-update {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            margin-top: 10px;
-        }
-
+        .stat-number.error { font-size: 1.2rem; color: #ef4444; }
         .back-link {
             margin-top: 30px;
             color: #fbbf24;
@@ -86,50 +47,17 @@
             padding: 12px 30px;
             border: 2px solid #fbbf24;
             border-radius: 30px;
-            transition: all 0.3s ease;
             display: inline-block;
         }
-
-        .back-link:hover {
-            background: #fbbf24;
-            color: #0f172a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
-        }
-
-        .refresh-btn {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #0f172a;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
+        .back-link:hover { background: #fbbf24; color: #0f172a; }
+        .info-box {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid #fbbf24;
+            padding: 15px;
+            border-radius: 10px;
             margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .refresh-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
-        }
-
-        .refresh-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .stat-number { font-size: 2.5rem; }
-            .stat-box { padding: 30px 20px; }
+            font-size: 0.9rem;
+            color: #cbd5e1;
         }
     </style>
 </head>
@@ -138,81 +66,105 @@
     
     <div class="stat-box">
         <div class="stat-label">إجمالي الزيارات</div>
-        <div class="stat-number loading" id="total-visits">جاري التحميل...</div>
-        <div class="last-update" id="last-update">-</div>
+        <div class="stat-number" id="total-visits">جاري التحميل...</div>
+        <div id="visit-info" style="color: #94a3b8; font-size: 0.9rem; margin-top: 10px;"></div>
     </div>
 
-    <button class="refresh-btn" onclick="loadStats()" id="refresh-btn">
-        🔄 تحديث البيانات
-    </button>
+    <div class="stat-box">
+        <div class="stat-label">عدد زيارات هذه الصفحة</div>
+        <div class="stat-number" id="page-visits">-</div>
+    </div>
     
     <a href="index.html" class="back-link">← العودة للموقع</a>
 
+    <div class="info-box">
+        💡 <strong>ملاحظة:</strong> يتم حساب الزيارات محلياً في متصفحك.<br>
+        لإحصائيات دقيقة، يمكنك استخدام Google Analytics.
+    </div>
+
     <script>
-        async function loadStats() {
-            const visitsEl = document.getElementById('total-visits');
-            const updateEl = document.getElementById('last-update');
-            const refreshBtn = document.getElementById('refresh-btn');
+        // ============================================
+        // نظام الإحصائيات المحلي (LocalStorage)
+        // ============================================
+        
+        function getVisitsFromStorage() {
+            // جلب العدد الإجمالي من localStorage
+            let totalVisits = localStorage.getItem('totalSiteVisits') || 0;
+            let pageVisits = localStorage.getItem('statsPageVisits') || 0;
+            let firstVisit = localStorage.getItem('firstVisitDate') || new Date().toLocaleString('ar-EG');
             
+            // زيادة العداد
+            totalVisits = parseInt(totalVisits) + 1;
+            pageVisits = parseInt(pageVisits) + 1;
+            
+            // حفظ القيم المحدثة
+            localStorage.setItem('totalSiteVisits', totalVisits);
+            localStorage.setItem('statsPageVisits', pageVisits);
+            localStorage.setItem('firstVisitDate', firstVisit);
+            localStorage.setItem('lastVisit', new Date().toLocaleString('ar-EG'));
+            
+            return {
+                total: totalVisits,
+                page: pageVisits,
+                first: firstVisit,
+                last: localStorage.getItem('lastVisit')
+            };
+        }
+
+        // محاولة جلب من countapi.xyz أولاً
+        async function fetchFromAPI() {
             try {
-                // تعطيل الزر أثناء التحميل
-                refreshBtn.disabled = true;
-                refreshBtn.innerHTML = '⏳ جاري التحديث...';
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000); // مهلة 5 ثواني
                 
-                visitsEl.classList.remove('error');
-                visitsEl.classList.add('loading');
-                
-                // استخدام الرابط الكامل مع https
-                const response = await fetch('https://api.countapi.xyz/get/ahmed-omran-wwc2026-guide/visits', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
+                const response = await fetch(
+                    'https://api.countapi.xyz/get/ahmed-omran-wwc2026-guide/visits',
+                    { 
+                        signal: controller.signal,
+                        headers: { 'Accept': 'application/json' }
                     }
-                });
+                );
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) throw new Error('API غير متاح');
                 
                 const data = await response.json();
-                
-                // عرض العدد منسقاً
-                const totalVisits = data.value.toLocaleString('ar-EG');
-                visitsEl.innerText = totalVisits;
-                visitsEl.classList.remove('loading');
-                
-                // تحديث وقت آخر تحديث
-                const now = new Date();
-                const timeString = now.toLocaleString('ar-EG', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                updateEl.innerText = `آخر تحديث: ${timeString}`;
+                return { success: true, count: data.value };
                 
             } catch (error) {
-                console.error('فشل جلب الإحصائيات:', error);
-                
-                visitsEl.classList.remove('loading');
-                visitsEl.classList.add('error');
-                visitsEl.innerText = '❌ فشل التحميل';
-                updateEl.innerText = `خطأ: ${error.message}`;
-                
-            } finally {
-                // إعادة تفعيل الزر
-                refreshBtn.disabled = false;
-                refreshBtn.innerHTML = '🔄 تحديث البيانات';
+                console.log('❌ فشل جلب البيانات من API، استخدام localStorage');
+                return { success: false, error: error.message };
             }
         }
 
-        // تحميل البيانات عند فتح الصفحة
+        // الدالة الرئيسية
+        async function loadStats() {
+            const visitsEl = document.getElementById('total-visits');
+            const pageVisitsEl = document.getElementById('page-visits');
+            const visitInfoEl = document.getElementById('visit-info');
+            
+            // محاولة API أولاً
+            const apiResult = await fetchFromAPI();
+            
+            if (apiResult.success) {
+                // نجح API
+                visitsEl.innerText = apiResult.count.toLocaleString('ar-EG');
+                visitInfoEl.innerText = '📊 بيانات من خادم خارجي';
+            } else {
+                // فشل API، استخدام localStorage
+                const stats = getVisitsFromStorage();
+                visitsEl.innerText = stats.total.toLocaleString('ar-EG');
+                visitInfoEl.innerText = `💻 بيانات محلية (من ${stats.first})`;
+            }
+            
+            // عدد زيارات صفحة الإحصائيات
+            const stats = getVisitsFromStorage();
+            pageVisitsEl.innerText = stats.page.toLocaleString('ar-EG');
+        }
+
+        // تحميل عند فتح الصفحة
         document.addEventListener('DOMContentLoaded', loadStats);
-        
-        // تحديث تلقائي كل 30 ثانية
-        setInterval(loadStats, 30000);
     </script>
 </body>
 </html>
