@@ -28,14 +28,16 @@ jobs:
           const fs = require('fs');
 
           const API_KEY = process.env.API_KEY;
-          const today = new Date().toISOString().split('T')[0];
-          const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+          
+          // جلب مباريات من 30 يوم ماضية إلى 30 يوم قادمة
+          const dateFrom = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+          const dateTo = new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0];
 
-          console.log(`🔍 Fetching matches from ${today} to ${tomorrow}`);
+          console.log(`🔍 Fetching matches from ${dateFrom} to ${dateTo}`);
 
           const options = {
             hostname: 'api.football-data.org',
-            path: `/v4/matches?dateFrom=${today}&dateTo=${tomorrow}`,
+            path: `/v4/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`,
             headers: {
               'X-Auth-Token': API_KEY
             }
@@ -54,26 +56,25 @@ jobs:
               const response = JSON.parse(data);
               console.log(`✅ Received ${response.matches.length} matches`);
 
-              // قاموس الأعلام
               const flags = {
-                'Brazil': '🇧🇷', 'Argentina': '🇦', 'Germany': '🇩🇪',
-                'France': '🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-                'Italy': '🇮', 'Portugal': '🇵', 'Netherlands': '🇳',
+                'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩🇪',
+                'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+                'Italy': '🇮🇹', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
                 'Belgium': '🇧🇪', 'Mexico': '🇲🇽', 'USA': '🇺🇸',
-                'Canada': '🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
-                'Saudi Arabia': '🇸🇦', 'Egypt': '🇬', 'Morocco': '🇦',
+                'Canada': '🇨🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
+                'Saudi Arabia': '🇸🇦', 'Egypt': '🇪🇬', 'Morocco': '🇲🇦',
                 'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶🇦',
-                'Iraq': '🇮', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
-                'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭',
-                'Ghana': '🇬🇭', 'Senegal': '🇳', 'South Africa': '🇦',
+                'Iraq': '🇮🇶', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
+                'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭🇷',
+                'Ghana': '🇬🇭', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
                 'Sweden': '🇸🇪', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
                 'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Turkey': '🇹🇷',
                 'Iran': '🇮🇷', 'Paraguay': '🇵🇾', 'Ecuador': '🇪🇨',
-                'Poland': '🇵🇱', 'Czech Republic': '🇿', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+                'Poland': '🇵🇱', 'Czech Republic': '🇨🇿', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
                 'Bosnia-H.': '🇧🇦', 'Curaçao': '🇨🇼', 'Côte d\'Ivoire': '🇨🇮',
-                'Cape Verde': '🇨', 'New Zealand': '🇳', 'Congo DR': '🇨🇩',
+                'Cape Verde': '🇨🇻', 'New Zealand': '🇳🇿', 'Congo DR': '🇨🇩',
                 'Uzbekistan': '🇺🇿', 'Haiti': '🇭🇹', 'Panama': '🇵🇦',
-                'Nigeria': '🇳', 'Cameroon': '🇨🇲', 'Korea Republic': '🇰🇷',
+                'Nigeria': '🇳🇬', 'Cameroon': '🇨🇲', 'Korea Republic': '🇰🇷',
                 'Czechia': '🇨🇿'
               };
 
@@ -89,7 +90,10 @@ jobs:
                   statusText = '✅ انتهت';
                 } else if (match.status === 'IN_PLAY' || match.status === 'PAUSED' || match.status === 'TIMED') {
                   status = 'live';
-                  statusText = ' مباشر';
+                  statusText = '🔴 مباشر';
+                } else if (match.status === 'SCHEDULED' || match.status === 'TIMED') {
+                  status = 'scheduled';
+                  statusText = '⏰ مجدولة';
                 }
 
                 let score = '- : -';
@@ -120,16 +124,26 @@ jobs:
               // ترتيب حسب التاريخ
               matches.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
 
+              // إحصائيات
+              const finishedMatches = matches.filter(m => m.status === 'finished');
+              const liveMatches = matches.filter(m => m.status === 'live');
+              const upcomingMatches = matches.filter(m => m.status === 'scheduled' || m.status === 'upcoming');
+
               const output = {
                 lastUpdate: new Date().toISOString(),
-                liveMatchesCount: matches.filter(m => m.status === 'live').length,
                 totalMatches: matches.length,
+                finishedMatchesCount: finishedMatches.length,
+                liveMatchesCount: liveMatches.length,
+                upcomingMatchesCount: upcomingMatches.length,
                 matches: matches
               };
 
               fs.writeFileSync('matches.json', JSON.stringify(output, null, 2));
+              
               console.log(`✅ Saved ${matches.length} matches to matches.json`);
-              console.log(`🔴 Live matches: ${output.liveMatchesCount}`);
+              console.log(`✅ Finished: ${finishedMatches.length}`);
+              console.log(`🔴 Live: ${liveMatches.length}`);
+              console.log(`⏰ Upcoming: ${upcomingMatches.length}`);
             });
           });
 
