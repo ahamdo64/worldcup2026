@@ -327,6 +327,20 @@
     <main class="container">
         <!-- صفحة النتائج -->
         <section id="results-section" class="tab-content active">
+            <section id="results-section" class="tab-content active">
+    <h2 class="section-title"><i class="fas fa-fire"></i> مباريات اليوم والغد</h2>
+    
+    <!-- تلميح لمشاهدي سوريا -->
+    <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05)); border: 2px solid #3b82f6; border-radius: 12px; padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-size: 0.95rem;">
+        <i class="fas fa-info-circle" style="color: #3b82f6; font-size: 1.3rem;"></i>
+        <div>
+            <strong style="color: #3b82f6;">لمشاهدي سوريا 🇸🇾:</strong>
+            <span style="color: var(--text-secondary);">يجب إضافة <strong style="color: #fbbf24;">3 ساعات</strong> على التوقيت الموجود عند كل مباراة</span>
+        </div>
+    </div>
+    
+    <div class="refresh-bar">
+        ...
             <h2 class="section-title"><i class="fas fa-fire"></i> مباريات اليوم والغد</h2>
             
             <div class="refresh-bar">
@@ -356,23 +370,462 @@
 
         <!-- صفحة الجدول -->
         <section id="schedule-section" class="tab-content">
-            <section id="groups">
-                <h2 class="section-title"><i class="fas fa-th-large"></i> توزيع المجموعات</h2>
-                <div class="groups-grid">
-                    <div class="group-card"><div class="group-header"><div class="group-badge">1</div><span>المجموعة الأولى</span></div><ul class="teams-list"><li>🇲🇽 المكسيك</li><li>🇦 جنوب أفريقيا</li><li>🇰🇷 كوريا الجنوبية</li><li>🇨🇿 جمهورية التشيك</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">2</div><span>المجموعة الثانية</span></div><ul class="teams-list"><li>🇨🇦 كندا</li><li>🇧🇦 البوسنة</li><li class="arab-team">🇶 قطر</li><li>🇨 سويسرا</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">3</div><span>المجموعة الثالثة</span></div><ul class="teams-list"><li>🇧 البرازيل</li><li class="arab-team">🇲🇦 المغرب</li><li>🇭🇹 هايتي</li><li>🏴󠁧󠁳󠁣󠁿 إسكتلندا</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">4</div><span>المجموعة الرابعة</span></div><ul class="teams-list"><li>🇺🇸 الولايات المتحدة</li><li>🇵🇾 باراغواي</li><li>🇦🇺 أستراليا</li><li>🇹🇷 تركيا</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">5</div><span>المجموعة الخامسة</span></div><ul class="teams-list"><li>🇩🇪 ألمانيا</li><li>🇨🇼 كوراساو</li><li>🇨🇮 كوت ديفوار</li><li>🇪🇨 الإكوادور</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">6</div><span>المجموعة السادسة</span></div><ul class="teams-list"><li>🇳🇱 هولندا</li><li>🇯🇵 اليابان</li><li>🇸🇪 السويد</li><li class="arab-team">🇹🇳 تونس</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">7</div><span>المجموعة السابعة</span></div><ul class="teams-list"><li>🇧 بلجيكا</li><li class="arab-team">🇪🇬 مصر</li><li>🇮🇷 إيران</li><li>🇳🇿 نيوزيلندا</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">8</div><span>المجموعة الثامنة</span></div><ul class="teams-list"><li>🇪🇸 إسبانيا</li><li>🇨🇻 الرأس الأخضر</li><li class="arab-team">🇦 السعودية</li><li>🇺🇾 أوروغواي</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">9</div><span>المجموعة التاسعة</span></div><ul class="teams-list"><li>🇫🇷 فرنسا</li><li>🇸🇳 السنغال</li><li class="arab-team">🇶 العراق</li><li>🇴 النرويج</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">10</div><span>المجموعة العاشرة</span></div><ul class="teams-list"><li>🇷 الأرجنتين</li><li class="arab-team">🇩🇿 الجزائر</li><li>🇦🇹 النمسا</li><li class="arab-team">🇴 الأردن</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">11</div><span>المجموعة الحادية عشرة</span></div><ul class="teams-list"><li>🇹 البرتغال</li><li>🇩 الكونغو الديمقراطية</li><li>🇺🇿 أوزبكستان</li><li>🇨🇴 كولومبيا</li></ul></div>
-                    <div class="group-card"><div class="group-header"><div class="group-badge">12</div><span>المجموعة الثانية عشرة</span></div><ul class="teams-list"><li>🏴󠁧󠁢󠁥󠁮󠁧󠁿 إنجلترا</li><li>🇭🇷 كرواتيا</li><li>🇬 غانا</li><li>🇵🇦 بنما</li></ul></div>
-                </div>
-            </section>
+    <h2 class="section-title"><i class="fas fa-calendar-alt"></i> مواعيد مباريات كأس العالم 2026 (التوقيت السوري)</h2>
+    
+    <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05)); border: 2px solid var(--accent-gold); border-radius: 16px; padding: 20px; margin-bottom: 30px; text-align: center;">
+        <h3 style="color: var(--accent-gold); margin-bottom: 10px;">📅 جدول الدور الأول الكامل</h3>
+        <p style="color: var(--text-secondary);">جميع الأوقات بتوقيت دمشق (GMT+3) | 11 يونيو - 28 يونيو 2026</p>
+    </div>
+
+    <div class="results-grid">
+        
+        <!-- الخميس 11 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong> الخميس 11 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇲🇽 المكسيك</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 صباحاً</span>
+                <span class="team">🇦 جنوب أفريقيا</span>
+            </div>
+        </div>
+
+        <!-- الجمعة 12 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الجمعة 12 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇰🇷 كوريا الجنوبية</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇨🇿 التشيك</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨🇦 كندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇧🇦 البوسنة والهرسك</span>
+            </div>
+        </div>
+
+        <!-- السبت 13 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 السبت 13 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇺🇸 أمريكا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇵🇾 باراغواي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇶🇦 قطر</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇭 سويسرا</span>
+            </div>
+        </div>
+
+        <!-- الأحد 14 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الأحد 14 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇷 البرازيل</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇲🇦 المغرب</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇭 هايتي</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🏴󠁧󠁢󠁣󠁿 اسكتلندا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇦🇺 أستراليا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇹 تركيا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇩🇪 ألمانيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">8:00 مساءً</span>
+                <span class="team">🇨🇼 كوراساو</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇳🇱 هولندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">11:00 مساءً</span>
+                <span class="team">🇯🇵 اليابان</span>
+            </div>
+        </div>
+
+        <!-- الاثنين 15 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الاثنين 15 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇮 كوت ديفوار</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:00 ظهراً</span>
+                <span class="team">🇪🇨 الإكوادور</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇸🇪 السويد</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">5:00 عصراً</span>
+                <span class="team">🇹🇳 تونس</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇪🇸 إسبانيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇨🇻 كاب فيردي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇧🇪 بلجيكا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇪🇬 مصر</span>
+            </div>
+        </div>
+
+        <!-- الثلاثاء 16 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الثلاثاء 16 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇸 السعودية</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇾 أوروغواي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇮 إيران</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇿 نيوزيلندا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇫🇷 فرنسا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇸🇳 السنغال</span>
+            </div>
+        </div>
+
+        <!-- الأربعاء 17 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong> الأربعاء 17 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇮🇶 العراق</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇳🇴 النرويج</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇦🇷 الأرجنتين</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇩🇿 الجزائر</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇯🇴 الأردن</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇦🇹 النمسا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇵🇹 البرتغال</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">8:00 مساءً</span>
+                <span class="team">🇨🇩 الكونغو الديمقراطية</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🏴󠁧󠁢󠁮󠁧󠁿 إنجلترا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">11:00 مساءً</span>
+                <span class="team">🇭🇷 كرواتيا</span>
+            </div>
+        </div>
+
+        <!-- الخميس 18 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الخميس 18 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇬🇭 غانا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:00 ظهراً</span>
+                <span class="team">🇵🇦 بنما</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇿 أوزبكستان</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">5:00 عصراً</span>
+                <span class="team">🇨🇴 كولومبيا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨 التشيك</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇿🇦 جنوب أفريقيا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨🇭 سويسرا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇧 البوسنة والهرسك</span>
+            </div>
+        </div>
+
+        <!-- الجمعة 19 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الجمعة 19 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇦 قطر</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇨🇦 كندا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇲🇽 المكسيك</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇰🇷 كوريا الجنوبية</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇺🇸 أمريكا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇦🇺 أستراليا</span>
+            </div>
+        </div>
+
+        <!-- السبت 20 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 السبت 20 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🏴󠁧󠁳󠁣󠁿 اسكتلندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇲🇦 المغرب</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇷 البرازيل</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">3:30 عصراً</span>
+                <span class="team">🇭🇹 هايتي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇹 تركيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">6:00 مساءً</span>
+                <span class="team">🇾 باراغواي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇳🇱 هولندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">8:00 مساءً</span>
+                <span class="team">🇸 السويد</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇪 ألمانيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">11:00 مساءً</span>
+                <span class="team">🇨🇮 كوت ديفوار</span>
+            </div>
+        </div>
+
+        <!-- الأحد 21 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الأحد 21 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇪🇨 الإكوادور</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">3:00 عصراً</span>
+                <span class="team">🇨 كوراساو</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇹🇳 تونس</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇯🇵 اليابان</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇸 إسبانيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇸🇦 السعودية</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇧🇪 بلجيكا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇮🇷 إيران</span>
+            </div>
+        </div>
+
+        <!-- الاثنين 22 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الاثنين 22 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇺 أوروغواي</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇨🇻 كاب فيردي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇳🇿 نيوزيلندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇪🇬 مصر</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇦🇷 الأرجنتين</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">8:00 مساءً</span>
+                <span class="team">🇦 النمسا</span>
+            </div>
+        </div>
+
+        <!-- الثلاثاء 23 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong> الثلاثاء 23 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇫🇷 فرنسا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">12:00 منتصف الليل</span>
+                <span class="team">🇮 العراق</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇳🇴 النرويج</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">3:00 عصراً</span>
+                <span class="team">🇸🇳 السنغال</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇯🇴 الأردن</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">6:00 مساءً</span>
+                <span class="team">🇩🇿 الجزائر</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇹 البرتغال</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">8:00 مساءً</span>
+                <span class="team">🇺🇿 أوزبكستان</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🏴󠁢󠁥󠁧󠁿 إنجلترا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">11:00 مساءً</span>
+                <span class="team">🇬 غانا</span>
+            </div>
+        </div>
+
+        <!-- الأربعاء 24 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الأربعاء 24 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇭🇷 كرواتيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:00 ظهراً</span>
+                <span class="team">🇵🇦 بنما</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨🇴 كولومبيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">5:00 عصراً</span>
+                <span class="team">🇨 الكونغو الديمقراطية</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨🇭 سويسرا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇨 كندا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇧🇦 البوسنة والهرسك</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇶 قطر</span>
+            </div>
+        </div>
+
+        <!-- الخميس 25 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong> الخميس 25 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🏴󠁢󠁳󠁴󠁿 اسكتلندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">1:00 ظهراً</span>
+                <span class="team">🇧🇷 البرازيل</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇲🇦 المغرب</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇭🇹 هايتي</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇿 التشيك</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇲🇽 المكسيك</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇿 جنوب أفريقيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">4:00 عصراً</span>
+                <span class="team">🇰🇷 كوريا الجنوبية</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇪🇨 الإكوادور</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇩 ألمانيا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨🇼 كوراساو</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">7:00 مساءً</span>
+                <span class="team">🇨🇮 كوت ديفوار</span>
+            </div>
+        </div>
+
+        <!-- الجمعة 26 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong> الجمعة 26 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇹🇳 تونس</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:00 ظهراً</span>
+                <span class="team">🇳 هولندا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇯🇵 اليابان</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:00 ظهراً</span>
+                <span class="team">🇸🇪 السويد</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇹🇷 تركيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">5:00 عصراً</span>
+                <span class="team">🇸 أمريكا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇵🇾 باراغواي</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">5:00 عصراً</span>
+                <span class="team">🇦🇺 أستراليا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇴 النرويج</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇫🇷 فرنسا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇸🇳 السنغال</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">10:00 مساءً</span>
+                <span class="team">🇮 العراق</span>
+            </div>
+        </div>
+
+        <!-- السبت 27 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 السبت 27 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇺 أوروغواي</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">3:00 عصراً</span>
+                <span class="team">🇪🇸 إسبانيا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨🇻 كاب فيردي</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">3:00 عصراً</span>
+                <span class="team">🇸🇦 السعودية</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇳🇿 نيوزيلندا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">6:00 مساءً</span>
+                <span class="team">🇧🇪 بلجيكا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇪🇬 مصر</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">6:00 مساءً</span>
+                <span class="team">🇮🇷 إيران</span>
+            </div>
+        </div>
+
+        <!-- الأحد 28 يونيو -->
+        <div class="match-card" style="border-top: 4px solid var(--accent-gold);">
+            <div class="match-header" style="background: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px;"><strong>📅 الأحد 28 يونيو 2026</strong></div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇵🇦 بنما</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">12:00 منتصف الليل</span>
+                <span class="team">🏴󠁢󠁥󠁧󠁿 إنجلترا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇬🇭 غانا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">12:00 منتصف الليل</span>
+                <span class="team">🇭🇷 كرواتيا</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇴 كولومبيا</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:30 ظهراً</span>
+                <span class="team">🇵🇹 البرتغال</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇨 الكونغو الديمقراطية</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">2:30 ظهراً</span>
+                <span class="team">🇺🇿 أوزبكستان</span>
+            </div>
+            <div class="teams" style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <span class="team">🇯🇴 الأردن</span>
+                <span style="color: var(--accent-gold); font-weight: 700;">5:00 عصراً</span>
+                <span class="team">🇦 الأرجنتين</span>
+            </div>
+        </div>
+
+    </div>
+</section>
             
             <section id="knockout">
                 <h2 class="section-title"><i class="fas fa-flag-checkered"></i> المحطات والأدوار الإقصائية</h2>
