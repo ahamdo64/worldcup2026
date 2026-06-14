@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-14T17:15:35.285Z",
+  "lastUpdate": "2026-06-14T19:18:37.054Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 5,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 6,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -103,9 +103,9 @@
       "team2": "🇨🇼 Curaçao",
       "homeTeam": "Germany",
       "awayTeam": "Curaçao",
-      "score": "1 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "7 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-14T17:00:00Z",
       "competition": "FIFA World Cup",
@@ -129,7 +129,7 @@
       "competition": "FIFA World Cup",
       "matchday": 1,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ismail Elfath"
     },
     {
       "group": "FIFA World Cup",
