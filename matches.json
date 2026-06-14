@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-14T00:17:04.625Z",
+  "lastUpdate": "2026-06-14T05:28:07.749Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 3,
-  "liveMatchesCount": 5,
+  "finishedMatchesCount": 4,
+  "liveMatchesCount": 4,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -67,9 +67,9 @@
       "team2": "󠁧󠁳󠁴 Scotland",
       "homeTeam": "Haiti",
       "awayTeam": "Scotland",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "0 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-14T01:00:00Z",
       "competition": "FIFA World Cup",
@@ -85,7 +85,7 @@
       "team2": "🇹🇷 Turkey",
       "homeTeam": "Australia",
       "awayTeam": "Turkey",
-      "score": "- : -",
+      "score": "1 - 0",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
