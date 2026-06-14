@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-14T21:05:31.802Z",
+  "lastUpdate": "2026-06-14T23:03:57.528Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -121,9 +121,9 @@
       "team2": "🇯🇵 Japan",
       "homeTeam": "Netherlands",
       "awayTeam": "Japan",
-      "score": "0 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "2 - 2",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-14T20:00:00Z",
       "competition": "FIFA World Cup",
@@ -147,7 +147,7 @@
       "competition": "FIFA World Cup",
       "matchday": 1,
       "venue": "غير محدد",
-      "referees": "François Letexier"
+      "referees": ""
     }
   ]
 }
