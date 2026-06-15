@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-15T03:39:38.245Z",
+  "lastUpdate": "2026-06-15T09:57:47.946Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 5,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 6,
+  "liveMatchesCount": 3,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -103,9 +103,9 @@
       "team2": "🇹🇳 Tunisia",
       "homeTeam": "Sweden",
       "awayTeam": "Tunisia",
-      "score": "3 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "5 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-15T02:00:00Z",
       "competition": "FIFA World Cup",
