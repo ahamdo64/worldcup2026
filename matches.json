@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-15T19:43:02.489Z",
+  "lastUpdate": "2026-06-15T22:14:31.549Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 7,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 8,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -139,9 +139,9 @@
       "team2": "🇬 Egypt",
       "homeTeam": "Belgium",
       "awayTeam": "Egypt",
-      "score": "0 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "1 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-15T19:00:00Z",
       "competition": "FIFA World Cup",
@@ -157,7 +157,7 @@
       "team2": "🇺🇾 Uruguay",
       "homeTeam": "Saudi Arabia",
       "awayTeam": "Uruguay",
-      "score": "- : -",
+      "score": "0 - 0",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -165,7 +165,7 @@
       "competition": "FIFA World Cup",
       "matchday": 1,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Maurizio Mariani"
     }
   ]
 }
