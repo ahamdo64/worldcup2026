@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-15T15:48:10.334Z",
+  "lastUpdate": "2026-06-15T19:43:02.489Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -121,9 +121,9 @@
       "team2": "🇨🇻 Cape Verde",
       "homeTeam": "Spain",
       "awayTeam": "Cape Verde",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "0 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-15T16:00:00Z",
       "competition": "FIFA World Cup",
@@ -139,7 +139,7 @@
       "team2": "🇬 Egypt",
       "homeTeam": "Belgium",
       "awayTeam": "Egypt",
-      "score": "- : -",
+      "score": "0 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -147,7 +147,7 @@
       "competition": "FIFA World Cup",
       "matchday": 1,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ramon Abatti Abel"
     },
     {
       "group": "FIFA World Cup",
