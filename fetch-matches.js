@@ -2,39 +2,40 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 
 const API_KEY = process.env.API_KEY || '';
-const today = new Date().toISOString().split('T')[0];
-const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
-console.log('🔍 Fetching matches from', yesterday, 'to', tomorrow);
+// جلب مباريات من آخر 30 يوم إلى 30 يوم قادمة
+const dateFrom = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+const dateTo = new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0];
+
+console.log('🔍 Fetching matches from', dateFrom, 'to', dateTo);
 console.log('🔑 API Key exists:', API_KEY ? 'Yes ✓' : 'No ✗');
 
 const flags = {
-  'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩',
-  'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁢󠁧',
+  'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Germany': '🇩🇪',
+  'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
   'Italy': '🇮🇹', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
-  'Belgium': '🇧', 'Mexico': '🇽', 'USA': '🇺🇸',
+  'Belgium': '🇧🇪', 'Mexico': '🇲🇽', 'USA': '🇺🇸',
   'Canada': '🇨🇦', 'Japan': '🇯🇵', 'South Korea': '🇰🇷',
-  'Saudi Arabia': '🇸', 'Egypt': '🇬', 'Morocco': '🇲🇦',
-  'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶',
+  'Saudi Arabia': '🇸🇦', 'Egypt': '🇪🇬', 'Morocco': '🇲🇦',
+  'Algeria': '🇩🇿', 'Tunisia': '🇹🇳', 'Qatar': '🇶🇦',
   'Iraq': '🇮🇶', 'Jordan': '🇯🇴', 'Australia': '🇦🇺',
-  'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭',
+  'Uruguay': '🇺🇾', 'Colombia': '🇨🇴', 'Croatia': '🇭🇷',
   'Ghana': '🇬🇭', 'Senegal': '🇸🇳', 'South Africa': '🇿🇦',
-  'Sweden': '🇸🇪', 'Switzerland': '🇨', 'Austria': '🇹',
+  'Sweden': '🇸🇪', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹',
   'Denmark': '🇩🇰', 'Norway': '🇳🇴', 'Turkey': '🇹🇷',
-  'Iran': '🇮', 'Paraguay': '🇾', 'Ecuador': '🇪',
-  'Poland': '🇵🇱', 'Czech Republic': '🇨', 'Scotland': '󠁧󠁳󠁴',
+  'Iran': '🇮🇷', 'Paraguay': '🇵🇾', 'Ecuador': '🇪🇨',
+  'Poland': '🇵🇱', 'Czech Republic': '🇨🇿', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
   'Bosnia and Herzegovina': '🇧🇦', 'Curaçao': '🇨🇼',
-  'Côte d\'Ivoire': '🇨', 'Cape Verde': '🇨🇻',
-  'New Zealand': '🇳🇿', 'Congo DR': '🇨', 'Uzbekistan': '🇺🇿',
+  'Côte d\'Ivoire': '🇨🇮', 'Cape Verde': '🇨🇻',
+  'New Zealand': '🇳🇿', 'Congo DR': '🇨🇩', 'Uzbekistan': '🇺🇿',
   'Haiti': '🇭🇹', 'Panama': '🇵🇦', 'Nigeria': '🇳🇬',
-  'Cameroon': '🇨🇲', 'Korea Republic': '🇰', 'Czechia': '🇨🇿',
+  'Cameroon': '🇨🇲', 'Korea Republic': '🇰🇷', 'Czechia': '🇨🇿',
   'Bosnia-H.': '🇧🇦'
 };
 
 async function fetchMatches() {
   try {
-    const url = `https://api.football-data.org/v4/matches?dateFrom=${yesterday}&dateTo=${tomorrow}`;
+    const url = `https://api.football-data.org/v4/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`;
     console.log('📡 Requesting:', url);
     
     const response = await fetch(url, {
@@ -212,7 +213,7 @@ function createFallbackData(reason) {
         group: "FIFA World Cup",
         date: tomorrow,
         time: "19:00",
-        team1: "🇺 USA",
+        team1: "🇺🇸 USA",
         team2: "🇵🇾 Paraguay",
         homeTeam: "USA",
         awayTeam: "Paraguay",
