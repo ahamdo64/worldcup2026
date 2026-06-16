@@ -95,6 +95,7 @@
         <div class="tabs-container">
             <button class="tab-btn active" data-tab="results"><i class="fas fa-chart-line"></i> النتائج</button>
             <button class="tab-btn" data-tab="schedule"><i class="fas fa-calendar-check"></i> الجدول</button>
+<button class="tab-btn" data-tab="finished"><i class="fas fa-check-circle"></i> النتائج النهائية</button>
         </div>
     </header>
 
@@ -580,6 +581,48 @@
 
             </div>
         </section>
+        <!-- تبويب المباريات المنتهية -->
+<section id="finished-section" class="tab-content">
+    <h2 class="section-title"><i class="fas fa-check-circle"></i> المباريات المنتهية والنتائج</h2>
+    
+    <div style="background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(74, 222, 128, 0.05)); border: 2px solid #4ade80; border-radius: 16px; padding: 20px; margin-bottom: 30px; text-align: center;">
+        <h3 style="color: #4ade80; margin-bottom: 10px;">✅ أرشيف النتائج</h3>
+        <p style="color: var(--text-secondary);">جميع المباريات المنتهية مع النتائج الكاملة</p>
+    </div>
+
+    <!-- شريط الفلترة -->
+    <div class="refresh-bar" style="margin-bottom: 20px;">
+        <div class="refresh-info">
+            <div class="refresh-info-item">
+                <i class="fas fa-filter" style="color: var(--accent-gold);"></i>
+                <span>الفلترة:</span>
+                <select id="finished-filter" style="background: var(--glass-bg); color: var(--text-primary); border: 1px solid var(--glass-border); padding: 6px 12px; border-radius: 8px; font-family: 'Tajawal', sans-serif; cursor: pointer;">
+                    <option value="all">جميع المباريات</option>
+                    <option value="7days">آخر 7 أيام</option>
+                    <option value="30days">آخر 30 يوم</option>
+                    <option value="all-time">كل الوقت</option>
+                </select>
+            </div>
+            <div class="refresh-info-item">
+                <i class="fas fa-sort" style="color: var(--accent-gold);"></i>
+                <span>الترتيب:</span>
+                <select id="finished-sort" style="background: var(--glass-bg); color: var(--text-primary); border: 1px solid var(--glass-border); padding: 6px 12px; border-radius: 8px; font-family: 'Tajawal', sans-serif; cursor: pointer;">
+                    <option value="newest">الأحدث أولاً</option>
+                    <option value="oldest">الأقدم أولاً</option>
+                </select>
+            </div>
+        </div>
+        <button id="refresh-finished-btn" class="manual-refresh-btn">
+            <i class="fas fa-sync-alt"></i> تحديث
+        </button>
+    </div>
+
+    <div class="results-grid" id="finished-container">
+        <p style="text-align: center; padding: 40px; grid-column: 1/-1;">
+            <i class="fas fa-spinner fa-spin"></i> جاري تحميل النتائج...
+        </p>
+    </div>
+</section>
     </main>
 
     <footer>
@@ -726,6 +769,147 @@
             initVisitorCounter();
             countdownInterval = setInterval(updateCountdown, 1000);
         });
+        // ============================================
+// دالة تحميل المباريات المنتهية
+// ============================================
+function loadFinishedMatches() {
+    var container = document.getElementById('finished-container');
+    container.innerHTML = '<p style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</p>';
+    
+    fetch('matches.json?t=' + new Date().getTime())
+        .then(function(response) {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.json();
+        })
+        .then(function(data) {
+            var matches = data.matches || data || [];
+            
+            // فلترة المباريات المنتهية فقط
+            var finishedMatches = matches.filter(function(match) {
+                var status = (match.status || '').toLowerCase();
+                return status === 'finished';
+            });
+            
+            console.log('✅ عدد المباريات المنتهية:', finishedMatches.length);
+            
+            // تطبيق الفلتر
+            var filterValue = document.getElementById('finished-filter').value;
+            var now = new Date();
+            
+            if (filterValue === '7days') {
+                var sevenDaysAgo = new Date(now.getTime() - 7 * 86400000).toISOString().split('T')[0];
+                finishedMatches = finishedMatches.filter(function(m) { return m.date >= sevenDaysAgo; });
+            } else if (filterValue === '30days') {
+                var thirtyDaysAgo = new Date(now.getTime() - 30 * 86400000).toISOString().split('T')[0];
+                finishedMatches = finishedMatches.filter(function(m) { return m.date >= thirtyDaysAgo; });
+            }
+            
+            // تطبيق الترتيب
+            var sortValue = document.getElementById('finished-sort').value;
+            if (sortValue === 'newest') {
+                finishedMatches.sort(function(a, b) { return new Date(b.utcDate) - new Date(a.utcDate); });
+            } else {
+                finishedMatches.sort(function(a, b) { return new Date(a.utcDate) - new Date(b.utcDate); });
+            }
+            
+            container.innerHTML = '';
+            
+            if (finishedMatches.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i><p style="color: var(--text-secondary); font-size: 1.1rem;">لا توجد مباريات منتهية</p></div>';
+                return;
+            }
+            
+            // عرض الإحصائيات
+            var statsHTML = '<div style="grid-column: 1/-1; background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.05)); border: 2px solid #4ade80; border-radius: 16px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;">';
+            statsHTML += '<div style="text-align: center;"><div style="font-size: 0.9rem; color: #4ade80;">✅ إجمالي المباريات المنتهية</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + finishedMatches.length + '</div></div>';
+            
+            // حساب عدد الأهداف
+            var totalGoals = 0;
+            finishedMatches.forEach(function(m) {
+                var scoreParts = (m.score || '').split('-');
+                if (scoreParts.length === 2) {
+                    var home = parseInt(scoreParts[0]) || 0;
+                    var away = parseInt(scoreParts[1]) || 0;
+                    totalGoals += home + away;
+                }
+            });
+            statsHTML += '<div style="text-align: center;"><div style="font-size: 0.9rem; color: #4ade80;">⚽ إجمالي الأهداف</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + totalGoals + '</div></div>';
+            
+            // متوسط الأهداف
+            var avgGoals = finishedMatches.length > 0 ? (totalGoals / finishedMatches.length).toFixed(2) : 0;
+            statsHTML += '<div style="text-align: center;"><div style="font-size: 0.9rem; color: #4ade80;">📊 متوسط الأهداف/مباراة</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + avgGoals + '</div></div>';
+            statsHTML += '</div>';
+            container.innerHTML = statsHTML;
+            
+            // عرض المباريات
+            finishedMatches.forEach(function(match) {
+                var team1 = match.team1 || match.homeTeam || 'الفريق 1';
+                var team2 = match.team2 || match.awayTeam || 'الفريق 2';
+                var score = match.score || '- : -';
+                var time = match.time || '--:--';
+                var venue = match.venue || 'غير محدد';
+                var referee = match.referees || '';
+                var date = match.date || '';
+                var competition = match.competition || 'البطولة';
+                var matchday = match.matchday ? 'الجولة ' + match.matchday : '';
+                
+                // تحديد الفائز
+                var scoreParts = score.split('-');
+                var winnerClass = '';
+                if (scoreParts.length === 2) {
+                    var homeGoals = parseInt(scoreParts[0]);
+                    var awayGoals = parseInt(scoreParts[1]);
+                    if (!isNaN(homeGoals) && !isNaN(awayGoals)) {
+                        if (homeGoals > awayGoals) winnerClass = 'home-win';
+                        else if (awayGoals > homeGoals) winnerClass = 'away-win';
+                        else winnerClass = 'draw';
+                    }
+                }
+                
+                var cardHTML = '<div class="match-card" style="border-top: 3px solid #4ade80;">' +
+                    '<div class="match-header">' +
+                        '<span>' + competition + (matchday ? ' - ' + matchday : '') + '</span>' +
+                        '<span class="badge" style="background: #4ade80; color: #0f172a; font-weight: 700;">✅ انتهت</span>' +
+                    '</div>' +
+                    '<div class="teams" style="margin: 20px 0;">' +
+                        '<span class="team" style="' + (winnerClass === 'home-win' ? 'color: #4ade80; font-weight: 900;' : '') + '">' + team1 + '</span>' +
+                        '<span class="score" style="background: linear-gradient(135deg, #4ade80, #22c55e); color: #0f172a; font-size: 1.6rem; font-weight: 900; padding: 10px 25px;">' + score + '</span>' +
+                        '<span class="team" style="' + (winnerClass === 'away-win' ? 'color: #4ade80; font-weight: 900;' : '') + '">' + team2 + '</span>' +
+                    '</div>' +
+                    '<div class="details" style="border-top: 1px solid var(--glass-border); padding-top: 15px;">' +
+                        '<div class="detail-row"><i class="fas fa-calendar"></i><span>التاريخ: ' + date + '</span></div>' +
+                        '<div class="detail-row"><i class="fas fa-clock"></i><span>التوقيت: ' + time + '</span></div>' +
+                        '<div class="detail-row"><i class="fas fa-map-marker-alt"></i><span>الملعب: ' + venue + '</span></div>' +
+                        (referee ? '<div class="detail-row"><i class="fas fa-user-tie"></i><span>الحكم: ' + referee + '</span></div>' : '') +
+                    '</div>' +
+                    '<div style="margin-top: 15px; text-align: center; padding: 8px; background: rgba(74, 222, 128, 0.1); border-radius: 8px; color: #4ade80; font-weight: 700;">' +
+                        (winnerClass === 'home-win' ? '🏆 الفائز: ' + team1 : winnerClass === 'away-win' ? '🏆 الفائز: ' + team2 : '🤝 تعادل') +
+                    '</div>' +
+                '</div>';
+                
+                container.innerHTML += cardHTML;
+            });
+        })
+        .catch(function(error) {
+            console.error('خطأ:', error);
+            container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i><p style="color: var(--text-secondary);">خطأ في تحميل النتائج</p><button onclick="loadFinishedMatches()" style="margin-top: 20px; background: var(--accent-gold); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: \'Tajawal\', sans-serif; font-weight: 700;">إعادة المحاولة</button></div>';
+        });
+}
+
+// ربط الفلاتر بأحداث التغيير
+document.getElementById('finished-filter').addEventListener('change', loadFinishedMatches);
+document.getElementById('finished-sort').addEventListener('change', loadFinishedMatches);
+document.getElementById('refresh-finished-btn').addEventListener('click', loadFinishedMatches);
+
+// تحميل النتائج عند فتح التبويب
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var targetId = this.getAttribute('data-tab') + '-section';
+        if (targetId === 'finished-section') {
+            setTimeout(loadFinishedMatches, 100);
+        }
+    });
+});
     </script>
 </body>
 </html>
