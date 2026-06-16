@@ -770,7 +770,8 @@
             countdownInterval = setInterval(updateCountdown, 1000);
         });
         // ============================================
-// دالة تحميل المباريات المنتهية
+// ============================================
+// دالة تحميل المباريات المنتهية - النسخة الكاملة
 // ============================================
 function loadFinishedMatches() {
     var container = document.getElementById('finished-container');
@@ -782,66 +783,61 @@ function loadFinishedMatches() {
             return response.json();
         })
         .then(function(data) {
-            var matches = data.matches || data || [];
+            var allMatches = data.matches || data || [];
             
-            // فلترة المباريات المنتهية فقط
-            var finishedMatches = matches.filter(function(match) {
+            // جلب جميع المباريات المنتهية بدون أي فلترة
+            var finishedMatches = allMatches.filter(function(match) {
                 var status = (match.status || '').toLowerCase();
                 return status === 'finished';
             });
             
-            console.log('✅ عدد المباريات المنتهية:', finishedMatches.length);
-            
-            // تطبيق الفلتر
-            var filterValue = document.getElementById('finished-filter').value;
-            var now = new Date();
-            
-            if (filterValue === '7days') {
-                var sevenDaysAgo = new Date(now.getTime() - 7 * 86400000).toISOString().split('T')[0];
-                finishedMatches = finishedMatches.filter(function(m) { return m.date >= sevenDaysAgo; });
-            } else if (filterValue === '30days') {
-                var thirtyDaysAgo = new Date(now.getTime() - 30 * 86400000).toISOString().split('T')[0];
-                finishedMatches = finishedMatches.filter(function(m) { return m.date >= thirtyDaysAgo; });
-            }
-            
-            // تطبيق الترتيب
-            var sortValue = document.getElementById('finished-sort').value;
-            if (sortValue === 'newest') {
-                finishedMatches.sort(function(a, b) { return new Date(b.utcDate) - new Date(a.utcDate); });
-            } else {
-                finishedMatches.sort(function(a, b) { return new Date(a.utcDate) - new Date(b.utcDate); });
-            }
-            
-            container.innerHTML = '';
+            console.log('✅ عدد المباريات المنتهية الإجمالي:', finishedMatches.length);
+            console.log('📊 إجمالي المباريات في النظام:', allMatches.length);
             
             if (finishedMatches.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-secondary); margin-bottom: 15px;"></i><p style="color: var(--text-secondary); font-size: 1.1rem;">لا توجد مباريات منتهية</p></div>';
+                container.innerHTML = '<div style="text-align: center; padding: 60px; grid-column: 1/-1;"><i class="fas fa-inbox" style="font-size: 4rem; color: var(--text-secondary); margin-bottom: 20px;"></i><p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 10px;">لا توجد مباريات منتهية بعد</p><p style="color: var(--text-secondary); font-size: 0.9rem;">إجمالي المباريات في النظام: ' + allMatches.length + '</p></div>';
                 return;
             }
             
-            // عرض الإحصائيات
-            var statsHTML = '<div style="grid-column: 1/-1; background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.05)); border: 2px solid #4ade80; border-radius: 16px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px;">';
-            statsHTML += '<div style="text-align: center;"><div style="font-size: 0.9rem; color: #4ade80;">✅ إجمالي المباريات المنتهية</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + finishedMatches.length + '</div></div>';
+            // ترتيب المباريات: الأحدث أولاً
+            finishedMatches.sort(function(a, b) {
+                return new Date(b.utcDate) - new Date(a.utcDate);
+            });
             
-            // حساب عدد الأهداف
+            container.innerHTML = '';
+            
+            // عرض الإحصائيات
             var totalGoals = 0;
+            var homeWins = 0;
+            var awayWins = 0;
+            var draws = 0;
+            
             finishedMatches.forEach(function(m) {
                 var scoreParts = (m.score || '').split('-');
                 if (scoreParts.length === 2) {
                     var home = parseInt(scoreParts[0]) || 0;
                     var away = parseInt(scoreParts[1]) || 0;
                     totalGoals += home + away;
+                    if (home > away) homeWins++;
+                    else if (away > home) awayWins++;
+                    else draws++;
                 }
             });
-            statsHTML += '<div style="text-align: center;"><div style="font-size: 0.9rem; color: #4ade80;">⚽ إجمالي الأهداف</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + totalGoals + '</div></div>';
             
-            // متوسط الأهداف
-            var avgGoals = finishedMatches.length > 0 ? (totalGoals / finishedMatches.length).toFixed(2) : 0;
-            statsHTML += '<div style="text-align: center;"><div style="font-size: 0.9rem; color: #4ade80;">📊 متوسط الأهداف/مباراة</div><div style="font-size: 2rem; font-weight: 900; color: #4ade80;">' + avgGoals + '</div></div>';
-            statsHTML += '</div>';
+            var avgGoals = (totalGoals / finishedMatches.length).toFixed(2);
+            
+            var statsHTML = '<div style="grid-column: 1/-1; background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.05)); border: 2px solid #4ade80; border-radius: 16px; padding: 20px; margin-bottom: 20px;">';
+            statsHTML += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; text-align: center;">';
+            statsHTML += '<div><div style="font-size: 0.85rem; color: #4ade80;">✅ المباريات المنتهية</div><div style="font-size: 1.8rem; font-weight: 900; color: #4ade80;">' + finishedMatches.length + '</div></div>';
+            statsHTML += '<div><div style="font-size: 0.85rem; color: #4ade80;">⚽ إجمالي الأهداف</div><div style="font-size: 1.8rem; font-weight: 900; color: #4ade80;">' + totalGoals + '</div></div>';
+            statsHTML += '<div><div style="font-size: 0.85rem; color: #4ade80;">📊 متوسط الأهداف</div><div style="font-size: 1.8rem; font-weight: 900; color: #4ade80;">' + avgGoals + '</div></div>';
+            statsHTML += '<div><div style="font-size: 0.85rem; color: #4ade80;">🏠 فوز المضيف</div><div style="font-size: 1.8rem; font-weight: 900; color: #4ade80;">' + homeWins + '</div></div>';
+            statsHTML += '<div><div style="font-size: 0.85rem; color: #4ade80;">✈️ فوز الضيف</div><div style="font-size: 1.8rem; font-weight: 900; color: #4ade80;">' + awayWins + '</div></div>';
+            statsHTML += '<div><div style="font-size: 0.85rem; color: #4ade80;">🤝 تعادل</div><div style="font-size: 1.8rem; font-weight: 900; color: #4ade80;">' + draws + '</div></div>';
+            statsHTML += '</div></div>';
             container.innerHTML = statsHTML;
             
-            // عرض المباريات
+            // عرض جميع المباريات المنتهية
             finishedMatches.forEach(function(match) {
                 var team1 = match.team1 || match.homeTeam || 'الفريق 1';
                 var team2 = match.team2 || match.awayTeam || 'الفريق 2';
@@ -856,13 +852,21 @@ function loadFinishedMatches() {
                 // تحديد الفائز
                 var scoreParts = score.split('-');
                 var winnerClass = '';
+                var winnerText = '';
                 if (scoreParts.length === 2) {
                     var homeGoals = parseInt(scoreParts[0]);
                     var awayGoals = parseInt(scoreParts[1]);
                     if (!isNaN(homeGoals) && !isNaN(awayGoals)) {
-                        if (homeGoals > awayGoals) winnerClass = 'home-win';
-                        else if (awayGoals > homeGoals) winnerClass = 'away-win';
-                        else winnerClass = 'draw';
+                        if (homeGoals > awayGoals) {
+                            winnerClass = 'home-win';
+                            winnerText = '🏆 الفائز: ' + team1;
+                        } else if (awayGoals > homeGoals) {
+                            winnerClass = 'away-win';
+                            winnerText = '🏆 الفائز: ' + team2;
+                        } else {
+                            winnerClass = 'draw';
+                            winnerText = '🤝 تعادل';
+                        }
                     }
                 }
                 
@@ -882,8 +886,8 @@ function loadFinishedMatches() {
                         '<div class="detail-row"><i class="fas fa-map-marker-alt"></i><span>الملعب: ' + venue + '</span></div>' +
                         (referee ? '<div class="detail-row"><i class="fas fa-user-tie"></i><span>الحكم: ' + referee + '</span></div>' : '') +
                     '</div>' +
-                    '<div style="margin-top: 15px; text-align: center; padding: 8px; background: rgba(74, 222, 128, 0.1); border-radius: 8px; color: #4ade80; font-weight: 700;">' +
-                        (winnerClass === 'home-win' ? '🏆 الفائز: ' + team1 : winnerClass === 'away-win' ? '🏆 الفائز: ' + team2 : '🤝 تعادل') +
+                    '<div style="margin-top: 15px; text-align: center; padding: 10px; background: rgba(74, 222, 128, 0.1); border-radius: 8px; color: #4ade80; font-weight: 700; font-size: 1.05rem;">' +
+                        winnerText +
                     '</div>' +
                 '</div>';
                 
@@ -895,21 +899,6 @@ function loadFinishedMatches() {
             container.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--live-red); margin-bottom: 15px;"></i><p style="color: var(--text-secondary);">خطأ في تحميل النتائج</p><button onclick="loadFinishedMatches()" style="margin-top: 20px; background: var(--accent-gold); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-family: \'Tajawal\', sans-serif; font-weight: 700;">إعادة المحاولة</button></div>';
         });
 }
-
-// ربط الفلاتر بأحداث التغيير
-document.getElementById('finished-filter').addEventListener('change', loadFinishedMatches);
-document.getElementById('finished-sort').addEventListener('change', loadFinishedMatches);
-document.getElementById('refresh-finished-btn').addEventListener('click', loadFinishedMatches);
-
-// تحميل النتائج عند فتح التبويب
-document.querySelectorAll('.tab-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var targetId = this.getAttribute('data-tab') + '-section';
-        if (targetId === 'finished-section') {
-            setTimeout(loadFinishedMatches, 100);
-        }
-    });
-});
     </script>
 </body>
 </html>
