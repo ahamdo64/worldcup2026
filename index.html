@@ -59,6 +59,40 @@
         .floating-watch-btn:hover { transform: scale(1.15) rotate(10deg); box-shadow: 0 10px 35px rgba(239, 68, 68, 0.7); }
         @keyframes float-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } .engineer-profile-card { flex-direction: column; text-align: center; } .teams { flex-direction: column; gap: 10px; } .team, .team:first-child, .team:last-child { text-align: center; } .refresh-bar { flex-direction: column; align-items: stretch; } .floating-watch-btn { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 1.5rem; } }
+   .floating-pdf-btn {
+    position: fixed;
+    bottom: 100px;
+    left: 25px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    text-decoration: none;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+    transition: all 0.3s ease;
+    animation: float-bounce 3s ease-in-out infinite;
+}
+
+.floating-pdf-btn:hover {
+    transform: scale(1.15) rotate(-10deg);
+    box-shadow: 0 10px 35px rgba(239, 68, 68, 0.7);
+}
+
+@media (max-width: 768px) {
+    .floating-pdf-btn {
+        bottom: 85px;
+        left: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+}
     </style>
 </head>
 <body>
