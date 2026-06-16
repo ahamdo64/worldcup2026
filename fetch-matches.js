@@ -3,9 +3,13 @@ const fs = require('fs');
 
 const API_KEY = process.env.API_KEY || '';
 
-// جلب مباريات من آخر 30 يوم إلى 30 يوم قادمة
+// من
 const dateFrom = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
 const dateTo = new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0];
+
+// إلى (60 يوم ماضي و60 يوم قادم)
+const dateFrom = new Date(Date.now() - 60 * 86400000).toISOString().split('T')[0];
+const dateTo = new Date(Date.now() + 60 * 86400000).toISOString().split('T')[0];
 
 console.log('🔍 Fetching matches from', dateFrom, 'to', dateTo);
 console.log('🔑 API Key exists:', API_KEY ? 'Yes ✓' : 'No ✗');
