@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-17T16:36:18.433Z",
+  "lastUpdate": "2026-06-17T19:21:59.347Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 5,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 6,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -103,9 +103,9 @@
       "team2": "🇨 Congo DR",
       "homeTeam": "Portugal",
       "awayTeam": "Congo DR",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "1 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-17T17:00:00Z",
       "competition": "FIFA World Cup",
@@ -129,7 +129,7 @@
       "competition": "FIFA World Cup",
       "matchday": 1,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Clément Turpin"
     },
     {
       "group": "FIFA World Cup",
