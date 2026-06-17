@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-17T21:56:30.719Z",
+  "lastUpdate": "2026-06-17T23:22:25.962Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -122,8 +122,8 @@
       "homeTeam": "England",
       "awayTeam": "Croatia",
       "score": "4 - 2",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-17T20:00:00Z",
       "competition": "FIFA World Cup",
@@ -139,7 +139,7 @@
       "team2": "🇵🇦 Panama",
       "homeTeam": "Ghana",
       "awayTeam": "Panama",
-      "score": "- : -",
+      "score": "0 - 0",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
