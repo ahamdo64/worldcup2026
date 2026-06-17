@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-17T03:33:48.518Z",
+  "lastUpdate": "2026-06-17T08:58:15.179Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 4,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 5,
+  "liveMatchesCount": 3,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -85,9 +85,9 @@
       "team2": "🇯🇴 Jordan",
       "homeTeam": "Austria",
       "awayTeam": "Jordan",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "3 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-17T04:00:00Z",
       "competition": "FIFA World Cup",
