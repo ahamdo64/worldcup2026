@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-18T16:25:07.932Z",
+  "lastUpdate": "2026-06-18T19:23:28.888Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -121,9 +121,9 @@
       "team2": "🇿🇦 South Africa",
       "homeTeam": "Czechia",
       "awayTeam": "South Africa",
-      "score": "1 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "1 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-18T16:00:00Z",
       "competition": "FIFA World Cup",
@@ -147,7 +147,7 @@
       "competition": "FIFA World Cup",
       "matchday": 2,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "João Pinheiro"
     },
     {
       "group": "FIFA World Cup",
