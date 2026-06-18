@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-18T08:41:06.568Z",
+  "lastUpdate": "2026-06-18T12:20:37.872Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 5,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 6,
+  "liveMatchesCount": 3,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -86,8 +86,8 @@
       "homeTeam": "Ghana",
       "awayTeam": "Panama",
       "score": "1 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-17T23:00:00Z",
       "competition": "FIFA World Cup",
