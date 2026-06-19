@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-19T19:42:32.181Z",
+  "lastUpdate": "2026-06-19T21:05:07.613Z",
   "totalMatches": 7,
   "finishedMatchesCount": 5,
   "liveMatchesCount": 2,
@@ -103,7 +103,7 @@
       "team2": "🇦🇺 Australia",
       "homeTeam": "USA",
       "awayTeam": "Australia",
-      "score": "1 - 0",
+      "score": "2 - 0",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -129,7 +129,7 @@
       "competition": "FIFA World Cup",
       "matchday": 2,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Il'giz Tantashev"
     }
   ]
 }
