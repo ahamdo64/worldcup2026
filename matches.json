@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-20T00:04:53.711Z",
+  "lastUpdate": "2026-06-20T05:08:20.931Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 2,
-  "liveMatchesCount": 6,
+  "finishedMatchesCount": 4,
+  "liveMatchesCount": 4,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -50,8 +50,8 @@
       "homeTeam": "Scotland",
       "awayTeam": "Morocco",
       "score": "0 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-19T22:00:00Z",
       "competition": "FIFA World Cup",
@@ -67,9 +67,9 @@
       "team2": "🇭🇹 Haiti",
       "homeTeam": "Brazil",
       "awayTeam": "Haiti",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "3 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-20T00:30:00Z",
       "competition": "FIFA World Cup",
@@ -85,7 +85,7 @@
       "team2": "🇾 Paraguay",
       "homeTeam": "Turkey",
       "awayTeam": "Paraguay",
-      "score": "- : -",
+      "score": "0 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -93,7 +93,7 @@
       "competition": "FIFA World Cup",
       "matchday": 2,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ivan Barton"
     },
     {
       "group": "FIFA World Cup",
