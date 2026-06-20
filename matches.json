@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-20T21:11:40.016Z",
+  "lastUpdate": "2026-06-20T23:02:29.842Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -121,9 +121,9 @@
       "team2": "⚽ Ivory Coast",
       "homeTeam": "Germany",
       "awayTeam": "Ivory Coast",
-      "score": "0 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "2 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-20T20:00:00Z",
       "competition": "FIFA World Cup",
@@ -147,7 +147,7 @@
       "competition": "FIFA World Cup",
       "matchday": 2,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ning Ma"
     }
   ]
 }
