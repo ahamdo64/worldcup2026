@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-20T17:21:16.585Z",
+  "lastUpdate": "2026-06-20T19:17:43.005Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 5,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 6,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -103,9 +103,9 @@
       "team2": "🇸🇪 Sweden",
       "homeTeam": "Netherlands",
       "awayTeam": "Sweden",
-      "score": "1 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "5 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-20T17:00:00Z",
       "competition": "FIFA World Cup",
@@ -129,7 +129,7 @@
       "competition": "FIFA World Cup",
       "matchday": 2,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Juan Benítez"
     },
     {
       "group": "FIFA World Cup",
