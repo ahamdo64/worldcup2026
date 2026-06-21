@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-21T03:35:49.309Z",
+  "lastUpdate": "2026-06-21T08:25:01.629Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 5,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 6,
+  "liveMatchesCount": 3,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -103,9 +103,9 @@
       "team2": "🇯🇵 Japan",
       "homeTeam": "Tunisia",
       "awayTeam": "Japan",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "0 - 4",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-21T04:00:00Z",
       "competition": "FIFA World Cup",
