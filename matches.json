@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-21T17:26:10.470Z",
+  "lastUpdate": "2026-06-21T19:23:30.534Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -121,9 +121,9 @@
       "team2": "🇸 Saudi Arabia",
       "homeTeam": "Spain",
       "awayTeam": "Saudi Arabia",
-      "score": "4 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "5 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-21T16:00:00Z",
       "competition": "FIFA World Cup",
@@ -139,7 +139,7 @@
       "team2": "🇮 Iran",
       "homeTeam": "Belgium",
       "awayTeam": "Iran",
-      "score": "- : -",
+      "score": "0 - 0",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
