@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-22T15:20:17.420Z",
+  "lastUpdate": "2026-06-22T19:21:48.796Z",
   "totalMatches": 9,
-  "finishedMatchesCount": 6,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 7,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -121,9 +121,9 @@
       "team2": "🇹 Austria",
       "homeTeam": "Argentina",
       "awayTeam": "Austria",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "2 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-22T17:00:00Z",
       "competition": "FIFA World Cup",
@@ -147,7 +147,7 @@
       "competition": "FIFA World Cup",
       "matchday": 2,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Drew Fischer"
     },
     {
       "group": "FIFA World Cup",
