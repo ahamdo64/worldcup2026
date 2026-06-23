@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج كأس العالم 2026 - تفاعلي</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --win-color: #28a745;
+            --loss-color: #dc3545;
+            --draw-color: #ffc107;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        select {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .stat-card p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .stat-card.win { border-right-color: var(--win-color); }
+        .stat-card.win h3 { color: var(--win-color); }
+        
+        .stat-card.loss { border-right-color: var(--loss-color); }
+        .stat-card.loss h3 { color: var(--loss-color); }
+        
+        .stat-card.draw { border-right-color: var(--draw-color); }
+        .stat-card.draw h3 { color: var(--draw-color); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--primary-color);
+            background-color: #e7f1ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .result-win { color: var(--win-color); font-weight: bold; }
+        .result-loss { color: var(--loss-color); font-weight: bold; }
+        .result-draw { color: var(--draw-color); font-weight: bold; }
+
+        .no-results {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏆 كأس العالم 2026</h1>
+    <p class="subtitle">تقرير المباريات والنتائج التفاعلي</p>
+
+    <div class="search-box">
+        <select id="teamSelect" onchange="displayTeamStats()">
+            <option value="">-- اختر اسم الفريق --</option>
+        </select>
+    </div>
+
+    <div id="statsArea"></div>
+    <div id="resultsArea"></div>
+</div>
+
+<script>
+    // بيانات المباريات المستخرجة من التقرير
+    const matchesData = [
+        { date: '2026-06-23', team1: 'Norway', score1: 3, team2: 'Senegal', score2: 2 },
+        { date: '2026-06-23', team1: 'Jordan', score1: 1, team2: 'Algeria', score2: 2 },
+        { date: '2026-06-22', team1: 'New Zealand', score1: 1, team2: 'Egypt', score2: 3 },
+        { date: '2026-06-22', team1: 'Argentina', score1: 2, team2: 'Austria', score2: 0 },
+        { date: '2026-06-22', team1: 'France', score1: 3, team2: 'Iraq', score2: 0 },
+        { date: '2026-06-21', team1: 'Ecuador', score1: 0, team2: 'Curaçao', score2: 0 },
+        { date: '2026-06-21', team1: 'Tunisia', score1: 0, team2: 'Japan', score2: 4 },
+        { date: '2026-06-21', team1: 'Spain', score1: 4, team2: 'Saudi Arabia', score2: 0 },
+        { date: '2026-06-21', team1: 'Belgium', score1: 0, team2: 'Iran', score2: 0 },
+        { date: '2026-06-21', team1: 'Uruguay', score1: 2, team2: 'Cape Verde Islands', score2: 2 },
+        { date: '2026-06-20', team1: 'Brazil', score1: 3, team2: 'Haiti', score2: 0 },
+        { date: '2026-06-20', team1: 'Turkey', score1: 0, team2: 'Paraguay', score2: 1 },
+        { date: '2026-06-20', team1: 'Netherlands', score1: 5, team2: 'Sweden', score2: 1 },
+        { date: '2026-06-20', team1: 'Germany', score1: 2, team2: 'Ivory Coast', score2: 1 },
+        { date: '2026-06-19', team1: 'Mexico', score1: 1, team2: 'South Korea', score2: 0 },
+        { date: '2026-06-19', team1: 'United States', score1: 2, team2: 'Australia', score2: 0 },
+        { date: '2026-06-19', team1: 'Scotland', score1: 0, team2: 'Morocco', score2: 1 },
+        { date: '2026-06-18', team1: 'Uzbekistan', score1: 1, team2: 'Colombia', score2: 3 },
+        { date: '2026-06-18', team1: 'Czechia', score1: 1, team2: 'South Africa', score2: 1 },
+        { date: '2026-06-18', team1: 'Switzerland', score1: 4, team2: 'Bosnia-Herzegovina', score2: 1 },
+        { date: '2026-06-18', team1: 'Canada', score1: 6, team2: 'Qatar', score2: 0 },
+        { date: '2026-06-17', team1: 'Argentina', score1: 3, team2: 'Algeria', score2: 0 },
+        { date: '2026-06-17', team1: 'Austria', score1: 3, team2: 'Jordan', score2: 1 },
+        { date: '2026-06-17', team1: 'Portugal', score1: 1, team2: 'Congo DR', score2: 1 },
+        { date: '2026-06-17', team1: 'England', score1: 4, team2: 'Croatia', score2: 2 },
+        { date: '2026-06-17', team1: 'Ghana', score1: 1, team2: 'Panama', score2: 0 },
+        { date: '2026-06-16', team1: 'Iran', score1: 2, team2: 'New Zealand', score2: 2 },
+        { date: '2026-06-16', team1: 'France', score1: 3, team2: 'Senegal', score2: 1 },
+        { date: '2026-06-16', team1: 'Iraq', score1: 1, team2: 'Norway', score2: 4 },
+        { date: '2026-06-15', team1: 'Sweden', score1: 5, team2: 'Tunisia', score2: 1 },
+        { date: '2026-06-15', team1: 'Spain', score1: 0, team2: 'Cape Verde Islands', score2: 0 },
+        { date: '2026-06-15', team1: 'Belgium', score1: 1, team2: 'Egypt', score2: 1 },
+        { date: '2026-06-15', team1: 'Saudi Arabia', score1: 1, team2: 'Uruguay', score2: 1 },
+        { date: '2026-06-14', team1: 'Haiti', score1: 0, team2: 'Scotland', score2: 1 },
+        { date: '2026-06-14', team1: 'Australia', score1: 2, team2: 'Turkey', score2: 0 },
+        { date: '2026-06-14', team1: 'Germany', score1: 7, team2: 'Curaçao', score2: 1 },
+        { date: '2026-06-14', team1: 'Netherlands', score1: 2, team2: 'Japan', score2: 2 },
+        { date: '2026-06-14', team1: 'Ivory Coast', score1: 1, team2: 'Ecuador', score2: 0 },
+        { date: '2026-06-13', team1: 'United States', score1: 4, team2: 'Paraguay', score2: 1 },
+        { date: '2026-06-13', team1: 'Qatar', score1: 1, team2: 'Switzerland', score2: 1 },
+        { date: '2026-06-13', team1: 'Brazil', score1: 1, team2: 'Morocco', score2: 1 },
+        { date: '2026-06-12', team1: 'South Korea', score1: 2, team2: 'Czechia', score2: 1 },
+        { date: '2026-06-12', team1: 'Canada', score1: 1, team2: 'Bosnia-Herzegovina', score2: 1 },
+        { date: '2026-06-11', team1: 'Mexico', score1: 2, team2: 'South Africa', score2: 0 }
+    ];
+
+    // تعبئة القائمة المنسدلة بأسماء الفرق
+    function populateTeams() {
+        const select = document.getElementById('teamSelect');
+        const teams = new Set();
+        matchesData.forEach(m => {
+            teams.add(m.team1);
+            teams.add(m.team2);
+        });
+        
+        // ترتيب الفرق أبجدياً
+        const sortedTeams = Array.from(teams).sort();
+        sortedTeams.forEach(team => {
+            const option = document.createElement('option');
+            option.value = team;
+            option.textContent = team;
+            select.appendChild(option);
+        });
+    }
+
+    // عرض الإحصائيات والمباريات
+    function displayTeamStats() {
+        const selectedTeam = document.getElementById('teamSelect').value;
+        const statsArea = document.getElementById('statsArea');
+        const resultsArea = document.getElementById('resultsArea');
+
+        if (!selectedTeam) {
+            statsArea.innerHTML = '';
+            resultsArea.innerHTML = '';
+            return;
+        }
+
+        // فلترة مباريات الفريق
+        const teamMatches = matchesData.filter(m => m.team1 === selectedTeam || m.team2 === selectedTeam);
+        
+        // ترتيب المباريات من الأحدث للأقدم
+        teamMatches.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // حساب الإحصائيات
+        let wins = 0, draws = 0, losses = 0, goalsFor = 0, goalsAgainst = 0;
+        
+        teamMatches.forEach(m => {
+            const isTeam1 = m.team1 === selectedTeam;
+            const teamScore = isTeam1 ? m.score1 : m.score2;
+            const oppScore = isTeam1 ? m.score2 : m.score1;
+            
+            goalsFor += teamScore;
+            goalsAgainst += oppScore;
+            
+            if (teamScore > oppScore) wins++;
+            else if (teamScore === oppScore) draws++;
+            else losses++;
+        });
+
+        // عرض الإحصائيات
+        statsArea.innerHTML = `
+            <div class="stats-container">
+                <div class="stat-card"><h3>${teamMatches.length}</h3><p>المباريات</p></div>
+                <div class="stat-card win"><h3>${wins}</h3><p>انتصار</p></div>
+                <div class="stat-card draw"><h3>${draws}</h3><p>تعادل</p></div>
+                <div class="stat-card loss"><h3>${losses}</h3><p>هزيمة</p></div>
+                <div class="stat-card"><h3>${goalsFor} - ${goalsAgainst}</h3><p>الأهداف (له - عليه)</p></div>
+            </div>
+        `;
+
+        // عرض جدول المباريات
+        let tableHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>التاريخ</th>
+                        <th>الفريق الأول</th>
+                        <th>النتيجة</th>
+                        <th>الفريق الثاني</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        teamMatches.forEach(m => {
+            const isTeam1 = m.team1 === selectedTeam;
+            const teamScore = isTeam1 ? m.score1 : m.score2;
+            const oppScore = isTeam1 ? m.score2 : m.score1;
+            
+            let resultClass = '';
+            if (teamScore > oppScore) resultClass = 'result-win';
+            else if (teamScore < oppScore) resultClass = 'result-loss';
+            else resultClass = 'result-draw';
+
+            const t1Class = isTeam1 ? 'highlight' : '';
+            const t2Class = !isTeam1 ? 'highlight' : '';
+
+            tableHTML += `
+                <tr>
+                    <td>${m.date}</td>
+                    <td class="${t1Class}">${m.team1}</td>
+                    <td class="${resultClass}">${m.score1} - ${m.score2}</td>
+                    <td class="${t2Class}">${m.team2}</td>
+                </tr>
+            `;
+        });
+
+        tableHTML += `</tbody></table>`;
+        resultsArea.innerHTML = tableHTML;
+    }
+
+    // تشغيل الدوال عند تحميل الصفحة
+    window.onload = function() {
+        populateTeams();
+    };
+</script>
+
+</body>
+</html>
