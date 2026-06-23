@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-06-23T21:28:24.546Z",
+  "lastUpdate": "2026-06-23T23:04:36.884Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 6,
+  "finishedMatchesCount": 7,
   "liveMatchesCount": 1,
-  "upcomingMatchesCount": 1,
+  "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -122,8 +122,8 @@
       "homeTeam": "England",
       "awayTeam": "Ghana",
       "score": "0 - 0",
-      "status": "upcoming",
-      "statusText": "⏰ قادمة",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-23T20:00:00Z",
       "competition": "FIFA World Cup",
