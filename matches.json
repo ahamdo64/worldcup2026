@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-23T02:45:17.414Z",
+  "lastUpdate": "2026-06-23T06:45:58.891Z",
   "totalMatches": 8,
-  "finishedMatchesCount": 4,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 5,
+  "liveMatchesCount": 3,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -85,9 +85,9 @@
       "team2": "🇩🇿 Algeria",
       "homeTeam": "Jordan",
       "awayTeam": "Algeria",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "1 - 2",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-23T03:00:00Z",
       "competition": "FIFA World Cup",
