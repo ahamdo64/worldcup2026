@@ -93,6 +93,40 @@
         font-size: 1.5rem;
     }
 }
+        .floating-stats-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    z-index: 9999;
+    background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+    color: white;
+    text-decoration: none;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+    transition: all 0.3s ease;
+    animation: float-bounce 3s ease-in-out infinite;
+}
+
+.floating-stats-btn:hover {
+    transform: scale(1.15) rotate(-10deg);
+    box-shadow: 0 10px 35px rgba(59, 130, 246, 0.7);
+}
+
+@media (max-width: 768px) {
+    .floating-stats-btn {
+        bottom: 85px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -664,6 +698,10 @@
     </footer>
 
     <!-- زر المشاهدة العائم -->
+    <!-- زر إحصائيات المنتخبات -->
+<a href="team-stats.html" class="floating-stats-btn" title="إحصائيات المنتخبات">
+    <i class="fas fa-chart-bar"></i>
+</a>
     <a href="https://texas4tv.com/" target="_blank" rel="noopener noreferrer" class="floating-watch-btn" title="مشاهدة البث المباشر">
         <i class="fas fa-tv"></i>
     </a>
