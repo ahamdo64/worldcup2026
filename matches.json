@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-24T18:48:07.567Z",
+  "lastUpdate": "2026-06-24T20:44:39.683Z",
   "totalMatches": 10,
   "finishedMatchesCount": 6,
   "liveMatchesCount": 4,
@@ -117,29 +117,11 @@
       "group": "FIFA World Cup",
       "date": "2026-06-24",
       "time": "19:00",
-      "team1": "🇨 Switzerland",
-      "team2": "🇨🇦 Canada",
-      "homeTeam": "Switzerland",
-      "awayTeam": "Canada",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
-      "minute": "",
-      "utcDate": "2026-06-24T19:00:00Z",
-      "competition": "FIFA World Cup",
-      "matchday": 3,
-      "venue": "غير محدد",
-      "referees": "Ramon Abatti Abel"
-    },
-    {
-      "group": "FIFA World Cup",
-      "date": "2026-06-24",
-      "time": "19:00",
       "team1": "🇧🇦 Bosnia-H.",
       "team2": "🇶 Qatar",
       "homeTeam": "Bosnia-H.",
       "awayTeam": "Qatar",
-      "score": "- : -",
+      "score": "2 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -152,20 +134,20 @@
     {
       "group": "FIFA World Cup",
       "date": "2026-06-24",
-      "time": "22:00",
-      "team1": "󠁧󠁳󠁴 Scotland",
-      "team2": "🇧🇷 Brazil",
-      "homeTeam": "Scotland",
-      "awayTeam": "Brazil",
-      "score": "- : -",
+      "time": "19:00",
+      "team1": "🇨 Switzerland",
+      "team2": "🇨🇦 Canada",
+      "homeTeam": "Switzerland",
+      "awayTeam": "Canada",
+      "score": "2 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
-      "utcDate": "2026-06-24T22:00:00Z",
+      "utcDate": "2026-06-24T19:00:00Z",
       "competition": "FIFA World Cup",
       "matchday": 3,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ramon Abatti Abel"
     },
     {
       "group": "FIFA World Cup",
@@ -183,7 +165,25 @@
       "competition": "FIFA World Cup",
       "matchday": 3,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Danny Makkelie"
+    },
+    {
+      "group": "FIFA World Cup",
+      "date": "2026-06-24",
+      "time": "22:00",
+      "team1": "󠁧󠁳󠁴 Scotland",
+      "team2": "🇧🇷 Brazil",
+      "homeTeam": "Scotland",
+      "awayTeam": "Brazil",
+      "score": "- : -",
+      "status": "live",
+      "statusText": "🔴 مباشر",
+      "minute": "",
+      "utcDate": "2026-06-24T22:00:00Z",
+      "competition": "FIFA World Cup",
+      "matchday": 3,
+      "venue": "غير محدد",
+      "referees": "César Ramos"
     }
   ]
 }
