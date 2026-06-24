@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-06-24T02:45:49.989Z",
+  "lastUpdate": "2026-06-24T06:42:59.718Z",
   "totalMatches": 10,
-  "finishedMatchesCount": 5,
+  "finishedMatchesCount": 6,
   "liveMatchesCount": 4,
-  "upcomingMatchesCount": 1,
+  "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -103,9 +103,9 @@
       "team2": "🇨 Congo DR",
       "homeTeam": "Colombia",
       "awayTeam": "Congo DR",
-      "score": "0 - 0",
-      "status": "upcoming",
-      "statusText": "⏰ قادمة",
+      "score": "1 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-24T02:00:00Z",
       "competition": "FIFA World Cup",
