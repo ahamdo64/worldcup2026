@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-06-25T19:51:36.951Z",
+  "lastUpdate": "2026-06-25T21:27:40.349Z",
   "totalMatches": 11,
   "finishedMatchesCount": 7,
   "liveMatchesCount": 4,
@@ -139,7 +139,7 @@
       "team2": "⚽ Ivory Coast",
       "homeTeam": "Curaçao",
       "awayTeam": "Ivory Coast",
-      "score": "- : -",
+      "score": "0 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -157,7 +157,7 @@
       "team2": "🇩 Germany",
       "homeTeam": "Ecuador",
       "awayTeam": "Germany",
-      "score": "- : -",
+      "score": "1 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -183,7 +183,7 @@
       "competition": "FIFA World Cup",
       "matchday": 3,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ivan Barton"
     },
     {
       "group": "FIFA World Cup",
@@ -201,7 +201,7 @@
       "competition": "FIFA World Cup",
       "matchday": 3,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Katia García"
     }
   ]
 }
