@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-26T20:43:07.956Z",
+  "lastUpdate": "2026-06-26T22:07:51.614Z",
   "totalMatches": 12,
-  "finishedMatchesCount": 8,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 10,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -157,9 +157,9 @@
       "team2": "🇮🇶 Iraq",
       "homeTeam": "Senegal",
       "awayTeam": "Iraq",
-      "score": "3 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "5 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-26T19:00:00Z",
       "competition": "FIFA World Cup",
@@ -175,9 +175,9 @@
       "team2": "🇫🇷 France",
       "homeTeam": "Norway",
       "awayTeam": "France",
-      "score": "1 - 3",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "1 - 4",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-26T19:00:00Z",
       "competition": "FIFA World Cup",
@@ -201,7 +201,7 @@
       "competition": "FIFA World Cup",
       "matchday": 3,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "François Letexier"
     },
     {
       "group": "FIFA World Cup",
@@ -219,7 +219,7 @@
       "competition": "FIFA World Cup",
       "matchday": 3,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ismail Elfath"
     }
   ]
 }
