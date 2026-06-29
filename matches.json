@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-29T22:51:37.091Z",
+  "lastUpdate": "2026-06-29T23:58:50.458Z",
   "totalMatches": 5,
-  "finishedMatchesCount": 4,
-  "liveMatchesCount": 1,
+  "finishedMatchesCount": 5,
+  "liveMatchesCount": 0,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -85,9 +85,9 @@
       "team2": "🇾 Paraguay",
       "homeTeam": "Germany",
       "awayTeam": "Paraguay",
-      "score": "2 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "5 - 6",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-29T20:30:00Z",
       "competition": "FIFA World Cup",
