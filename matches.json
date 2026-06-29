@@ -1,28 +1,10 @@
 {
-  "lastUpdate": "2026-06-29T16:50:52.963Z",
+  "lastUpdate": "2026-06-29T19:02:11.040Z",
   "totalMatches": 5,
   "finishedMatchesCount": 3,
   "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
-    {
-      "group": "FIFA World Cup",
-      "date": "2026-06-28",
-      "time": "02:00",
-      "team1": "🇩🇿 Algeria",
-      "team2": "🇹 Austria",
-      "homeTeam": "Algeria",
-      "awayTeam": "Austria",
-      "score": "3 - 3",
-      "status": "finished",
-      "statusText": "✅ انتهت",
-      "minute": "",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "competition": "FIFA World Cup",
-      "matchday": 3,
-      "venue": "غير محدد",
-      "referees": "Il'giz Tantashev"
-    },
     {
       "group": "FIFA World Cup",
       "date": "2026-06-28",
@@ -40,6 +22,24 @@
       "matchday": 3,
       "venue": "غير محدد",
       "referees": "István Kovács"
+    },
+    {
+      "group": "FIFA World Cup",
+      "date": "2026-06-28",
+      "time": "02:00",
+      "team1": "🇩🇿 Algeria",
+      "team2": "🇹 Austria",
+      "homeTeam": "Algeria",
+      "awayTeam": "Austria",
+      "score": "3 - 3",
+      "status": "finished",
+      "statusText": "✅ انتهت",
+      "minute": "",
+      "utcDate": "2026-06-28T02:00:00Z",
+      "competition": "FIFA World Cup",
+      "matchday": 3,
+      "venue": "غير محدد",
+      "referees": "Il'giz Tantashev"
     },
     {
       "group": "FIFA World Cup",
@@ -67,7 +67,7 @@
       "team2": "🇯🇵 Japan",
       "homeTeam": "Brazil",
       "awayTeam": "Japan",
-      "score": "- : -",
+      "score": "1 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -93,7 +93,7 @@
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Jalal Jayed"
     }
   ]
 }
