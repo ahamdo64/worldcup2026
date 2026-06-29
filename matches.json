@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-29T19:02:11.040Z",
+  "lastUpdate": "2026-06-29T21:21:20.313Z",
   "totalMatches": 5,
-  "finishedMatchesCount": 3,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 4,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -67,9 +67,9 @@
       "team2": "🇯🇵 Japan",
       "homeTeam": "Brazil",
       "awayTeam": "Japan",
-      "score": "1 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "2 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-29T17:00:00Z",
       "competition": "FIFA World Cup",
@@ -85,7 +85,7 @@
       "team2": "🇾 Paraguay",
       "homeTeam": "Germany",
       "awayTeam": "Paraguay",
-      "score": "- : -",
+      "score": "0 - 1",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
