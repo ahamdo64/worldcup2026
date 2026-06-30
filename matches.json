@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-06-30T17:01:59.119Z",
+  "lastUpdate": "2026-06-30T19:47:36.911Z",
   "totalMatches": 5,
-  "finishedMatchesCount": 3,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 4,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -67,9 +67,9 @@
       "team2": "🇳🇴 Norway",
       "homeTeam": "Ivory Coast",
       "awayTeam": "Norway",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "1 - 2",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-06-30T17:00:00Z",
       "competition": "FIFA World Cup",
@@ -93,7 +93,7 @@
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Danny Makkelie"
     }
   ]
 }
