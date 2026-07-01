@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-01T02:56:07.477Z",
+  "lastUpdate": "2026-07-01T07:09:57.814Z",
   "totalMatches": 7,
-  "finishedMatchesCount": 3,
+  "finishedMatchesCount": 4,
   "liveMatchesCount": 3,
-  "upcomingMatchesCount": 1,
+  "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -68,8 +68,8 @@
       "homeTeam": "Mexico",
       "awayTeam": "Ecuador",
       "score": "2 - 0",
-      "status": "upcoming",
-      "statusText": "⏰ قادمة",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-01T01:00:00Z",
       "competition": "FIFA World Cup",
