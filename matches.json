@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-07-03T00:00:57.723Z",
+  "lastUpdate": "2026-07-03T04:38:06.986Z",
   "totalMatches": 6,
-  "finishedMatchesCount": 2,
-  "liveMatchesCount": 4,
+  "finishedMatchesCount": 3,
+  "liveMatchesCount": 3,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -49,9 +49,9 @@
       "team2": "🇭 Croatia",
       "homeTeam": "Portugal",
       "awayTeam": "Croatia",
-      "score": "0 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "2 - 1",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-02T23:00:00Z",
       "competition": "FIFA World Cup",
@@ -67,7 +67,7 @@
       "team2": "🇩🇿 Algeria",
       "homeTeam": "Switzerland",
       "awayTeam": "Algeria",
-      "score": "- : -",
+      "score": "2 - 0",
       "status": "live",
       "statusText": "🔴 مباشر",
       "minute": "",
@@ -75,7 +75,7 @@
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Yael Falcón"
     },
     {
       "group": "FIFA World Cup",
