@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-07-03T19:11:32.609Z",
+  "lastUpdate": "2026-07-03T20:58:37.186Z",
   "totalMatches": 6,
-  "finishedMatchesCount": 4,
-  "liveMatchesCount": 2,
+  "finishedMatchesCount": 5,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -85,9 +85,9 @@
       "team2": "🇬 Egypt",
       "homeTeam": "Australia",
       "awayTeam": "Egypt",
-      "score": "0 - 1",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "3 - 5",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-03T18:00:00Z",
       "competition": "FIFA World Cup",
@@ -111,7 +111,7 @@
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Drew Fischer"
     }
   ]
 }
