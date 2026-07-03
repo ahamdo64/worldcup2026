@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-07-03T04:38:06.986Z",
+  "lastUpdate": "2026-07-03T07:58:05.256Z",
   "totalMatches": 6,
-  "finishedMatchesCount": 3,
-  "liveMatchesCount": 3,
+  "finishedMatchesCount": 4,
+  "liveMatchesCount": 2,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -68,8 +68,8 @@
       "homeTeam": "Switzerland",
       "awayTeam": "Algeria",
       "score": "2 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-03T03:00:00Z",
       "competition": "FIFA World Cup",
