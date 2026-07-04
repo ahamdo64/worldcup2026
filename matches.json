@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-04T21:53:31.754Z",
+  "lastUpdate": "2026-07-04T22:53:24.850Z",
   "totalMatches": 6,
   "finishedMatchesCount": 5,
-  "liveMatchesCount": 0,
-  "upcomingMatchesCount": 1,
+  "liveMatchesCount": 1,
+  "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -103,9 +103,9 @@
       "team2": "🇫🇷 France",
       "homeTeam": "Paraguay",
       "awayTeam": "France",
-      "score": "0 - 0",
-      "status": "upcoming",
-      "statusText": "⏰ قادمة",
+      "score": "0 - 1",
+      "status": "live",
+      "statusText": "🔴 مباشر",
       "minute": "",
       "utcDate": "2026-07-04T21:00:00Z",
       "competition": "FIFA World Cup",
