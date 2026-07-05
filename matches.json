@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-05T20:53:09.443Z",
+  "lastUpdate": "2026-07-05T21:56:40.290Z",
   "totalMatches": 5,
   "finishedMatchesCount": 3,
-  "liveMatchesCount": 2,
-  "upcomingMatchesCount": 0,
+  "liveMatchesCount": 1,
+  "upcomingMatchesCount": 1,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -67,9 +67,9 @@
       "team2": "🇳🇴 Norway",
       "homeTeam": "Brazil",
       "awayTeam": "Norway",
-      "score": "0 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "0 - 1",
+      "status": "upcoming",
+      "statusText": "⏰ قادمة",
       "minute": "",
       "utcDate": "2026-07-05T20:00:00Z",
       "competition": "FIFA World Cup",
