@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-06T00:13:39.235Z",
+  "lastUpdate": "2026-07-06T05:06:37.595Z",
   "totalMatches": 4,
-  "finishedMatchesCount": 1,
+  "finishedMatchesCount": 2,
   "liveMatchesCount": 2,
-  "upcomingMatchesCount": 1,
+  "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -31,9 +31,9 @@
       "team2": "🏴󠁢󠁧 England",
       "homeTeam": "Mexico",
       "awayTeam": "England",
-      "score": "- : -",
-      "status": "upcoming",
-      "statusText": "⏰ قادمة",
+      "score": "2 - 3",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-06T01:00:00Z",
       "competition": "FIFA World Cup",
