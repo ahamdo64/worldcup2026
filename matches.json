@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-06T17:39:09.881Z",
+  "lastUpdate": "2026-07-06T19:49:05.333Z",
   "totalMatches": 4,
   "finishedMatchesCount": 2,
-  "liveMatchesCount": 2,
-  "upcomingMatchesCount": 0,
+  "liveMatchesCount": 1,
+  "upcomingMatchesCount": 1,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -49,9 +49,9 @@
       "team2": "🇪🇸 Spain",
       "homeTeam": "Portugal",
       "awayTeam": "Spain",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "0 - 0",
+      "status": "upcoming",
+      "statusText": "⏰ قادمة",
       "minute": "",
       "utcDate": "2026-07-06T19:00:00Z",
       "competition": "FIFA World Cup",
