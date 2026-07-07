@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-07T13:14:51.714Z",
+  "lastUpdate": "2026-07-07T16:25:27.998Z",
   "totalMatches": 5,
   "finishedMatchesCount": 3,
-  "liveMatchesCount": 2,
-  "upcomingMatchesCount": 0,
+  "liveMatchesCount": 1,
+  "upcomingMatchesCount": 1,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -67,15 +67,15 @@
       "team2": "🇬 Egypt",
       "homeTeam": "Argentina",
       "awayTeam": "Egypt",
-      "score": "- : -",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "0 - 1",
+      "status": "upcoming",
+      "statusText": "⏰ قادمة",
       "minute": "",
       "utcDate": "2026-07-07T16:00:00Z",
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "François Letexier"
     },
     {
       "group": "FIFA World Cup",
