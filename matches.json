@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-07T20:51:14.112Z",
+  "lastUpdate": "2026-07-07T22:08:06.941Z",
   "totalMatches": 5,
   "finishedMatchesCount": 4,
-  "liveMatchesCount": 1,
-  "upcomingMatchesCount": 0,
+  "liveMatchesCount": 0,
+  "upcomingMatchesCount": 1,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -86,8 +86,8 @@
       "homeTeam": "Switzerland",
       "awayTeam": "Colombia",
       "score": "0 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "status": "upcoming",
+      "statusText": "⏰ قادمة",
       "minute": "",
       "utcDate": "2026-07-07T20:00:00Z",
       "competition": "FIFA World Cup",
