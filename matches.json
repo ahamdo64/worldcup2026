@@ -1,9 +1,9 @@
 {
-  "lastUpdate": "2026-07-07T16:25:27.998Z",
+  "lastUpdate": "2026-07-07T18:58:43.743Z",
   "totalMatches": 5,
-  "finishedMatchesCount": 3,
+  "finishedMatchesCount": 4,
   "liveMatchesCount": 1,
-  "upcomingMatchesCount": 1,
+  "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
@@ -67,9 +67,9 @@
       "team2": "🇬 Egypt",
       "homeTeam": "Argentina",
       "awayTeam": "Egypt",
-      "score": "0 - 1",
-      "status": "upcoming",
-      "statusText": "⏰ قادمة",
+      "score": "3 - 2",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-07T16:00:00Z",
       "competition": "FIFA World Cup",
@@ -93,7 +93,7 @@
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": ""
+      "referees": "Ivan Barton"
     }
   ]
 }
