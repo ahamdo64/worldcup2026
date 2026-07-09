@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-07-09T21:18:42.454Z",
+  "lastUpdate": "2026-07-09T23:06:57.379Z",
   "totalMatches": 1,
-  "finishedMatchesCount": 0,
-  "liveMatchesCount": 1,
+  "finishedMatchesCount": 1,
+  "liveMatchesCount": 0,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -13,9 +13,9 @@
       "team2": "🇲🇦 Morocco",
       "homeTeam": "France",
       "awayTeam": "Morocco",
-      "score": "0 - 0",
-      "status": "live",
-      "statusText": "🔴 مباشر",
+      "score": "2 - 0",
+      "status": "finished",
+      "statusText": "✅ انتهت",
       "minute": "",
       "utcDate": "2026-07-09T20:00:00Z",
       "competition": "FIFA World Cup",
