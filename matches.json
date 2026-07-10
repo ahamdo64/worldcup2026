@@ -1,8 +1,8 @@
 {
-  "lastUpdate": "2026-07-09T23:06:57.379Z",
-  "totalMatches": 1,
+  "lastUpdate": "2026-07-10T02:30:34.799Z",
+  "totalMatches": 2,
   "finishedMatchesCount": 1,
-  "liveMatchesCount": 0,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
@@ -22,6 +22,24 @@
       "matchday": null,
       "venue": "غير محدد",
       "referees": "Facundo Tello"
+    },
+    {
+      "group": "FIFA World Cup",
+      "date": "2026-07-10",
+      "time": "19:00",
+      "team1": "🇪🇸 Spain",
+      "team2": "🇧 Belgium",
+      "homeTeam": "Spain",
+      "awayTeam": "Belgium",
+      "score": "- : -",
+      "status": "live",
+      "statusText": "🔴 مباشر",
+      "minute": "",
+      "utcDate": "2026-07-10T19:00:00Z",
+      "competition": "FIFA World Cup",
+      "matchday": null,
+      "venue": "غير محدد",
+      "referees": ""
     }
   ]
 }
