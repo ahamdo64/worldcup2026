@@ -249,84 +249,142 @@
     <div id="statsArea"></div>
     <div id="resultsArea"></div>
 </div>
-
 <script>
-    const matchesData = [
-        { date: '2026-06-23', team1: 'Norway', score1: 3, team2: 'Senegal', score2: 2 },
-        { date: '2026-06-23', team1: 'Jordan', score1: 1, team2: 'Algeria', score2: 2 },
-        { date: '2026-06-22', team1: 'New Zealand', score1: 1, team2: 'Egypt', score2: 3 },
-        { date: '2026-06-22', team1: 'Argentina', score1: 2, team2: 'Austria', score2: 0 },
-        { date: '2026-06-22', team1: 'France', score1: 3, team2: 'Iraq', score2: 0 },
-        { date: '2026-06-21', team1: 'Ecuador', score1: 0, team2: 'Curaçao', score2: 0 },
-        { date: '2026-06-21', team1: 'Tunisia', score1: 0, team2: 'Japan', score2: 4 },
-        { date: '2026-06-21', team1: 'Spain', score1: 4, team2: 'Saudi Arabia', score2: 0 },
-        { date: '2026-06-21', team1: 'Belgium', score1: 0, team2: 'Iran', score2: 0 },
-        { date: '2026-06-21', team1: 'Uruguay', score1: 2, team2: 'Cape Verde Islands', score2: 2 },
-        { date: '2026-06-20', team1: 'Brazil', score1: 3, team2: 'Haiti', score2: 0 },
-        { date: '2026-06-20', team1: 'Turkey', score1: 0, team2: 'Paraguay', score2: 1 },
-        { date: '2026-06-20', team1: 'Netherlands', score1: 5, team2: 'Sweden', score2: 1 },
-        { date: '2026-06-20', team1: 'Germany', score1: 2, team2: 'Ivory Coast', score2: 1 },
-        { date: '2026-06-19', team1: 'Mexico', score1: 1, team2: 'South Korea', score2: 0 },
-        { date: '2026-06-19', team1: 'United States', score1: 2, team2: 'Australia', score2: 0 },
-        { date: '2026-06-19', team1: 'Scotland', score1: 0, team2: 'Morocco', score2: 1 },
-        { date: '2026-06-18', team1: 'Uzbekistan', score1: 1, team2: 'Colombia', score2: 3 },
-        { date: '2026-06-18', team1: 'Czechia', score1: 1, team2: 'South Africa', score2: 1 },
-        { date: '2026-06-18', team1: 'Switzerland', score1: 4, team2: 'Bosnia-Herzegovina', score2: 1 },
-        { date: '2026-06-18', team1: 'Canada', score1: 6, team2: 'Qatar', score2: 0 },
-        { date: '2026-06-17', team1: 'Argentina', score1: 3, team2: 'Algeria', score2: 0 },
-        { date: '2026-06-17', team1: 'Austria', score1: 3, team2: 'Jordan', score2: 1 },
-        { date: '2026-06-17', team1: 'Portugal', score1: 1, team2: 'Congo DR', score2: 1 },
-        { date: '2026-06-17', team1: 'England', score1: 4, team2: 'Croatia', score2: 2 },
-        { date: '2026-06-17', team1: 'Ghana', score1: 1, team2: 'Panama', score2: 0 },
-        { date: '2026-06-16', team1: 'Iran', score1: 2, team2: 'New Zealand', score2: 2 },
-        { date: '2026-06-16', team1: 'France', score1: 3, team2: 'Senegal', score2: 1 },
-        { date: '2026-06-16', team1: 'Iraq', score1: 1, team2: 'Norway', score2: 4 },
-        { date: '2026-06-15', team1: 'Sweden', score1: 5, team2: 'Tunisia', score2: 1 },
-        { date: '2026-06-15', team1: 'Spain', score1: 0, team2: 'Cape Verde Islands', score2: 0 },
-        { date: '2026-06-15', team1: 'Belgium', score1: 1, team2: 'Egypt', score2: 1 },
-        { date: '2026-06-15', team1: 'Saudi Arabia', score1: 1, team2: 'Uruguay', score2: 1 },
-        { date: '2026-06-14', team1: 'Haiti', score1: 0, team2: 'Scotland', score2: 1 },
-        { date: '2026-06-14', team1: 'Australia', score1: 2, team2: 'Turkey', score2: 0 },
-        { date: '2026-06-14', team1: 'Germany', score1: 7, team2: 'Curaçao', score2: 1 },
-        { date: '2026-06-14', team1: 'Netherlands', score1: 2, team2: 'Japan', score2: 2 },
-        { date: '2026-06-14', team1: 'Ivory Coast', score1: 1, team2: 'Ecuador', score2: 0 },
-        { date: '2026-06-13', team1: 'United States', score1: 4, team2: 'Paraguay', score2: 1 },
-        { date: '2026-06-13', team1: 'Qatar', score1: 1, team2: 'Switzerland', score2: 1 },
-        { date: '2026-06-13', team1: 'Brazil', score1: 1, team2: 'Morocco', score2: 1 },
-        { date: '2026-06-12', team1: 'South Korea', score1: 2, team2: 'Czechia', score2: 1 },
-        { date: '2026-06-12', team1: 'Canada', score1: 1, team2: 'Bosnia-Herzegovina', score2: 1 },
-        { date: '2026-06-11', team1: 'Mexico', score1: 2, team2: 'South Africa', score2: 0 }
-    ];
+    let matchesData = [];
+    let dataLoaded = false;
 
+    // قاموس الأسماء العربية
     const arabicNames = {
-        'Mexico': 'المكسيك', 'South Africa': 'جنوب أفريقيا', 'South Korea': 'كوريا الجنوبية',
-        'Czechia': 'التشيك', 'Canada': 'كندا', 'Bosnia-Herzegovina': 'البوسنة والهرسك',
-        'United States': 'الولايات المتحدة', 'Paraguay': 'باراغواي', 'Qatar': 'قطر',
-        'Switzerland': 'سويسرا', 'Brazil': 'البرازيل', 'Morocco': 'المغرب',
-        'Haiti': 'هايتي', 'Scotland': 'اسكتلندا', 'Australia': 'أستراليا',
-        'Turkey': 'تركيا', 'Germany': 'ألمانيا', 'Curaçao': 'كوراساو',
-        'Netherlands': 'هولندا', 'Japan': 'اليابان', 'Ivory Coast': 'ساحل العاج',
-        'Ecuador': 'الإكوادور', 'Sweden': 'السويد', 'Tunisia': 'تونس',
-        'Spain': 'إسبانيا', 'Cape Verde Islands': 'كاب فيردي', 'Belgium': 'بلجيكا',
-        'Egypt': 'مصر', 'Saudi Arabia': 'السعودية', 'Uruguay': 'أوروغواي',
-        'Iran': 'إيران', 'New Zealand': 'نيوزيلندا', 'France': 'فرنسا',
-        'Senegal': 'السنغال', 'Iraq': 'العراق', 'Norway': 'النرويج',
-        'Argentina': 'الأرجنتين', 'Algeria': 'الجزائر', 'Austria': 'النمسا',
-        'Jordan': 'الأردن', 'Portugal': 'البرتغال', 'Congo DR': 'الكونغو الديمقراطية',
-        'England': 'إنجلترا', 'Croatia': 'كرواتيا', 'Ghana': 'غانا',
-        'Panama': 'بنما', 'Uzbekistan': 'أوزبكستان', 'Colombia': 'كولومبيا'
+        'Mexico': 'المكسيك', 'South Africa': 'جنوب أفريقيا',
+        'South Korea': 'كوريا الجنوبية', 'Korea Republic': 'كوريا الجنوبية',
+        'Czechia': 'التشيك', 'Czech Republic': 'التشيك',
+        'Canada': 'كندا', 'Bosnia-Herzegovina': 'البوسنة والهرسك',
+        'Bosnia and Herzegovina': 'البوسنة والهرسك', 'Bosnia-H.': 'البوسنة',
+        'United States': 'الولايات المتحدة', 'USA': 'الولايات المتحدة',
+        'Paraguay': 'باراغواي', 'Qatar': 'قطر',
+        'Switzerland': 'سويسرا', 'Brazil': 'البرازيل',
+        'Morocco': 'المغرب', 'Haiti': 'هايتي',
+        'Scotland': 'اسكتلندا', 'Australia': 'أستراليا',
+        'Turkey': 'تركيا', 'Germany': 'ألمانيا',
+        'Curaçao': 'كوراساو', 'Netherlands': 'هولندا',
+        'Japan': 'اليابان', 'Ivory Coast': 'ساحل العاج',
+        'Côte d\'Ivoire': 'ساحل العاج', 'Ecuador': 'الإكوادور',
+        'Sweden': 'السويد', 'Tunisia': 'تونس',
+        'Spain': 'إسبانيا', 'Cape Verde Islands': 'كاب فيردي',
+        'Cape Verde': 'كاب فيردي', 'Belgium': 'بلجيكا',
+        'Egypt': 'مصر', 'Saudi Arabia': 'السعودية',
+        'Uruguay': 'أوروغواي', 'Iran': 'إيران',
+        'New Zealand': 'نيوزيلندا', 'France': 'فرنسا',
+        'Senegal': 'السنغال', 'Iraq': 'العراق',
+        'Norway': 'النرويج', 'Argentina': 'الأرجنتين',
+        'Algeria': 'الجزائر', 'Austria': 'النمسا',
+        'Jordan': 'الأردن', 'Portugal': 'البرتغال',
+        'Congo DR': 'الكونغو الديمقراطية', 'England': 'إنجلترا',
+        'Croatia': 'كرواتيا', 'Ghana': 'غانا',
+        'Panama': 'بنما', 'Uzbekistan': 'أوزبكستان',
+        'Colombia': 'كولومبيا', 'Italy': 'إيطاليا',
+        'Denmark': 'الدنمارك', 'Poland': 'بولندا',
+        'Nigeria': 'نيجيريا', 'Cameroon': 'الكاميرون'
     };
 
     function getArabicName(name) {
         return arabicNames[name] || name;
     }
 
+    function getStageName(stage) {
+        const stages = {
+            'GROUP_STAGE': 'دور المجموعات',
+            'ROUND_OF_32': 'دور الـ 32',
+            'ROUND_OF_16': 'دور الـ 16',
+            'QUARTER_FINALS': 'ربع النهائي',
+            'SEMI_FINALS': 'نصف النهائي',
+            'FINAL': 'النهائي',
+            'THIRD_PLACE': 'المركز الثالث'
+        };
+        return stages[stage] || stage;
+    }
+
+    // جلب البيانات من matches.json
+    async function loadData() {
+        try {
+            const response = await fetch('matches.json?t=' + new Date().getTime());
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            
+            const data = await response.json();
+            matchesData = data.matches || [];
+            dataLoaded = true;
+            
+            console.log('✅ تم تحميل', matchesData.length, 'مباراة');
+            console.log('🏆 المرحلة:', data.tournamentStage);
+            console.log('⭐ المنتخبات المتبقية:', data.remainingTeamsAr?.join('، '));
+            
+            // عرض معلومات البطولة
+            displayTournamentInfo(data);
+            
+            // تعبئة القائمة
+            populateTeams();
+            
+        } catch (error) {
+            console.error('❌ خطأ:', error);
+            document.getElementById('statsArea').innerHTML = `
+                <div style="text-align: center; padding: 40px; background: rgba(239, 68, 68, 0.1); border-radius: 15px; border: 2px solid #ef4444;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ef4444; margin-bottom: 15px;"></i>
+                    <p style="color: #ef4444; font-size: 1.1rem; font-weight: 700;">فشل تحميل البيانات</p>
+                    <p style="color: var(--text-secondary); margin-top: 10px;">${error.message}</p>
+                    <button onclick="loadData()" style="margin-top: 20px; background: var(--accent-gold); color: #0f172a; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: 700;">
+                        <i class="fas fa-sync-alt"></i> إعادة المحاولة
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    // عرض معلومات البطولة
+    function displayTournamentInfo(data) {
+        const infoDiv = document.createElement('div');
+        infoDiv.style.cssText = 'background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05)); border: 2px solid #fbbf24; border-radius: 15px; padding: 20px; margin-bottom: 25px; text-align: center;';
+        
+        infoDiv.innerHTML = `
+            <h3 style="color: #fbbf24; margin-bottom: 15px;">🏆 معلومات البطولة</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">المرحلة الحالية</div>
+                    <div style="color: #fbbf24; font-size: 1.3rem; font-weight: 900;">${data.tournamentStage || 'غير محدد'}</div>
+                </div>
+                <div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">المباريات المنتهية</div>
+                    <div style="color: #4ade80; font-size: 1.3rem; font-weight: 900;">${data.finishedMatchesCount || 0}</div>
+                </div>
+                <div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">إجمالي الأهداف</div>
+                    <div style="color: #3b82f6; font-size: 1.3rem; font-weight: 900;">${data.totalGoals || 0}</div>
+                </div>
+                <div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem;">آخر تحديث</div>
+                    <div style="color: var(--text-primary); font-size: 1rem; font-weight: 700;">${new Date(data.lastUpdate).toLocaleString('ar-EG', {dateStyle: 'short', timeStyle: 'short'})}</div>
+                </div>
+            </div>
+            ${data.remainingTeamsAr ? `
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(251, 191, 36, 0.3);">
+                <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px;">⭐ المنتخبات المتأهلة لنصف النهائي</div>
+                <div style="color: #fbbf24; font-size: 1.2rem; font-weight: 900;">
+                    ${data.remainingTeamsAr.join(' • ')}
+                </div>
+            </div>
+            ` : ''}
+        `;
+        
+        document.querySelector('.container').insertBefore(infoDiv, document.querySelector('.search-box'));
+    }
+
     function populateTeams() {
         const select = document.getElementById('teamSelect');
+        select.innerHTML = '<option value="">-- اختر اسم المنتخب --</option>';
+        
         const teams = new Set();
         matchesData.forEach(m => {
-            teams.add(m.team1);
-            teams.add(m.team2);
+            teams.add(m.homeTeam || m.team1);
+            teams.add(m.awayTeam || m.team2);
         });
         
         const sortedTeams = Array.from(teams).sort((a, b) => {
@@ -352,15 +410,21 @@
             return;
         }
 
-        const teamMatches = matchesData.filter(m => m.team1 === selectedTeam || m.team2 === selectedTeam);
-        teamMatches.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const teamMatches = matchesData.filter(m => {
+            const home = m.homeTeam || m.team1;
+            const away = m.awayTeam || m.team2;
+            return home === selectedTeam || away === selectedTeam;
+        });
+        
+        teamMatches.sort((a, b) => new Date(b.utcDate || b.date) - new Date(a.utcDate || a.date));
 
         let wins = 0, draws = 0, losses = 0, goalsFor = 0, goalsAgainst = 0;
         
         teamMatches.forEach(m => {
-            const isTeam1 = m.team1 === selectedTeam;
-            const teamScore = isTeam1 ? m.score1 : m.score2;
-            const oppScore = isTeam1 ? m.score2 : m.score1;
+            const home = m.homeTeam || m.team1;
+            const isHome = home === selectedTeam;
+            const teamScore = isHome ? m.homeScore : m.awayScore;
+            const oppScore = isHome ? m.awayScore : m.homeScore;
             
             goalsFor += teamScore;
             goalsAgainst += oppScore;
@@ -389,6 +453,7 @@
                 <thead>
                     <tr>
                         <th>التاريخ</th>
+                        <th>المرحلة</th>
                         <th>الفريق الأول</th>
                         <th>النتيجة</th>
                         <th>الفريق الثاني</th>
@@ -399,9 +464,11 @@
         `;
 
         teamMatches.forEach(m => {
-            const isTeam1 = m.team1 === selectedTeam;
-            const teamScore = isTeam1 ? m.score1 : m.score2;
-            const oppScore = isTeam1 ? m.score2 : m.score1;
+            const home = m.homeTeam || m.team1;
+            const away = m.awayTeam || m.team2;
+            const isHome = home === selectedTeam;
+            const teamScore = isHome ? m.homeScore : m.awayScore;
+            const oppScore = isHome ? m.awayScore : m.homeScore;
             
             let resultClass = '', statusText = '', statusIcon = '';
             if (teamScore > oppScore) { 
@@ -418,15 +485,18 @@
                 statusIcon = '🤝';
             }
 
-            const t1Class = isTeam1 ? 'highlight' : '';
-            const t2Class = !isTeam1 ? 'highlight' : '';
+            const t1Class = isHome ? 'highlight' : '';
+            const t2Class = !isHome ? 'highlight' : '';
+            const matchDate = (m.utcDate || m.date || '').split('T')[0];
+            const stageName = getStageName(m.stage);
 
             tableHTML += `
                 <tr>
-                    <td>${m.date}</td>
-                    <td class="${t1Class}">${getArabicName(m.team1)}</td>
-                    <td class="${resultClass}">${m.score1} - ${m.score2}</td>
-                    <td class="${t2Class}">${getArabicName(m.team2)}</td>
+                    <td>${matchDate}</td>
+                    <td><span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 10px; font-size: 0.85rem; font-weight: 700;">${stageName}</span></td>
+                    <td class="${t1Class}">${getArabicName(home)}</td>
+                    <td class="${resultClass}">${m.homeScore} - ${m.awayScore}</td>
+                    <td class="${t2Class}">${getArabicName(away)}</td>
                     <td class="${resultClass}">${statusIcon} ${statusText}</td>
                 </tr>
             `;
@@ -436,10 +506,10 @@
         resultsArea.innerHTML = tableHTML;
     }
 
+    // بدء التحميل
     window.onload = function() {
-        populateTeams();
+        loadData();
     };
 </script>
-
 </body>
 </html>
