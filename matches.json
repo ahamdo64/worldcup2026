@@ -1,28 +1,10 @@
 {
-  "lastUpdate": "2026-07-12T23:47:50.027Z",
-  "totalMatches": 2,
-  "finishedMatchesCount": 2,
+  "lastUpdate": "2026-07-13T02:13:15.342Z",
+  "totalMatches": 1,
+  "finishedMatchesCount": 1,
   "liveMatchesCount": 0,
   "upcomingMatchesCount": 0,
   "matches": [
-    {
-      "group": "FIFA World Cup",
-      "date": "2026-07-11",
-      "time": "21:00",
-      "team1": "🇳🇴 Norway",
-      "team2": "🏴󠁢󠁧 England",
-      "homeTeam": "Norway",
-      "awayTeam": "England",
-      "score": "1 - 2",
-      "status": "finished",
-      "statusText": "✅ انتهت",
-      "minute": "",
-      "utcDate": "2026-07-11T21:00:00Z",
-      "competition": "FIFA World Cup",
-      "matchday": null,
-      "venue": "غير محدد",
-      "referees": "Clément Turpin"
-    },
     {
       "group": "FIFA World Cup",
       "date": "2026-07-12",
