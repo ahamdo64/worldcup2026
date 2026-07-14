@@ -1,27 +1,27 @@
 {
-  "lastUpdate": "2026-07-13T23:49:37.502Z",
+  "lastUpdate": "2026-07-14T01:58:58.572Z",
   "totalMatches": 1,
-  "finishedMatchesCount": 1,
-  "liveMatchesCount": 0,
+  "finishedMatchesCount": 0,
+  "liveMatchesCount": 1,
   "upcomingMatchesCount": 0,
   "matches": [
     {
       "group": "FIFA World Cup",
-      "date": "2026-07-12",
-      "time": "01:00",
-      "team1": "🇦🇷 Argentina",
-      "team2": "🇨 Switzerland",
-      "homeTeam": "Argentina",
-      "awayTeam": "Switzerland",
-      "score": "3 - 1",
-      "status": "finished",
-      "statusText": "✅ انتهت",
+      "date": "2026-07-14",
+      "time": "19:00",
+      "team1": "🇫🇷 France",
+      "team2": "🇪🇸 Spain",
+      "homeTeam": "France",
+      "awayTeam": "Spain",
+      "score": "- : -",
+      "status": "live",
+      "statusText": "🔴 مباشر",
       "minute": "",
-      "utcDate": "2026-07-12T01:00:00Z",
+      "utcDate": "2026-07-14T19:00:00Z",
       "competition": "FIFA World Cup",
       "matchday": null,
       "venue": "غير محدد",
-      "referees": "João Pinheiro"
+      "referees": ""
     }
   ]
 }
