@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-07-14T15:16:07.834627",
+  "lastUpdate": "2026-07-14T15:20:55.442832",
   "totalMatches": 101,
   "finishedMatchesCount": 101,
   "liveMatchesCount": 0,
@@ -2321,4 +2321,27 @@
       "referees": "João Pinheiro"
     },
     {
- 
+      "group": null,
+      "date": "2026-07-14",
+      "time": "19:00",
+      "team1": "🇫🇷 France",
+      "team2": "🇪🇸 Spain",
+      "homeTeam": "France",
+      "awayTeam": "Spain",
+      "homeTeamAr": "فرنسا",
+      "awayTeamAr": "إسبانيا",
+      "score": "0 - 2",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "statusText": "✅ انتهت",
+      "stage": "SEMI_FINALS",
+      "stageName": "نصف النهائي",
+      "utcDate": "2026-07-14T19:00:00Z",
+      "competition": "FIFA World Cup 2026",
+      "matchday": null,
+      "venue": "غير محدد",
+      "referees": "Ivan Barton"
+    }
+  ]
+}
